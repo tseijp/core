@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+        "watch": true,
+        "target": "es5",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react"
+    },
+    "include": [
+        "page",
+        "src",
+        "src/hooks/use-grid/src"
+    ],
+    "exclude": [
+        "src/hooks/use-book/*",
+        "src/hooks/use-grid/*"
+    ]
+}
