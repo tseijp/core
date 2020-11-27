@@ -2,7 +2,7 @@ import React, {FC, Suspense, } from 'react'
 import * as THREE from 'three'
 import {Canvas} from "react-three-fiber"
 import {useControl} from 'react-three-gui'
-import {Model, Swarm} from "../../../src"
+import {Model} from '../../meshs'
 export const HookModel :FC = () => {
     const dark  = useControl('dark' , {type: 'boolean', value: false})
     const size  = useControl('size' , {type: 'number' , value: 1, min: 0, max:  2})
@@ -19,7 +19,6 @@ export const HookModel :FC = () => {
             <directionalLight position={[-8, 12, 8]} castShadow />
             <Suspense fallback={null}>
                 <Model {...{dark,size,position:[pos.x,-11,pos.y],scale:[scl,scl,scl]}}/>
-                <Swarm  {...{dark,size}}/>
             </Suspense>
         </Canvas>
     )

@@ -4,7 +4,7 @@ import { MDBInput, MDBBtn } from 'mdbreact'
 import { Mdmd } from '@tsei/mdmd'
 import { useGrid } from 'use-grid'
 import { Card, Grow, Head, Icon } from '../src/components'
-import { useNote, usePage, useUser } from '../src/hooks'
+import { useNote, usePage, useUser } from './notes'
 import { Modal, Notes, Pills, Split, Sides, Trans, Trees } from '../src/containers'
 import { customPage, CustomPage, pageConfig, fetcher, signin, scrollTop } from './utils'
 

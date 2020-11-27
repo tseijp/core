@@ -1,12 +1,10 @@
-import React, {CSSProperties as CSS, FC, Suspense, useState} from 'react'
+import React, {CSSProperties as CSS, FC, useState} from 'react'
 //import { Card, Foot, Head } from '../src/components'
 import { /*Modal, Pills, */Sides, Trans } from '../src/containers'
 import { useGrid } from 'use-grid'
 import { Canvas } from 'react-three-fiber'
 import { Helmet } from 'react-helmet-async';
-import { Kinect } from '../src'
-import { TransformControls } from 'drei'
-// import {C, H, Render} from 'react-mol'
+import {Render, Flow} from 'react-mol'
 // import * as THREE from 'three'
 // import {Provider} from 'jotai'
 // import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
@@ -15,7 +13,8 @@ import { TransformControls } from 'drei'
 const styles:{[key:string]:CSS} = {
     top: {position:"fixed",top:0,left:0,width:'100%',height:'100%'},
 }
-export const None :FC = () => {
+const {cos, sin, random} = Math
+export const None :FC =  () => {
     const [lang, setLang] = useState<string>(window?.navigator?.language||'ja')
     const [dark, setDark] = useGrid<boolean>({md:true, lg:false})
     const [size, setSize] = useGrid<number> ({md:1    , lg:1.5 })
@@ -29,11 +28,22 @@ export const None :FC = () => {
                     <pointLight position={[100, 100, 100]} intensity={2.2} />
                     <pointLight position={[-100, -100, -100]} intensity={5} color="red" />
                     <gridHelper position={[0,-1000,0]} args={[2000,50]}/>
-                    <Suspense fallback={null}>
-                        <TransformControls>
-                            <Kinect url="/static/core/kinect.mp4"/>
-                        </TransformControls>
-                    </Suspense>
+                    <Render max={1000}>
+                        <dodecahedronBufferGeometry args={[1,0]}/>
+                        <meshStandardMaterial />
+                        {Array(1000).fill(0).map((_,i) =>
+                            <Flow key={i}
+                                args={[...Array(4)].map(_ => random())}
+                                position={(t=0,s=0,x=0,y=0,z=0) => [
+                                    ((x-.5) - cos(t*s+x) - sin(t*s/1))*(x*100+50),
+                                    ((y-.5) - sin(t*s+y) - cos(t*s/3))*(y*100+50),
+                                    ((z-.5) - cos(t*s+z) - sin(t*s/5))*(z*100+50),
+                                ]}
+                                rotation={(t=0,s=0)=>Array(3).fill(cos(t*s)*size) as any}
+                                scale={(t=0,s=0)=>Array(3).fill(cos(t*s/2)*size) as any}
+                                color="black"/>
+                        )}
+                    </Render>
                 </Canvas>
             </div>
             <Helmet>

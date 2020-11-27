@@ -22,20 +22,19 @@ export const TransArea :FC<Props> = ({size=1, spring}) =>
             `rgba(0,0,0,${s-1}))`
         ].join(',')),
         ...styles.area}}
-       />
-
-export const TransIcon : FC<Props> = ({size=1, spring, circ=false}) =>
+   />
+export const TransIcon : FC<Props> = ({size=1, spring, circ=false}) =>(
     <a.div style={{...styles.icon, top:50*size, rotateZ:spring.r}}>
         <Icon fa="align-justify" {...{circ,size}} />
     </a.div>
-
-export const TransContainer : FC<Props> = ({children, size=1, spring, }) =>
+)
+export const TransContainer : FC<Props> = ({children, size=1, spring, }) => (
     <a.div style={{...styles.cont,
         width:spring.r.interpolate((r=0) => `${ 50*size*(Math.cos(r/90*Math.PI)+1) }px` )}}>
         <div style={{margin:`calc(${50*size*2}px - 2%) 0px 0px 0px`}}>{children}</div>
     </a.div>
-
-export const TransItem :FC<Props> = ({children, size=1}) =>
+)
+export const TransItem :FC<Props> = ({children, size=1}) => (
     <a.div style={{...styles.item,
         margin:`${50*size/4}px 0px`,
         borderRadius:`${50*size}px 0px  0px ${50*size}px`,}}>
@@ -44,7 +43,7 @@ export const TransItem :FC<Props> = ({children, size=1}) =>
             fontSize:50*size, zIndex:1, display:"flex", alignItems:"center",
         }}>{children}</div>
     </a.div>
-
+)
 export const Trans : FC<Props> = ({children, size=1, onOpen=()=>null}={}) => {
     const opened = useRef<boolean>(false)
     const setOpened = useCallback((bool:boolean)=>1&&( (opened.current=bool), onOpen&&onOpen() ),[onOpen])
@@ -68,11 +67,11 @@ export const Trans : FC<Props> = ({children, size=1, onOpen=()=>null}={}) => {
     })
     return (
         <a.div {...bind()} style={{...styles.top}}>
-            <TransIcon      {...{size, spring, }} />
-            <TransArea      {...{size, spring, }} />
-            <TransContainer {...{size, spring, }} >
+            <TransIcon      {...{size, spring}} />
+            <TransArea      {...{size, spring}} />
+            <TransContainer {...{size, spring}} >
             {React.Children.map(children, ((child, key:number)=>
-                <TransItem {...{size/*, spring*/, key}} >{child}</TransItem>
+                <TransItem {...{size, key}} >{child}</TransItem>
             ))}
             </TransContainer>
         </a.div>

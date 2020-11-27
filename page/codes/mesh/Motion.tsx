@@ -2,7 +2,7 @@ import React, {FC, Suspense, } from 'react'
 import * as THREE from 'three'
 import {Canvas} from "react-three-fiber"
 import {useControl as use} from 'react-three-gui'
-import {Motion} from "../../../src"
+import {Motion} from '../../meshs'
 export const HookMotion :FC = () => {
     const dark = use('dark' , {type: 'boolean', value: false})
     const size = use('size' , {type: 'number' , distance:2, value: 1})

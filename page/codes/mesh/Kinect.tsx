@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import {Canvas, } from 'react-three-fiber'
 import {useControl as use} from 'react-three-gui';
 import {TransformControls} from 'drei'
-import {Kinect} from '../../../src'
+import {Kinect} from '../../meshs'
 
 export const HookKinect :FC = () => {
     const depthTest = use('depthTest', {type:'boolean', value:false, })

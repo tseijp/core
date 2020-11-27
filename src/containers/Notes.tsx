@@ -18,9 +18,12 @@ export const NotesSide:FC<Props> = ({
         scale  :x.to((px:number)=>px**2/4>size**2?1:(px>0?px:-px)/(size)),
         width  :x.to((px:number)=>px>0?px*2:-px*2),
         display:x.to((px:number)=>px?"inline":"none") }}/>
-export const NotesItem:FC<Props> = ({children,x}) => !children ? null :
-    <a.div style={{...styles.btn,display:x.to((px:number)=>px<0?"inline":"none")}}>
-        {children} </a.div>
+
+export const NotesItem:FC<Props> = (
+    ({children,x}) => !children ? null :
+        <a.div style={{...styles.btn,display:x.to((px:number)=>px<0?"inline":"none")}}>
+            {children} </a.div>
+)
 export type Notes = FC<Props<{
     grandren:any,right:RC,left:RC, depth:number, space:number|string,
 }>>

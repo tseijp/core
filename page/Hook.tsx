@@ -4,7 +4,8 @@ import {Controls} from 'react-three-gui';
 import {Helmet}   from 'react-helmet-async';
 import {hookTree,hookPage,HookPage,pageConfig} from './utils';
 
-import {is,topUp,usePage,Card,Code,Notes,Sides,Split,Trees,Trans} from '../src'
+import {is,topUp,Card,Code,Notes,Sides,Split,Trees,Trans} from '../src'
+import {usePage} from './notes'
 const styles:{[key:string]:CSS} = {
     top : {position:"relative",transition:"1s",overflowX:"hidden",minHeight:"100%",},
     item: {position:"relative",height:"100vh",},
@@ -51,7 +52,7 @@ export const Hook:FC = () => {
                 { page.code && is.str(page.code) &&
                 <CardHook {...{dark,size}}>
                     <Code {...{dark,size,code:page.code}}/>
-                </CardHook> }
+                </CardHook>}
             </Notes>
         </Split>)}
         <Sides {...{size}}>

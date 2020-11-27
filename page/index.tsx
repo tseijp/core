@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {unregister} from './serviceWorker';
+import {unregister} from './utils';
 import {HelmetProvider} from 'react-helmet-async';
 import {ControlsProvider} from 'react-three-gui';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
