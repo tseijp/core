@@ -17,11 +17,11 @@ export const NotesSide:FC<Props> = ({
         y:0,  x:x.to((px:number)=> -px+(px>0?-.5:.5)*(size*500)),
         scale  :x.to((px:number)=>px**2/4>size**2?1:(px>0?px:-px)/(size)),
         width  :x.to((px:number)=>px>0?px*2:-px*2),
-        display:x.to((px:number)=>px?"inline":"none") }}/>
+        display:x.to((px:number)=>px?"inline":"none") } as any}/>
 
 export const NotesItem:FC<Props> = (
     ({children,x}) => !children ? null :
-        <a.div style={{...styles.btn,display:x.to((px:number)=>px<0?"inline":"none")}}>
+        <a.div style={{...styles.btn,display:x.to((px:number)=>px<0?"inline":"none")} as any}>
             {children} </a.div>
 )
 export type Notes = FC<Props<{
@@ -90,10 +90,10 @@ export const Notes:Notes = ({
         return () => window.removeEventListener('resize', resize);
     }, [setPosition, set, getG] )
     return (
-        <div ref={targetRef} style={{...styles.cont,height,...style, ...background({r:255,debug})}}>
+        <div ref={targetRef} style={{...styles.cont,height,...style, ...background({r:255,debug})} as any}>
             {springs.map( ({x,y,scale}, key) =>
-                <a.div {...{key}} {...bind(key)} style={{x,y,position:"absolute",width:"100%"}}>
-                    <a.div style={{...styles.main,scale,padding:space, ...background({g:255,debug})}}>
+                <a.div {...{key}} {...bind(key)} style={{x,y,position:"absolute",width:"100%"} as any}>
+                    <a.div style={{...styles.main,scale,padding:space, ...background({g:255,debug})} as any}>
                         {(children as any)[key]}
                     </a.div>
                     <NotesSide {...{x,size,debug,height:heightRef.current[key]}}>

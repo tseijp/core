@@ -43,13 +43,13 @@ export const Split:Split = ({
         set(i=>({w:wRef.current[i]}))
     }, [width, set, order])
     return (
-        <a.div style={{...styles.cont, ...style}} {...props}>
+        <a.div style={{...styles.cont, ...style} as any} {...props}>
             {s.map(({w},key) =>
                 <a.div {...bind(key)} {...{key}} style={{
                         ...styles.item, ...styleItem,
                         width:w.interpolate(v => `${100*v}%`),
                         //zIndex:z.interpolate(v => ~~(v*10))
-                    }}>
+                    } as any}>
                     {(children as any)[key]}
                 </a.div>
             )}

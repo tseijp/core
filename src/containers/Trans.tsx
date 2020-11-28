@@ -21,27 +21,27 @@ export const TransArea :FC<Props> = ({size=1, spring}) =>
             `rgba(0,0,0,0)`,
             `rgba(0,0,0,${s-1}))`
         ].join(',')),
-        ...styles.area}}
+        ...styles.area}as any}
    />
 export const TransIcon : FC<Props> = ({size=1, spring, circ=false}) =>(
-    <a.div style={{...styles.icon, top:50*size, rotateZ:spring.r}}>
+    <a.div style={{...styles.icon, top:50*size, rotateZ:spring.r}as any}>
         <Icon fa="align-justify" {...{circ,size}} />
     </a.div>
 )
 export const TransContainer : FC<Props> = ({children, size=1, spring, }) => (
     <a.div style={{...styles.cont,
-        width:spring.r.interpolate((r=0) => `${ 50*size*(Math.cos(r/90*Math.PI)+1) }px` )}}>
-        <div style={{margin:`calc(${50*size*2}px - 2%) 0px 0px 0px`}}>{children}</div>
+        width:spring.r.interpolate((r=0) => `${ 50*size*(Math.cos(r/90*Math.PI)+1) }px` )}as any}>
+        <div style={{margin:`calc(${50*size*2}px - 2%) 0px 0px 0px`}as any}>{children}</div>
     </a.div>
 )
 export const TransItem :FC<Props> = ({children, size=1}) => (
     <a.div style={{...styles.item,
         margin:`${50*size/4}px 0px`,
-        borderRadius:`${50*size}px 0px  0px ${50*size}px`,}}>
+        borderRadius:`${50*size}px 0px  0px ${50*size}px`,}as any}>
         <div onClick={e=>e?.stopPropagation()} style={{
             height:50*size, margin:`auto ${50*size/2}px`,
             fontSize:50*size, zIndex:1, display:"flex", alignItems:"center",
-        }}>{children}</div>
+        }as any}>{children}</div>
     </a.div>
 )
 export const Trans : FC<Props> = ({children, size=1, onOpen=()=>null}={}) => {
@@ -66,7 +66,7 @@ export const Trans : FC<Props> = ({children, size=1, onOpen=()=>null}={}) => {
         onDrag : ({last,down,vxvy:[vx,],movement:[mx,],}) => onBind({down,last,vx,mx:mx})
     })
     return (
-        <a.div {...bind()} style={{...styles.top}}>
+        <a.div {...bind()} style={styles.top as any}>
             <TransIcon      {...{size, spring}} />
             <TransArea      {...{size, spring}} />
             <TransContainer {...{size, spring}} >

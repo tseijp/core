@@ -32,7 +32,7 @@ export const Icon:Icon = ({
                     `rotateY(${x}deg)` ,//-1 ~ 1
                     `scale(${1+s/10})` ,// 1 ~ 1.1
                 ].join(' ')),
-            ...style} as CSS}
+            ...style} as any}
            {...{children,className:className+fa
                 ?` fas fa-${fa}`: fab
                 ?` fab fa-${fab}`: ""}}

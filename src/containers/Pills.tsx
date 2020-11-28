@@ -44,7 +44,7 @@ export const Pills:Pills = ({
     return (
         <div style={{position:"fixed",left:position.x,bottom:position.y}}>
             {springs.map((spring, key) =>
-                <animated.div key={`${depth}-${key}`} style={{...spring, ...styles.pill}}
+                <animated.div key={`${depth}-${key}`} style={{...spring, ...styles.pill} as any}
                     onClick={e=>setHub(e, key)}>
                     {(children as any)[key]}
                 </animated.div>

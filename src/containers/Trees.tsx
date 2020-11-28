@@ -89,12 +89,12 @@ export const Trees:Trees = ({
         : 'Close', [children, state.open])
     useEffect(() => void (set(p => visible!==p.visible?{...p, visible}:p)), [visible])
     return (
-        <a.div style={{...styles.tree, fontSize:size*50, zIndex:-depth, ...style, ...topStyle}}>
+        <a.div style={{...styles.tree, fontSize:size*50, zIndex:-depth as any, ...style, ...topStyle}as any}>
             <TreesContent{...{...props, icon, set, opacity:children?.length?1:.3, dark, size}}/>
             <a.div style={{
                 ...(depth>0?{borderLeft:`1px dashed #${dark?818181:212121}`}:{}),
                 ...styles.top, padding:`4px 0px 0px ${size*25}px`,
-                ...spring, }}>{children}</a.div>
+                ...spring, }as any}>{children}</a.div>
         </a.div>
     )
 }

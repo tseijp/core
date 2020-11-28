@@ -22,7 +22,7 @@ export const SidesContainer : FC<Props> = ({size=1, spring, children}) => (
     <a.div style={{...styles.cont,
         width:spring.x.interpolate((x:number)=>x>0?x:0),
         borderRadius:`0px ${50*size}px ${50*size}px 0px`,
-        backgroundColor:"#212121"}}>
+        background:"#212121" as any} as any}>
         <div style={{margin:`${50*size}px 0px 0px 0px`, position:"absolute"}}>{children}</div>
     </a.div>
 )
