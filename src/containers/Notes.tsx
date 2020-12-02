@@ -90,7 +90,7 @@ export const Notes:Notes = ({
         return () => window.removeEventListener('resize', resize);
     }, [setPosition, set, getG] )
     return (
-        <div ref={targetRef} style={{...styles.cont,height,...style, ...background({r:255,debug})} as any}>
+        <div ref={targetRef} style={{...styles.cont, height,...style, ...background({r:255,debug})} as any}>
             {springs.map( ({x,y,scale}, key) =>
                 <a.div {...{key}} {...bind(key)} style={{x,y,position:"absolute",width:"100%"} as any}>
                     <a.div style={{...styles.main,scale,padding:space, ...background({g:255,debug})} as any}>

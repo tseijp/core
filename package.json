@@ -1,7 +1,7 @@
 {
     "name": "@tsei/core",
     "homepage": "/",
-    "version": "0.7.2",
+    "version": "0.7.4",
     "module": "index.js",
     "types": "index.d.ts",
     "main": "index.cjs.js",
@@ -10,8 +10,8 @@
     "private": false,
     "sideEffects": false,
     "description": "🌌Fantastic UI in tsei.jp",
-    "repository": "COMING SOON",
-    "bugs": "COMING SOON",
+    "repository": "https://github.com/tseijp/core",
+    "bugs": "https://github.com/tseijp/core/issues",
     "keywords": [
         "react",
         "motion",
@@ -28,21 +28,6 @@
         "start": "cross-env NODE_ENV=development BABEL_ENV=development react-app-rewired start",
         "build": "cross-env NODE_ENV=production BABEL_ENV=production react-app-rewired build",
         "compile": "cross-env NODE_ENV=production BABEL_ENV=production rollup -c config-rollup.js"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
     },
     "peerDependencies": {
         "react": ">=16.8",
@@ -96,5 +81,20 @@
         "three": "^0.123.0",
         "ts-jest": "^24.3.0",
         "typescript": "^3.8.3"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
     }
 }

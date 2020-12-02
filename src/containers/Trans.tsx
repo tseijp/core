@@ -4,14 +4,14 @@ import {useGesture} from 'react-use-gesture'
 import {Props} from '../types'
 import {Icon} from '../components'
 
-const styles:{[key:string]:CSS} = {
+const styles: {[key:string]: CSS} = {
     top : {position:"fixed",top:0,right:0,zIndex:100                        },//*dev*/, background:"rgba(0,0,0,.1)"},
     area: {position:"fixed",top:0,right:0,height:"100%"                     },//*dev*/,background:"rgba(255,0,0,.1)"},
     cont: {position:"fixed",height:`96%`,top:"2%",right:0,overflowX:"hidden"},//*dev*/,background:"rgba(0,255,0,.1)"},
     icon: {position:"absolute",right:0,transform:`translate(-50%,-50%)`     },//*dev*/,background:"rgba(0,0,255,.1)"},
     item: {backgroundColor:"#212121",color:"#818181", display:"inline-block"},
 }
-export const TransArea :FC<Props> = ({size=1, spring}) =>
+export const TransArea :FC<Props> = ({size=1, spring}) => (
     <a.div style={{
         width: spring.r.interpolate((r:number)=>`${
             50*size*( Math.cos(r/90*Math.PI)+1.5)
@@ -21,8 +21,8 @@ export const TransArea :FC<Props> = ({size=1, spring}) =>
             `rgba(0,0,0,0)`,
             `rgba(0,0,0,${s-1}))`
         ].join(',')),
-        ...styles.area}as any}
-   />
+        ...styles.area}as any}/>
+)
 export const TransIcon : FC<Props> = ({size=1, spring, circ=false}) =>(
     <a.div style={{...styles.icon, top:50*size, rotateZ:spring.r}as any}>
         <Icon fa="align-justify" {...{circ,size}} />

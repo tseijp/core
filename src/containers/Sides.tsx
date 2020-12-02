@@ -32,7 +32,7 @@ export const SidesIcon : FC<Props> = ({spring, bind, circ=false, size=1}) => (
     </a.div>
 )
 export const SidesItem :FC<Props> = ({children, size=1}) => (
-    <a.div style={{...styles.item,transition:"0.75s",fontSize:50*size}}
+    <a.div style={{...styles.item,transition:"0.75s",fontSize:50*size} as any}
         onClick={(e:any)=>e.stopPropagation()}>{children}</a.div>
 )
 export type  Sides = FC<Partial<Props<{}>>>

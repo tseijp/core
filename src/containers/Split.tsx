@@ -16,8 +16,6 @@ export const Split:Split = ({
     order=[], width=0, height=0, min=0, //children,
     dark=false,size=1, style={}, styleItem={}, ...props
 }) => {
-    //if (!(children instanceof Array)) children = Children.map(props.children, c=>c)
-    // REF
     const sRef = useRef<number>(0)
     const lRef = useRef<number>((props as any)?.children?.length||1)
     const wRef = useRef<number[]>(getWRate(order, lRef.current, width))
@@ -48,7 +46,6 @@ export const Split:Split = ({
                 <a.div {...bind(key)} {...{key}} style={{
                         ...styles.item, ...styleItem,
                         width:w.interpolate(v => `${100*v}%`),
-                        //zIndex:z.interpolate(v => ~~(v*10))
                     } as any}>
                     {(children as any)[key]}
                 </a.div>

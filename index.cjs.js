@@ -94,11 +94,21 @@ var Card = function Card(_ref) {
       color: color || dark ? "#818181" : "#000"
     });
   }, [size, space, color, dark, max, min]);
-  var calc = React.useCallback(function (x, y) {
+
+  var calc = function calc(x, y) {
+    if (x === void 0) {
+      x = 0;
+    }
+
+    if (y === void 0) {
+      y = 0;
+    }
+
     return [(x - window.innerWidth / 2) / size / 250, // -1 ~ 1
     (y - window.innerHeight / 2) / size / 250, // -1 ~ 1
     rate];
-  }, [size, rate]);
+  };
+
   var bind = reactUseGesture.useGesture({
     onDrag: function onDrag(_ref2) {
       var event = _ref2.event;
@@ -594,111 +604,6 @@ var Icon = function Icon(_ref) {
   }, bind(), props));
 };
 
-var Modal = function Modal(_ref) {
-  var _ref$open = _ref.open,
-      open = _ref$open === void 0 ? false : _ref$open,
-      _ref$onClose = _ref.onClose,
-      onClose = _ref$onClose === void 0 ? null : _ref$onClose,
-      _ref$dark = _ref.dark,
-      dark = _ref$dark === void 0 ? false : _ref$dark,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 1 : _ref$size,
-      children = _ref.children,
-      _ref$color = _ref.color,
-      color = _ref$color === void 0 ? "" : _ref$color,
-      props = _objectWithoutPropertiesLoose(_ref, ["open", "onClose", "dark", "size", "children", "color"]);
-
-  var width = React.useMemo(function () {
-    return 500 * size;
-  }, [size]);
-
-  var _useSpring = reactSpring.useSpring(function () {
-    return {
-      x: 0,
-      y: -width,
-      scale: 0
-    };
-  }),
-      s = _useSpring[0],
-      set = _useSpring[1];
-
-  var bind = reactUseGesture.useGesture({
-    onHover: function onHover(_ref2) {
-      var hovering = _ref2.hovering;
-      return set({
-        scale: hovering ? 0.9 : 1
-      });
-    },
-    onDrag: function onDrag(_ref3) {
-      var last = _ref3.last,
-          down = _ref3.down,
-          _ref3$vxvy = _ref3.vxvy,
-          vx = _ref3$vxvy[0],
-          vy = _ref3$vxvy[1],
-          _ref3$movement = _ref3.movement,
-          mx = _ref3$movement[0],
-          my = _ref3$movement[1],
-          cancel = _ref3.cancel;
-      if ((my < -width * .5 || width * .5 < my) && cancel) cancel();
-      if (!last) return set({
-        x: down ? mx : 0,
-        y: down ? my : 0
-      });
-      return Math.pow(mx, 2) < Math.pow(width, 2) / 4 && Math.pow(vx, 2) + Math.pow(vy, 2) < 10 ? set({
-        x: 0,
-        y: 0,
-        scale: 1
-      }) : set({
-        x: vx * width,
-        y: (vy - 1) * width,
-        scale: 0
-      }) && onClose && setTimeout(function () {
-        return onClose();
-      }, Math.pow(vx, 2) + Math.pow(vy, 2));
-    }
-  });
-  var root = React.useMemo(function () {
-    return document.getElementById('root');
-  }, []);
-  var style = React.useMemo(function () {
-    return _extends({
-      left: 0,
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      top: 0,
-      height: "100%",
-      position: "fixed",
-      alignItems: "center",
-      transition: "1s",
-      color: color || dark ? "#212121" : "#000",
-      zIndex: 200,
-      background: "rgba(" + (dark ? "80,80,80" : "0,0,0") + ",.5)"
-    }, props.style);
-  }, [dark, color, props.style]);
-  React.useEffect(function () {
-    open && set({
-      x: 0,
-      y: 0,
-      scale: 1
-    });
-  }, [open, set]);
-  return open ? /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/React__default.createElement("div", {
-    style: style,
-    onClick: function onClick() {
-      return onClose && onClose();
-    }
-  }, /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends({
-    style: _extends({
-      position: "relative"
-    }, s)
-  }, bind(), {
-    onClick: function onClick(e) {
-      return e.stopPropagation();
-    }
-  }), children)), root) : null;
-};
-
 // ************************* 👌 FOR Components 👌 ************************* //
 var topUp = function topUp(text) {
   if (text === void 0) {
@@ -835,7 +740,273 @@ function merge(target, lowercase) {
       return acc;
     }, target);
   };
+} // ************************* 🍡 join-url 🍡 ************************* //
+// * This function is fork of join-url/urljoin
+// * Code : https://github.com/jfromaniello/url-join/blob/master/lib/url-join.js
+// ************************* *************** ************************* //
+
+function joinURL() {
+  for (var _len = arguments.length, strArray = new Array(_len), _key = 0; _key < _len; _key++) {
+    strArray[_key] = arguments[_key];
+  }
+
+  var resultArray = [];
+  if (strArray.length === 0) return '';
+  if (typeof strArray[0] !== 'string') throw new TypeError('Url must be string.');
+  if (strArray[0].match(/^[^/:]+:\/*$/) && strArray.length > 1) strArray[0] = strArray.shift() + strArray[0];
+  if (strArray[0].match(/^file:\/\/\//)) strArray[0] = strArray[0].replace(/^([^/:]+):\/*/, '$1:///');else strArray[0] = strArray[0].replace(/^([^/:]+):\/*/, '$1://');
+  strArray = strArray.filter(function (str) {
+    return str !== "";
+  });
+
+  for (var i = 0; i < strArray.length; i++) {
+    var _str = strArray[i];
+    if (typeof _str === 'number') _str = String(_str);
+    if (typeof _str !== 'string') throw new TypeError(_str + " must be a string. Received " + typeof _str);
+    if (_str === '') continue;
+    if (i > 0) _str = _str.replace(/^[\/]+/, ''); //eslint-disable-line
+
+    if (i < strArray.length - 1) _str = _str.replace(/[\/]+$/, ''); //eslint-disable-line
+    else _str = _str.replace(/[\/]+$/, '/'); //eslint-disable-line
+
+    resultArray.push(_str);
+  }
+
+  var str = resultArray.join('/');
+  str = str.replace(/\/(\?|&|#[^!])/g, '$1');
+  var parts = str.split('?');
+  str = parts.shift() + (parts.length > 0 ? '?' : '') + parts.join('&');
+  return str;
 }
+
+var equalPathname = function equalPathname() {
+  for (var _len = arguments.length, urls = new Array(_len), _key = 0; _key < _len; _key++) {
+    urls[_key] = arguments[_key];
+  }
+
+  return urls.map(function (u) {
+    return typeof u === "string" ? new URL(u) : u;
+  }).map(function (u) {
+    return u && joinURL(u.pathname, "/");
+  }).every(function (u, _, self) {
+    return u === self[0];
+  });
+};
+var pageConfig = {
+  onChange: null
+};
+var defaultPage = {
+  id: window.location.pathname.split('/').filter(function (v) {
+    return v;
+  }).find(function (_, i) {
+    return i === 1;
+  }) || "",
+  isHome: window.location.pathname.split('/').filter(function (v) {
+    return v;
+  }).length > 1,
+  isLocal: window.location.hostname === "localhost",
+  protocol: window.location.protocol || "",
+  hostname: window.location.hostname || "",
+  portname: window.location.port || "",
+  pathname: window.location.pathname || "",
+  search: window.location.search || "",
+  hash: window.location.hash || "",
+  language: window.navigator.language || "ja",
+  urls: [new URL(window.location.href)]
+};
+var joinPage = function joinPage(page) {
+  var protocol = page.protocol,
+      hostname = page.hostname,
+      portname = page.portname,
+      _page$pathname = page.pathname,
+      pathname = _page$pathname === void 0 ? "" : _page$pathname,
+      _page$search = page.search,
+      search = _page$search === void 0 ? "" : _page$search,
+      _page$hash = page.hash,
+      hash = _page$hash === void 0 ? "" : _page$hash;
+  var arr = [protocol, hostname, portname, pathname, search, hash];
+
+  var getp = function getp(port) {
+    return port ? ":" + port : "";
+  };
+
+  var geti = function geti(i, n) {
+    if (i === void 0) {
+      i = 0;
+    }
+
+    return n instanceof Array ? i < n.length ? n[i] : n[n.length - 1] : n;
+  };
+
+  if (arr.every(function (v) {
+    return typeof v === "string";
+  })) return joinURL(protocol + "//" + hostname + getp(portname) + "/", pathname, search);
+  var maxLength = arr.map(function (v) {
+    return v instanceof Array ? v.length : 1;
+  }).reduce(function (a, b) {
+    return a > b ? a : b;
+  });
+  return [].concat(Array(maxLength)).map(function (_, i) {
+    return joinURL(geti(i, protocol) + "//" + geti(i, hostname) + getp(geti(i, portname)) + "/", geti(i, pathname), geti(i, search));
+  });
+};
+var normPage = function normPage(page) {
+  var state = _extends({}, page); //Page<T>
+
+
+  Object.entries(state).sort(function (_ref) {
+    var _ = _ref[0],
+        val = _ref[1];
+    return typeof val === "function" ? 1 : -1;
+  }).forEach(function (_ref2) {
+    var key = _ref2[0],
+        val = _ref2[1];
+    return state[key] = typeof val === "function" ? val(state) : val;
+  });
+  var urls = joinPage(state);
+  return _extends({}, state, {
+    urls: urls instanceof Array ? urls.map(function (u) {
+      return typeof u === "string" ? new URL(u) : u;
+    }) : [typeof urls === "string" ? new URL(urls) : urls]
+  });
+};
+
+var usePage = function usePage(props, //BasicProps<Page<T>>,
+config) {
+  if (config === void 0) {
+    config = {};
+  }
+
+  if (typeof props === "function") props = props();
+  if (typeof config === "function") config = config();
+  var pageRef = React.useRef(_extends({}, defaultPage, props));
+  var confRef = React.useRef(_extends({}, pageConfig, config));
+
+  var _useState = React.useState(normPage(pageRef.current)),
+      page = _useState[0],
+      set = _useState[1];
+
+  var setPage = React.useCallback(function (state) {
+    if (typeof state === "function") state = state(pageRef.current);
+    pageRef.current = _extends({}, pageRef.current, state);
+    set(function (pre) {
+      var newPage = normPage(pageRef.current);
+      if (pre.pathname === newPage.pathname) return newPage;
+      window.history.pushState('', '', newPage.pathname instanceof Array ? newPage.pathname[0] || '' : newPage.pathname || '');
+      return newPage;
+    });
+  }, [set]);
+  React.useEffect(function () {
+    var onChange = confRef.current.onChange;
+    typeof onChange === "function" && onChange();
+  }, [page.id]);
+  return [page, setPage];
+};
+
+var Modal = function Modal(_ref) {
+  var _ref$open = _ref.open,
+      open = _ref$open === void 0 ? false : _ref$open,
+      _ref$onClose = _ref.onClose,
+      onClose = _ref$onClose === void 0 ? null : _ref$onClose,
+      _ref$dark = _ref.dark,
+      dark = _ref$dark === void 0 ? false : _ref$dark,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 1 : _ref$size,
+      children = _ref.children,
+      _ref$color = _ref.color,
+      color = _ref$color === void 0 ? "" : _ref$color,
+      props = _objectWithoutPropertiesLoose(_ref, ["open", "onClose", "dark", "size", "children", "color"]);
+
+  var width = React.useMemo(function () {
+    return 500 * size;
+  }, [size]);
+
+  var _useSpring = reactSpring.useSpring(function () {
+    return {
+      x: 0,
+      y: -width,
+      scale: 0
+    };
+  }),
+      s = _useSpring[0],
+      set = _useSpring[1];
+
+  var bind = reactUseGesture.useGesture({
+    onHover: function onHover(_ref2) {
+      var hovering = _ref2.hovering;
+      return set({
+        scale: hovering ? 0.9 : 1
+      });
+    },
+    onDrag: function onDrag(_ref3) {
+      var last = _ref3.last,
+          down = _ref3.down,
+          _ref3$vxvy = _ref3.vxvy,
+          vx = _ref3$vxvy[0],
+          vy = _ref3$vxvy[1],
+          _ref3$movement = _ref3.movement,
+          mx = _ref3$movement[0],
+          my = _ref3$movement[1],
+          cancel = _ref3.cancel;
+      if ((my < -width * .5 || width * .5 < my) && cancel) cancel();
+      if (!last) return set({
+        x: down ? mx : 0,
+        y: down ? my : 0
+      });
+      return Math.pow(mx, 2) < Math.pow(width, 2) / 4 && Math.pow(vx, 2) + Math.pow(vy, 2) < 10 ? set({
+        x: 0,
+        y: 0,
+        scale: 1
+      }) : set({
+        x: vx * width,
+        y: (vy - 1) * width,
+        scale: 0
+      }) && onClose && setTimeout(function () {
+        return onClose();
+      }, Math.pow(vx, 2) + Math.pow(vy, 2));
+    }
+  });
+  var root = React.useMemo(function () {
+    return document.getElementById('root');
+  }, []);
+  var style = React.useMemo(function () {
+    return _extends({
+      left: 0,
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      top: 0,
+      height: "100%",
+      position: "fixed",
+      alignItems: "center",
+      transition: "1s",
+      color: color || dark ? "#212121" : "#000",
+      zIndex: 200,
+      background: "rgba(" + (dark ? "80,80,80" : "0,0,0") + ",.5)"
+    }, props.style);
+  }, [dark, color, props.style]);
+  React.useEffect(function () {
+    open && set({
+      x: 0,
+      y: 0,
+      scale: 1
+    });
+  }, [open, set]);
+  return open ? /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/React__default.createElement("div", {
+    style: style,
+    onClick: function onClick() {
+      return onClose && onClose();
+    }
+  }, /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends({
+    style: _extends({
+      position: "relative"
+    }, s)
+  }, bind(), {
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }), children)), root) : null;
+};
 
 var background = function background(_ref) {
   var _ref$r = _ref.r,
@@ -1341,7 +1512,7 @@ var SidesContainer = function SidesContainer(_ref2) {
         return x > 0 ? x : 0;
       }),
       borderRadius: "0px " + 50 * size + "px " + 50 * size + "px 0px",
-      backgroundColor: "#212121"
+      background: "#212121"
     })
   }, /*#__PURE__*/React__default.createElement("div", {
     style: {
@@ -1529,8 +1700,6 @@ var Split = function Split(_ref) {
       styleItem = _ref$styleItem === void 0 ? {} : _ref$styleItem,
       props = _objectWithoutPropertiesLoose(_ref, ["order", "width", "height", "min", "dark", "size", "style", "styleItem"]);
 
-  //if (!(children instanceof Array)) children = Children.map(props.children, c=>c)
-  // REF
   var sRef = React.useRef(0);
   var lRef = React.useRef(((_ref2 = props) == null ? void 0 : (_ref2$children = _ref2.children) == null ? void 0 : _ref2$children.length) || 1);
   var wRef = React.useRef(getWRate(order, lRef.current, width));
@@ -1600,8 +1769,7 @@ var Split = function Split(_ref) {
       style: _extends({}, styles$4.item, styleItem, {
         width: w.interpolate(function (v) {
           return 100 * v + "%";
-        }) //zIndex:z.interpolate(v => ~~(v*10))
-
+        })
       })
     }), children[key]);
   }));
@@ -1872,7 +2040,7 @@ var Trans = function Trans(_temp) {
     }
   });
   return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends({}, bind(), {
-    style: _extends({}, styles$5.top)
+    style: styles$5.top
   }), /*#__PURE__*/React__default.createElement(TransIcon, {
     size: size,
     spring: spring
@@ -1890,11 +2058,11 @@ var Trans = function Trans(_temp) {
   })));
 };
 
-var defaultConfig = {
+var treesConfig = {
   restSpeedThreshold: 1,
   restDisplacementThreshold: 0.01
 };
-var styles$6 = {
+var treesStyles = {
   tree: {
     padding: '4px 0px 0px 0px',
     position: 'relative',
@@ -1925,43 +2093,115 @@ var styles$6 = {
     marginLeft: 6
   }
 };
-var paths = {
+var treesPaths = {
   close: "M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
   minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
   plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
   eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z"
 };
-var TreeIcon = {
+
+function useTrees(props) {
+  var _props$open = props.open,
+      open = _props$open === void 0 ? true : _props$open,
+      _props$visible = props.visible,
+      visible = _props$visible === void 0 ? true : _props$visible,
+      _props$immediate = props.immediate,
+      immediate = _props$immediate === void 0 ? true : _props$immediate,
+      springconfig = props.springconfig;
+
+  var _useState = React.useState({
+    open: open,
+    visible: visible,
+    immediate: immediate
+  }),
+      state = _useState[0],
+      set = _useState[1];
+
+  var spring = reactSpring.useSpring({
+    immediate: state.immediate,
+    config: _extends({}, reactSpring.config.default, springconfig || treesConfig),
+    from: {
+      height: 0,
+      opacity: 0,
+      transform: 'translate3d(20px,0,0)'
+    },
+    to: {
+      height: state.open ? 'auto' : 0,
+      opacity: state.open ? 1 : 0,
+      transform: state.open ? 'translate3d(0px,0,0)' : 'translate3d(20px,0,0)'
+    }
+  });
+  var icon = React.useMemo(function () {
+    return props.children ? state.open ? 'Minus' : 'Plus' : 'Close';
+  }, [props.children, state.open]);
+  React.useEffect(function () {
+    set(function (p) {
+      return visible !== p.visible ? _extends({}, p, {
+        visible: visible
+      }) : p;
+    });
+  }, [visible]);
+  var _props$dark = props.dark,
+      dark = _props$dark === void 0 ? false : _props$dark,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 1 : _props$size,
+      _props$depth = props.depth,
+      depth = _props$depth === void 0 ? 0 : _props$depth,
+      _props$style = props.style,
+      style = _props$style === void 0 ? {} : _props$style,
+      _props$topStyle = props.topStyle,
+      topStyle = _props$topStyle === void 0 ? {} : _props$topStyle;
+
+  var _useMemo = React.useMemo(function () {
+    return [_extends({
+      fontSize: size * 50
+    }, treesStyles.tree, style, topStyle), _extends({}, depth > 0 ? {
+      borderLeft: "1px dashed #" + (dark ? 818181 : 212121)
+    } : {}, treesStyles.top, {
+      padding: "4px 0px 0px " + size * 25 + "px"
+    }, spring)];
+  }, [size, style, topStyle, dark, depth, spring]),
+      top = _useMemo[0],
+      child = _useMemo[1];
+
+  return [{
+    topStyle: top,
+    childStyle: child,
+    icon: icon
+  }, set];
+}
+
+var TreeIcons = {
   CloseSquareO: function CloseSquareO(props) {
     return /*#__PURE__*/React__default.createElement("svg", _extends({}, props, {
       viewBox: "64 -65 897 897"
     }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("path", {
-      d: paths.close
+      d: treesPaths.close
     })));
   },
   MinusSquareO: function MinusSquareO(props) {
     return /*#__PURE__*/React__default.createElement("svg", _extends({}, props, {
       viewBox: "64 -65 897 897"
     }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("path", {
-      d: paths.minus
+      d: treesPaths.minus
     })));
   },
   PlusSquareO: function PlusSquareO(props) {
     return /*#__PURE__*/React__default.createElement("svg", _extends({}, props, {
       viewBox: "64 -65 897 897"
     }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("path", {
-      d: paths.plus
+      d: treesPaths.plus
     })));
   },
   EyeO: function EyeO(props) {
     return /*#__PURE__*/React__default.createElement("svg", _extends({}, props, {
       viewBox: "61  51 902 666"
     }), /*#__PURE__*/React__default.createElement("g", null, /*#__PURE__*/React__default.createElement("path", {
-      d: paths.eye
+      d: treesPaths.eye
     })));
   }
 };
-var TreesContent = function TreesContent(_ref) {
+function TreesContent(_ref) {
   var content = _ref.content,
       type = _ref.type,
       set = _ref.set,
@@ -1974,7 +2214,7 @@ var TreesContent = function TreesContent(_ref) {
       _ref$dark = _ref.dark,
       dark = _ref$dark === void 0 ? false : _ref$dark;
   var Icon = React.useMemo(function () {
-    return TreeIcon[icon + "SquareO"];
+    return TreeIcons[icon + "SquareO"];
   }, [icon]);
   var color = React.useMemo(function () {
     return dark ? "#818181" : "#212121";
@@ -1995,81 +2235,46 @@ var TreesContent = function TreesContent(_ref) {
     });
   }, [set]);
   return !content ? null : /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Icon, {
-    style: _extends({}, styles$6.tggl, {
+    style: _extends({}, treesStyles.tggl, {
       opacity: opacity,
       color: color
     }),
     onClick: iconClick
   }), /*#__PURE__*/React__default.createElement("span", {
-    style: _extends({}, styles$6.type, {
+    style: _extends({}, treesStyles.type, {
       marginRight: type ? 10 : 0,
       color: color
     })
-  }, type), hide && /*#__PURE__*/React__default.createElement(TreeIcon.EyeO, {
-    style: _extends({}, styles$6.tggl, {
+  }, type), hide && /*#__PURE__*/React__default.createElement(TreeIcons.EyeO, {
+    style: _extends({}, treesStyles.tggl, {
       color: color
     }),
     onClick: eyeClick
   }), /*#__PURE__*/React__default.createElement("span", {
-    style: _extends({}, styles$6.cont, {
+    style: _extends({}, treesStyles.cont, {
       color: color
     })
   }, content));
-};
-var Trees = function Trees(_ref2) {
-  var _ref2$open = _ref2.open,
-      open = _ref2$open === void 0 ? true : _ref2$open,
-      _ref2$visible = _ref2.visible,
-      visible = _ref2$visible === void 0 ? true : _ref2$visible,
-      _ref2$immediate = _ref2.immediate,
-      immediate = _ref2$immediate === void 0 ? true : _ref2$immediate,
-      _ref2$depth = _ref2.depth,
-      depth = _ref2$depth === void 0 ? 0 : _ref2$depth,
-      _ref2$root = _ref2.root,
-      root = _ref2$root === void 0 ? 1 : _ref2$root,
-      _ref2$springConfig = _ref2.springConfig,
-      springConfig = _ref2$springConfig === void 0 ? defaultConfig : _ref2$springConfig,
-      _ref2$dark = _ref2.dark,
-      dark = _ref2$dark === void 0 ? false : _ref2$dark,
-      _ref2$size = _ref2.size,
-      size = _ref2$size === void 0 ? 1 : _ref2$size,
-      _ref2$style = _ref2.style,
-      style = _ref2$style === void 0 ? {} : _ref2$style,
-      _ref2$topStyle = _ref2.topStyle,
-      topStyle = _ref2$topStyle === void 0 ? {} : _ref2$topStyle,
-      props = _objectWithoutPropertiesLoose(_ref2, ["open", "visible", "immediate", "depth", "root", "springConfig", "dark", "size", "style", "topStyle"]);
+}
+function Trees(props) {
+  var _props$depth = props.depth,
+      depth = _props$depth === void 0 ? 0 : _props$depth,
+      _props$root = props.root,
+      root = _props$root === void 0 ? 1 : _props$root;
 
-  var _useState = React.useState({
-    open: open,
-    visible: visible,
-    immediate: immediate
-  }),
-      state = _useState[0],
-      set = _useState[1];
+  var _useTrees = useTrees(props),
+      _useTrees$ = _useTrees[0],
+      topStyle = _useTrees$.topStyle,
+      childStyle = _useTrees$.childStyle,
+      icon = _useTrees$.icon,
+      set = _useTrees[1];
 
-  var spring = reactSpring.useSpring({
-    immediate: state.immediate,
-    config: _extends({}, reactSpring.config.default, springConfig),
-    from: {
-      height: 0,
-      opacity: 0,
-      transform: 'translate3d(20px,0,0)'
-    },
-    to: {
-      height: state.open ? 'auto' : 0,
-      opacity: state.open ? 1 : 0,
-      transform: state.open ? 'translate3d(0px,0,0)' : 'translate3d(20px,0,0)'
-    }
-  });
   var children = React.useMemo(function () {
     return React.Children.map(props.children, function (child) {
-      var _ref3, _ref3$props;
+      var _ref2, _ref2$props;
 
-      var grand = React.Children.toArray((_ref3 = child) == null ? void 0 : (_ref3$props = _ref3.props) == null ? void 0 : _ref3$props.children) || [];
+      var grand = React.Children.toArray((_ref2 = child) == null ? void 0 : (_ref2$props = _ref2.props) == null ? void 0 : _ref2$props.children) || [];
       return props.children && /*#__PURE__*/React__default.createElement(Trees, _extends({}, props, {
-        dark: dark,
-        size: size,
-        style: style,
         depth: depth + 1,
         topStyle: {},
         open: depth < root,
@@ -2078,36 +2283,17 @@ var Trees = function Trees(_ref2) {
         content: grand.length > 1 ? grand[0] : child
       }));
     });
-  }, [props, depth, root, dark, size, style]);
-  var icon = React.useMemo(function () {
-    return children instanceof Array && children.length > 0 ? state.open ? 'Minus' : 'Plus' : 'Close';
-  }, [children, state.open]);
-  React.useEffect(function () {
-    return void set(function (p) {
-      return visible !== p.visible ? _extends({}, p, {
-        visible: visible
-      }) : p;
-    });
-  }, [visible]);
+  }, [props, depth, root]);
   return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends({}, styles$6.tree, {
-      fontSize: size * 50,
-      zIndex: -depth
-    }, style, topStyle)
+    style: topStyle
   }, /*#__PURE__*/React__default.createElement(TreesContent, _extends({}, props, {
     icon: icon,
     set: set,
-    opacity: (children == null ? void 0 : children.length) ? 1 : .3,
-    dark: dark,
-    size: size
+    opacity: (children == null ? void 0 : children.length) ? 1 : .3
   })), /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends({}, depth > 0 ? {
-      borderLeft: "1px dashed #" + (dark ? 818181 : 212121)
-    } : {}, styles$6.top, {
-      padding: "4px 0px 0px " + size * 25 + "px"
-    }, spring)
+    style: childStyle
   }, children));
-};
+}
 
 exports.Card = Card;
 exports.Code = Code;
@@ -2131,15 +2317,26 @@ exports.TransArea = TransArea;
 exports.TransContainer = TransContainer;
 exports.TransIcon = TransIcon;
 exports.TransItem = TransItem;
-exports.TreeIcon = TreeIcon;
+exports.TreeIcons = TreeIcons;
 exports.Trees = Trees;
 exports.TreesContent = TreesContent;
 exports.clamp = clamp;
+exports.defaultPage = defaultPage;
+exports.equalPathname = equalPathname;
 exports.getWRate = getWRate;
 exports.is = is;
+exports.joinPage = joinPage;
+exports.joinURL = joinURL;
 exports.merge = merge;
+exports.normPage = normPage;
+exports.pageConfig = pageConfig;
 exports.range = range;
 exports.samp = samp;
 exports.sign = sign;
 exports.swap = swap;
 exports.topUp = topUp;
+exports.treesConfig = treesConfig;
+exports.treesPaths = treesPaths;
+exports.treesStyles = treesStyles;
+exports.usePage = usePage;
+exports.useTrees = useTrees;

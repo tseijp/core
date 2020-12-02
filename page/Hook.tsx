@@ -16,7 +16,7 @@ export const Hook:FC = () => {
     const [dark, setDark] = useGrid<number>({init:0, md:1, lg:0  })
     const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
     const [page, setPage] = usePage<HookPage>(hookPage, pageConfig)
-    const [side, setSide] = useGrid({xs:0,lg:89/233})
+    const [side, setSide] = useGrid<number>({xs:0,lg:89/233})
     return (
     <div style={{...styles.top,background:dark?"#000":"#fff"}}>
         {   (page.hash==="#app"&&page.Hook&&<page.Hook/>)

@@ -26,7 +26,7 @@
 - [useGrid](https://tsei.jp/hook/use-grid/)
 - ~[useUrei](https://tsei.jp/hook/use-urei/)~
 
-# Install Via npm
+# Install via npm
 - `npm i -S @tsei/core`
 
 # Get Started
@@ -39,84 +39,75 @@
 hooks | what?  
 :-----|:-----  
 [useGrid](https://github.com/tseijp/use-grid) | build responsive layouts of all shapes and sizes
-useNote | manage notes data and edit note
 usePage | manage page transitions and restful api urls
-useUser | basic function of account authentication using cookies
 
-# Simple example
-<p align="center">
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/containers/">
-        <strong>CONTAINERS</strong></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Card.tsx">
-        <img src="https://img.shields.io/badge/Card-black.svg"/></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Code.tsx">
-        <img src="https://img.shields.io/badge/Code-black.svg"/></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Edit.tsx">
-        <img src="https://img.shields.io/badge/Edit-black.svg"/></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Grow.tsx">
-        <img src="https://img.shields.io/badge/Grow-black.svg"/></a>
-</p>
+<details>
+<summary>
 
-```javascript
-import React from 'react'
-import { Split, Trees, Notes, Modal } from '@tsei/core'
-const App = () =>
-    <>
-        <Split>
-            <Trees>
-                <>➊</>
-                <>
-                    <>➋</>
-                    <>➋ - ➊</>
-                    <>➋ - ➋</>
-                </>
-            </Trees>
-            <Notes>
-                <>➊</>
-                <>
-                    <>➋</>
-                    <>➋ - ➊</>
-                    <>➋ - ➋</>
-                </>
-            </Notes>
-        </Split>
-    </>
+# Recipes
+
+</summary>
+<table>
+<tr align="center"><td><br/>
+
+[![ Components ](
+    https://img.shields.io/badge/Components-black.svg)](
+    https://github.com/tseijp/core/tree/master/src/components/)
+
+</td><td><br/>
+
+[![ Demo ](
+    https://img.shields.io/badge/Demo-black.svg)](
+    https://github.com/tseijp/core/tree/master/page/demos/components)
+
+</td></tr><tr><td>
+<h6>Card</h6>
+</td><td>
+
+```tsx
+<Card/>
 ```
 
-<hr>
-<p align="center">
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/containers/">
-        <strong>NAVIGATORS</strong></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Head.tsx">
-        <img src="https://img.shields.io/badge/Head-black.svg"/></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Foot.tsx">
-        <img src="https://img.shields.io/badge/Foot-black.svg"/></a>
-    <a href="https://github.com/tseijp/tseijp/blob/master/core/src/components/Icon.tsx">
-        <img src="https://img.shields.io/badge/Icon-black.svg"/></a>
-</p>
+</td></tr><tr><td>
+<h6>Code</h6>
+</td><td>
 
-```javascript
-const App = () =>
-    <>
-        <Sides>
-            <>Home</>
-            <>Hook</>
-            <>Note</>
-        </Sides>
-        <Trans>
-            <>JA</>
-            <>🌛</>
-            <>👶</>
-        </Trans>
-        <Pills>
-            <>
-                <>o‍</>
-                <>x</>
-            </>
-        </Pills>
-        <Modal>
-            <>🥰</>
-            <>🌚</>
-        </Modal>
-    </>
+```tsx
+<Code/>
 ```
+
+</td></tr><tr><td>
+<h6>Grow</h6>
+</td><td>
+
+```tsx
+<Grow/>
+```
+
+</td></tr><tr><td>
+<h6>Head</h6>
+</td><td>
+
+```tsx
+<Head/>
+```
+
+</td></tr><tr><td>
+<h6>Foot</h6>
+</td><td>
+
+```tsx
+<Foot/>
+```
+
+</td></tr><tr><td>
+
+<h6>Icon</h6>
+</td><td>
+
+```tsx
+<Icon/>
+```
+
+</td></tr></table>
+</details>
