@@ -18,15 +18,15 @@ export const Icon:Icon = ({
         ...props.style,color,height:size*50,width:size*50,fontSize:size*50
     }), [size,circ,color,props.style] )
     return <a.div style={{
-                x : xys.interpolate((x,y,s) => x*size*50+y*s),
-                y : xys.interpolate((x,y,s) => y*size*50+x*s),
-                filter : xys.interpolate((x,y,s) => [
+                x : xys.to((x,y,s) => x*size*50+y*s),
+                y : xys.to((x,y,s) => y*size*50+x*s),
+                filter : xys.to((x,y,s) => [
                     `drop-shadow(${0.1+x}rem`, // -x~0.5~x
                                 `${0.5+y}rem`, // -y~1.5~y
                                 `${1-s/2}rem`, // 1 =hover=> 0.5
                     `rgba(0,0,0, ${0.5+s/20}))`// 0.50 =hover=> 0.55
                 ].join(' ')),
-                transform : xys.interpolate((x,y,s) => [
+                transform : xys.to((x,y,s) => [
                     `perspective(${size*50}px)`,
                     `rotateX(${-y}deg)`,//-1 ~ 1
                     `rotateY(${x}deg)` ,//-1 ~ 1

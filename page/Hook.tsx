@@ -5,6 +5,7 @@ import {Helmet}   from 'react-helmet-async';
 import {hookTree,hookPage,HookPage,pageConfig} from './utils';
 import {is,topUp,Card,Code,Notes,Sides,Split,Trees,Trans} from '../src'
 import {usePage} from './notes'
+
 const styles:{[key:string]:CSS} = {
     top : {position:"relative",transition:"1s",overflowX:"hidden",minHeight:"100%",},
     item: {position:"relative",height:"100vh",},
@@ -22,7 +23,7 @@ export const Hook:FC = () => {
         {   (page.hash==="#app"&&page.Hook&&<page.Hook/>)
         ||  (page.hash==="#raw"&&page.code&&<>{page.code}</>)
         ||  (
-        <Split order={page.Hook?[side,-1]:[1,0]} min={.1} styleItem={styles.item}>
+        <Split order={page.Hook?[side,-1]:[1,0]} min={.1} style={styles.item}>
             <Notes {...{dark,size,space:"1rem"}}>
                 <CardHook {...{dark,size}}>{page.Hook &&
                     <Controls

@@ -7,25 +7,6 @@ export const swap  = (arr:number[],ind:number,row:number) => {
     const ret = [...arr.slice(0, ind), ...arr.slice(ind+1, arr.length)]
     return [...ret.slice(0, row), ...arr.slice(ind, ind+1), ...ret.slice(row)]
 }
-export const sign =(num=0):number=> 0
-    ||  (num < 0 &&-1)
-    ||  (num > 0 && 1)
-    ||  (num===0 && 0)
-    ||  0
-export const samp = <T extends any>(a:T[], l:number, d?:T):T[] => [
-    ...a.slice(0,l),
-    ...(l-a.length>0? Array(l-a.length).fill(d||a[0]) : [])
-]
-export const getWRate = (o=[] as number[],l=0,w=0,width=window.innerWidth) =>
-    o instanceof Array && o.length > 0
-        ? samp(o, l, -1)
-            .map((v=0) => 0
-                || (w > 0 && (w <= 1 ? w : w/width))
-                || (v > 0 && (v <= 1 ? v : v/width))
-                || (v < 0 && -1)
-                || 0)
-            .map((v,_,s) => v>=0? v : 1 - [...s.filter(v=>v>0),0].reduce((a,b)=>a+b)/s.filter(v=>v<0).length)
-        : Array(l).fill(l>0?1/l:l)
 // ************************* 🍭 helpers 🍭 ************************* //
 // * This function is fork of react-spring
 // * Code : https://github.com/pmndrs/react-spring/blob/master/src/shared/helpers.ts

@@ -35,18 +35,18 @@ export const Card:Card = ({
         onMove : ({xy:[x,y]}) => set({xyz:calc(x,y)}),
     })
     return <a.div style={{
-            boxShadow: xyz.interpolate((x,y,z) => [
+            boxShadow: xyz.to((x,y,z) => [
                 `${0.5-x*2}rem`,//offset-x     : -1.5 ~ 0.5 ~ 2.5
                 `${1.5-y*2}rem`,//offset-y     : -0.5 ~ 1.5 ~ 3.5
                 `${1.5 + z}rem`,//blur-radius  : 1.5 =hover=> 2.5
                 `${z - 0.5}rem`,//spread-radius:-0.5 =hover=> 0.5
                 `hsl(200 50% 20% / ${15+z*5}%)`].join(' ')) as any,
-            transform: xyz.interpolate((x,y,z) => [
+            transform: xyz.to((x,y,z) => [
                 `perspective(${size*50}px)`,
                 `rotateX(${-y/10}deg)`     ,//-0.1 ~ 0.1
                 `rotateY(${ x/10}deg)`     ,//-0.1 ~ 0.1
                 `scale(${1+z/10})` ,].join(' ')),
-            zIndex: xyz.interpolate((x,y,z) => x*y*z>0 ? 1 : 0) as any,
+            zIndex: xyz.to((x,y,z) => x*y*z>0 ? 1 : 0) as any,
             ...styleCard, ...style } as any}
            {...bind()}
            {...{...props,children}}/>

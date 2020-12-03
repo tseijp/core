@@ -12,7 +12,7 @@ const styles:{[key:string]:CSS} = {
 }
 export const NotesSide:FC<Props> = ({
     children,size=1,height=0,x, debug=false,
-}) => x.interpolate((px:number)=>px**2<=0 ) ? null :
+}) => x.to((px:number)=>px**2<=0 ) ? null :
     <a.div children={children} style={{...styles.side, height, ...background({b:255,debug}),
         y:0,  x:x.to((px:number)=> -px+(px>0?-.5:.5)*(size*500)),
         scale  :x.to((px:number)=>px**2/4>size**2?1:(px>0?px:-px)/(size)),

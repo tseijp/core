@@ -13,10 +13,10 @@ const styles: {[key:string]: CSS} = {
 }
 export const TransArea :FC<Props> = ({size=1, spring}) => (
     <a.div style={{
-        width: spring.r.interpolate((r:number)=>`${
+        width: spring.r.to((r:number)=>`${
             50*size*( Math.cos(r/90*Math.PI)+1.5)
         }px`),
-        background: spring.scale.interpolate((s:number)=>[
+        background: spring.scale.to((s:number)=>[
             `linear-gradient(90deg`,
             `rgba(0,0,0,0)`,
             `rgba(0,0,0,${s-1}))`
@@ -30,7 +30,7 @@ export const TransIcon : FC<Props> = ({size=1, spring, circ=false}) =>(
 )
 export const TransContainer : FC<Props> = ({children, size=1, spring, }) => (
     <a.div style={{...styles.cont,
-        width:spring.r.interpolate((r=0) => `${ 50*size*(Math.cos(r/90*Math.PI)+1) }px` )}as any}>
+        width:spring.r.to((r=0) => `${ 50*size*(Math.cos(r/90*Math.PI)+1) }px` )}as any}>
         <div style={{margin:`calc(${50*size*2}px - 2%) 0px 0px 0px`}as any}>{children}</div>
     </a.div>
 )

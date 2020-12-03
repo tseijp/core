@@ -20,7 +20,7 @@ export const SidesArea :FC<Props> = ({spring, bind, size=1}) => (
 )
 export const SidesContainer : FC<Props> = ({size=1, spring, children}) => (
     <a.div style={{...styles.cont,
-        width:spring.x.interpolate((x:number)=>x>0?x:0),
+        width:spring.x.to((x:number)=>x>0?x:0),
         borderRadius:`0px ${50*size}px ${50*size}px 0px`,
         background:"#212121" as any} as any}>
         <div style={{margin:`${50*size}px 0px 0px 0px`, position:"absolute"}}>{children}</div>
@@ -53,7 +53,7 @@ export const Sides:Sides = ({children, width=window.innerWidth/2, size=1, onOpen
     })
     return (
         <div style={{position:"fixed", top:0,left:0,zIndex:100}}>
-            <SidesIcon   {...{size, spring, bind, }} />
+            <SidesIcon     {...{size, spring, bind, }} />
             <SidesArea     {...{size, spring, bind, }} />
             <SidesContainer{...{size, spring, bind, }}>
             <Trees {...{dark:true,size}}>
