@@ -5,7 +5,7 @@ import { useMove } from 'react-use-gesture'
 export type Icon = FC<Props<{fa:string,fab:string,circ:boolean,onOpen:null|(()=>void)}>>
 export const Icon:Icon = ({
     fa="",fab="",dark=false,circ=true,size=1,onOpen=null, //onClose=null,
-    children,className='',...props//,color=''
+    children,className='',...props
 }) => {
     const [{xys}, set] = useSpring(() => ({xys:[0,0,0]}))
     const bind = useMove(({vxvy:[vx,vy],last}) => set({xys:[vx,vy,last?0:1]}))
@@ -18,8 +18,8 @@ export const Icon:Icon = ({
         ...props.style,color,height:size*50,width:size*50,fontSize:size*50
     }), [size,circ,color,props.style] )
     return <a.div style={{
-                x : xys.to((x,y,s) => x*size*50+y*s),
-                y : xys.to((x,y,s) => y*size*50+x*s),
+                // x : xys.to((x,y,s) => x*size*50+y*s),
+                // y : xys.to((x,y,s) => y*size*50+x*s),
                 filter : xys.to((x,y,s) => [
                     `drop-shadow(${0.1+x}rem`, // -x~0.5~x
                                 `${0.5+y}rem`, // -y~1.5~y

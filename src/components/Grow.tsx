@@ -2,7 +2,7 @@ import React, {CSSProperties as CSS, FC,useEffect, useMemo, useRef} from 'react'
 import {Props} from '../types'
 import {useView} from 'use-grid'
 export type Grow = FC<Props>
-export const Grow:Grow = ({
+export const Grow: Grow = ({
     onView=null, role="status",
     size=1, className="spinner-grow", ...props
 }) => {

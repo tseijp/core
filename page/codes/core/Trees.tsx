@@ -6,7 +6,6 @@ export const HookTrees:FC = () => {
     const dark     = useControl('dark'     , {type: 'boolean', value: false})
     const open     = useControl('open'     , {type: 'boolean', value: true })
     const immediate= useControl('immediate', {type: 'boolean', value: true })
-    const hide     = useControl('hide'     , {type: 'boolean', value: false})
     const visible  = useControl('visible'  , {type: 'boolean', value: true })
     const depth    = useControl('depth'    , {type: 'number' , value: 0, min: 0, max: 2})
     const root     = useControl('root'     , {type: 'number' , value: 1, min: 0, max: 2})
@@ -15,7 +14,7 @@ export const HookTrees:FC = () => {
     const content  = useControl('content'  , {type: 'select' , value: items[0], items})
     return (
         <Head {...{dark,size}}>
-            <Trees {...{dark,open,visible,immediate,hide,depth,root,size,icon,content}}>
+            <Trees {...{dark,open,visible,immediate,depth,root,size,icon,content}}>
                 <>
                     <>1</>
                     <>1 - 1</>
@@ -37,7 +36,6 @@ const App = () => (
         dark = {false}
         open = {true}
         immediate = {true}
-        hide = {false}
         visible = {true}
         depth = {0}
         root = {1}

@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback, Children, useRef, useEffect, useState } from 'react';
 import { useGesture, useMove } from 'react-use-gesture';
-import { useSpring, animated, useSprings, config } from 'react-spring';
+import { useSpring, animated, config, useSprings } from 'react-spring';
 import { Light } from 'react-syntax-highlighter';
 import { useView } from 'use-grid';
 import { createPortal } from 'react-dom';
@@ -144,19 +144,19 @@ var Card = function Card(_ref) {
   });
   return /*#__PURE__*/React.createElement(animated.div, _extends_1({
     style: _extends_1({
-      boxShadow: xyz.interpolate(function (x, y, z) {
+      boxShadow: xyz.to(function (x, y, z) {
         return [0.5 - x * 2 + "rem", //offset-x     : -1.5 ~ 0.5 ~ 2.5
         1.5 - y * 2 + "rem", //offset-y     : -0.5 ~ 1.5 ~ 3.5
         1.5 + z + "rem", //blur-radius  : 1.5 =hover=> 2.5
         z - 0.5 + "rem", //spread-radius:-0.5 =hover=> 0.5
         "hsl(200 50% 20% / " + (15 + z * 5) + "%)"].join(' ');
       }),
-      transform: xyz.interpolate(function (x, y, z) {
+      transform: xyz.to(function (x, y, z) {
         return ["perspective(" + size * 50 + "px)", "rotateX(" + -y / 10 + "deg)", //-0.1 ~ 0.1
         "rotateY(" + x / 10 + "deg)", //-0.1 ~ 0.1
         "scale(" + (1 + z / 10) + ")"].join(' ');
       }),
-      zIndex: xyz.interpolate(function (x, y, z) {
+      zIndex: xyz.to(function (x, y, z) {
         return x * y * z > 0 ? 1 : 0;
       })
     }, styleCard, style)
@@ -591,20 +591,20 @@ var Icon = function Icon(_ref) {
   }, [size, circ, color, props.style]);
   return /*#__PURE__*/React.createElement(animated.div, _extends_1({
     style: _extends_1({
-      x: xys.interpolate(function (x, y, s) {
+      x: xys.to(function (x, y, s) {
         return x * size * 50 + y * s;
       }),
-      y: xys.interpolate(function (x, y, s) {
+      y: xys.to(function (x, y, s) {
         return y * size * 50 + x * s;
       }),
-      filter: xys.interpolate(function (x, y, s) {
+      filter: xys.to(function (x, y, s) {
         return ["drop-shadow(" + (0.1 + x) + "rem", // -x~0.5~x
         0.5 + y + "rem", // -y~1.5~y
         1 - s / 2 + "rem", // 1 =hover=> 0.5
         "rgba(0,0,0, " + (0.5 + s / 20) + "))" // 0.50 =hover=> 0.55
         ].join(' ');
       }),
-      transform: xys.interpolate(function (x, y, s) {
+      transform: xys.to(function (x, y, s) {
         return ["perspective(" + size * 50 + "px)", "rotateX(" + -y + "deg)", //-1 ~ 1
         "rotateY(" + x + "deg)", //-1 ~ 1
         "scale(" + (1 + s / 10) + ")" // 1 ~ 1.1
@@ -650,49 +650,6 @@ var range = function range(x, min, max) {
 var swap = function swap(arr, ind, row) {
   var ret = [].concat(arr.slice(0, ind), arr.slice(ind + 1, arr.length));
   return [].concat(ret.slice(0, row), arr.slice(ind, ind + 1), ret.slice(row));
-};
-var sign = function sign(num) {
-  if (num === void 0) {
-    num = 0;
-  }
-
-  return  num < 0 && -1 || num > 0 && 1 || num === 0 && 0 || 0;
-};
-var samp = function samp(a, l, d) {
-  return [].concat(a.slice(0, l), l - a.length > 0 ? Array(l - a.length).fill(d || a[0]) : []);
-};
-var getWRate = function getWRate(o, l, w, width) {
-  if (o === void 0) {
-    o = [];
-  }
-
-  if (l === void 0) {
-    l = 0;
-  }
-
-  if (w === void 0) {
-    w = 0;
-  }
-
-  if (width === void 0) {
-    width = window.innerWidth;
-  }
-
-  return o instanceof Array && o.length > 0 ? samp(o, l, -1).map(function (v) {
-    if (v === void 0) {
-      v = 0;
-    }
-
-    return  w > 0 && (w <= 1 ? w : w / width) || v > 0 && (v <= 1 ? v : v / width) || v < 0 && -1 || 0;
-  }).map(function (v, _, s) {
-    return v >= 0 ? v : 1 - [].concat(s.filter(function (v) {
-      return v > 0;
-    }), [0]).reduce(function (a, b) {
-      return a + b;
-    }) / s.filter(function (v) {
-      return v < 0;
-    }).length;
-  }) : Array(l).fill(l > 0 ? 1 / l : l);
 }; // ************************* 🍭 helpers 🍭 ************************* //
 // * This function is fork of react-spring
 // * Code : https://github.com/pmndrs/react-spring/blob/master/src/shared/helpers.ts
@@ -916,6 +873,243 @@ config) {
   return [page, setPage];
 };
 
+var treesConfig = {
+  restSpeedThreshold: 1,
+  restDisplacementThreshold: 0.01
+};
+var treesStyles = {
+  tree: {
+    padding: '4px 0px 0px 0px',
+    position: 'relative',
+    overflow: 'hidden',
+    verticalAlign: 'middle',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis'
+  },
+  tggl: {
+    verticalAlign: 'middle',
+    width: '1em',
+    height: '1em',
+    cursor: 'pointer',
+    marginRight: 10
+  },
+  type: {
+    verticalAlign: 'middle',
+    fontSize: '0.6em',
+    fontFamily: 'monospace',
+    textTransform: 'uppercase'
+  },
+  cont: {
+    verticalAlign: 'middle',
+    display: "inline-block"
+  },
+  top: {
+    willChange: 'transform, opacity, height',
+    marginLeft: 6
+  }
+};
+var treesPaths = {
+  close: "M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
+  minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
+  plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
+  eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z"
+};
+
+function useTrees(props) {
+  var _props$open = props.open,
+      open = _props$open === void 0 ? true : _props$open,
+      _props$visible = props.visible,
+      visible = _props$visible === void 0 ? true : _props$visible,
+      _props$immediate = props.immediate,
+      immediate = _props$immediate === void 0 ? true : _props$immediate,
+      springconfig = props.springconfig;
+
+  var _useState = useState({
+    open: open,
+    visible: visible,
+    immediate: immediate
+  }),
+      state = _useState[0],
+      set = _useState[1];
+
+  var spring = useSpring({
+    immediate: state.immediate,
+    config: _extends_1({}, config.default, springconfig || treesConfig),
+    from: {
+      height: 0,
+      opacity: 0,
+      transform: 'translate3d(20px,0,0)'
+    },
+    to: {
+      height: state.open ? 'auto' : 0,
+      opacity: state.open ? 1 : 0,
+      transform: state.open ? 'translate3d(0px,0,0)' : 'translate3d(20px,0,0)'
+    }
+  });
+  var icon = useMemo(function () {
+    return props.children ? state.open ? 'Minus' : 'Plus' : 'Close';
+  }, [props.children, state.open]);
+  useEffect(function () {
+    set(function (p) {
+      return visible !== p.visible ? _extends_1({}, p, {
+        visible: visible
+      }) : p;
+    });
+  }, [visible]);
+  var _props$dark = props.dark,
+      dark = _props$dark === void 0 ? false : _props$dark,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 1 : _props$size,
+      _props$depth = props.depth,
+      depth = _props$depth === void 0 ? 0 : _props$depth,
+      _props$style = props.style,
+      style = _props$style === void 0 ? {} : _props$style,
+      _props$topStyle = props.topStyle,
+      topStyle = _props$topStyle === void 0 ? {} : _props$topStyle;
+
+  var _useMemo = useMemo(function () {
+    return [_extends_1({
+      fontSize: size * 50
+    }, treesStyles.tree, style, topStyle), _extends_1({}, depth > 0 ? {
+      borderLeft: "1px dashed #" + (dark ? 818181 : 212121)
+    } : {}, treesStyles.top, {
+      padding: "4px 0px 0px " + size * 25 + "px"
+    }, spring)];
+  }, [size, style, topStyle, dark, depth, spring]),
+      top = _useMemo[0],
+      child = _useMemo[1];
+
+  return [{
+    topStyle: top,
+    childStyle: child,
+    icon: icon
+  }, set];
+}
+
+var TreeIcons = {
+  CloseSquareO: function CloseSquareO(props) {
+    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
+      viewBox: "64 -65 897 897"
+    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+      d: treesPaths.close
+    })));
+  },
+  MinusSquareO: function MinusSquareO(props) {
+    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
+      viewBox: "64 -65 897 897"
+    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+      d: treesPaths.minus
+    })));
+  },
+  PlusSquareO: function PlusSquareO(props) {
+    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
+      viewBox: "64 -65 897 897"
+    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+      d: treesPaths.plus
+    })));
+  },
+  EyeO: function EyeO(props) {
+    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
+      viewBox: "61  51 902 666"
+    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+      d: treesPaths.eye
+    })));
+  }
+};
+function TreesContent(_ref) {
+  var content = _ref.content,
+      type = _ref.type,
+      set = _ref.set,
+      _ref$hide = _ref.hide,
+      hide = _ref$hide === void 0 ? false : _ref$hide,
+      _ref$icon = _ref.icon,
+      icon = _ref$icon === void 0 ? "Close" : _ref$icon,
+      _ref$opacity = _ref.opacity,
+      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
+      _ref$dark = _ref.dark,
+      dark = _ref$dark === void 0 ? false : _ref$dark;
+  var Icon = useMemo(function () {
+    return TreeIcons[icon + "SquareO"];
+  }, [icon]);
+  var color = useMemo(function () {
+    return dark ? "#818181" : "#212121";
+  }, [dark]);
+  var eyeClick = useCallback(function () {
+    return set && set(function (p) {
+      return _extends_1({}, p, {
+        immediate: true
+      });
+    });
+  }, [set]);
+  var iconClick = useCallback(function () {
+    return set && set(function (p) {
+      return {
+        open: !p.open,
+        immediate: false
+      };
+    });
+  }, [set]);
+  return !content ? null : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
+    style: _extends_1({}, treesStyles.tggl, {
+      opacity: opacity,
+      color: color
+    }),
+    onClick: iconClick
+  }), /*#__PURE__*/React.createElement("span", {
+    style: _extends_1({}, treesStyles.type, {
+      marginRight: type ? 10 : 0,
+      color: color
+    })
+  }, type), hide && /*#__PURE__*/React.createElement(TreeIcons.EyeO, {
+    style: _extends_1({}, treesStyles.tggl, {
+      color: color
+    }),
+    onClick: eyeClick
+  }), /*#__PURE__*/React.createElement("span", {
+    style: _extends_1({}, treesStyles.cont, {
+      color: color
+    })
+  }, content));
+}
+function Trees(props) {
+  var _props$depth = props.depth,
+      depth = _props$depth === void 0 ? 0 : _props$depth,
+      _props$root = props.root,
+      root = _props$root === void 0 ? 1 : _props$root;
+
+  var _useTrees = useTrees(props),
+      _useTrees$ = _useTrees[0],
+      topStyle = _useTrees$.topStyle,
+      childStyle = _useTrees$.childStyle,
+      icon = _useTrees$.icon,
+      set = _useTrees[1];
+
+  var children = useMemo(function () {
+    return Children.map(props.children, function (child) {
+      var _ref2, _ref2$props;
+
+      var grand = Children.toArray((_ref2 = child) == null ? void 0 : (_ref2$props = _ref2.props) == null ? void 0 : _ref2$props.children) || [];
+      return props.children && /*#__PURE__*/React.createElement(Trees, _extends_1({}, props, {
+        depth: depth + 1,
+        topStyle: {},
+        open: depth < root,
+        children: grand.length > 1 ? grand.slice(1) : null,
+        immediate: false,
+        content: grand.length > 1 ? grand[0] : child
+      }));
+    });
+  }, [props, depth, root]);
+  return /*#__PURE__*/React.createElement(animated.div, {
+    style: topStyle
+  }, /*#__PURE__*/React.createElement(TreesContent, _extends_1({}, props, {
+    icon: icon,
+    set: set,
+    opacity: (children == null ? void 0 : children.length) ? 1 : .3
+  })), /*#__PURE__*/React.createElement(animated.div, {
+    style: childStyle
+  }, children));
+}
+
 var Modal = function Modal(_ref) {
   var _ref$open = _ref.open,
       open = _ref$open === void 0 ? false : _ref$open,
@@ -1072,7 +1266,7 @@ var NotesSide = function NotesSide(_ref2) {
       x = _ref2.x,
       _ref2$debug = _ref2.debug,
       debug = _ref2$debug === void 0 ? false : _ref2$debug;
-  return x.interpolate(function (px) {
+  return x.to(function (px) {
     return Math.pow(px, 2) <= 0;
   }) ? null : /*#__PURE__*/React.createElement(animated.div, {
     children: children,
@@ -1521,7 +1715,7 @@ var SidesContainer = function SidesContainer(_ref2) {
       children = _ref2.children;
   return /*#__PURE__*/React.createElement(animated.div, {
     style: _extends_1({}, styles$3.cont, {
-      width: spring.x.interpolate(function (x) {
+      width: spring.x.to(function (x) {
         return x > 0 ? x : 0;
       }),
       borderRadius: "0px " + 50 * size + "px " + 50 * size + "px 0px",
@@ -1679,116 +1873,45 @@ var Sides = function Sides(_temp) {
   }))));
 };
 
-var styles$4 = {
-  cont: {
-    position: "relative",
-    overflow: "visible",
-    width: "100%",
-    whiteSpace: "nowrap",
-    height: "100%"
-  },
-  item: {
-    position: "relative",
-    overflow: "visible",
-    height: "100%",
-    display: "inline-block",
-    verticalAlign: "top"
+var sample = function sample(a, k, init) {
+  return [].concat(a.slice(0, k), k - a.length > 0 ? Array(k - a.length).fill(init || a[0]) : []);
+};
+
+function initSplit(o, l, dis) {
+  if (o === void 0) {
+    o = [];
   }
-};
-var Split = function Split(_ref) {
-  var _ref2, _ref2$children;
 
-  var _ref$order = _ref.order,
-      order = _ref$order === void 0 ? [] : _ref$order,
-      _ref$width = _ref.width,
-      width = _ref$width === void 0 ? 0 : _ref$width,
-      _ref$height = _ref.height,
-      _ref$min = _ref.min,
-      min = _ref$min === void 0 ? 0 : _ref$min,
-      _ref$dark = _ref.dark,
-      _ref$size = _ref.size,
-      _ref$style = _ref.style,
-      style = _ref$style === void 0 ? {} : _ref$style,
-      _ref$styleItem = _ref.styleItem,
-      styleItem = _ref$styleItem === void 0 ? {} : _ref$styleItem,
-      props = objectWithoutPropertiesLoose(_ref, ["order", "width", "height", "min", "dark", "size", "style", "styleItem"]);
+  if (l === void 0) {
+    l = 0;
+  }
 
-  var sRef = useRef(0);
-  var lRef = useRef(((_ref2 = props) == null ? void 0 : (_ref2$children = _ref2.children) == null ? void 0 : _ref2$children.length) || 1);
-  var wRef = useRef(getWRate(order, lRef.current, width));
+  if (dis === void 0) {
+    dis = 256;
+  }
 
-  var _useSprings = useSprings(wRef.current.length, function (i) {
-    return {
-      w: wRef.current[i],
-      z: 0
-    };
-  }),
-      s = _useSprings[0],
-      set = _useSprings[1];
-
-  var bind = useGesture({
-    onDrag: function onDrag(_ref3) {
-      var first = _ref3.first,
-          last = _ref3.last,
-          _ref3$args = _ref3.args,
-          key = _ref3$args[0],
-          _ref3$movement = _ref3.movement,
-          mx = _ref3$movement[0],
-          _ref3$direction = _ref3.direction,
-          dir = _ref3$direction[0];
-      if (sRef.current === 0 || first) sRef.current = sign(dir);
-      sign(dir) === sRef.current && set(move(key, mx, sign(dir), min, wRef, lRef));
-      if (!last) return;
-      wRef.current = s.map(function (s) {
-        return s.w.animation.to || 0;
-      });
+  if (o.length < 1) return Array(l).fill(l > 0 ? 1 / l : l);
+  return sample(o, l, -1).map(function (v) {
+    if (v === void 0) {
+      v = 0;
     }
+
+    return  v > 0 && (v <= 1 ? v : v / dis) || v < 0 && -1 || 0;
+  }).map(function (v, _, s) {
+    return v >= 0 ? v : 1 - [].concat(s.filter(function (v) {
+      return v > 0;
+    }), [0]).reduce(function (a, b) {
+      return a + b;
+    }) / s.filter(function (v) {
+      return v < 0;
+    }).length;
   });
-  var children = useMemo(function () {
-    return Children.map(props.children, function (c) {
-      return c;
-    });
-  }, [props.children]);
-  useEffect(function () {
-    var _ref4, _ref4$children;
+}
+function moveSplit(r, k, mx, s, m, l, dis) {
+  if (r === void 0) {
+    r = [];
+  }
 
-    var len = ((_ref4 = props) == null ? void 0 : (_ref4$children = _ref4.children) == null ? void 0 : _ref4$children.length) || 0;
-    if (len === lRef.current) return;
-    lRef.current = len;
-    wRef.current = [].concat(wRef.current.map(function (v) {
-      return v - 1 / len / wRef.current.length;
-    }), [1 / len]);
-    set(function (i) {
-      return {
-        w: wRef.current[i]
-      };
-    });
-  }, [props, set]);
-  useEffect(function () {
-    wRef.current = getWRate(order, lRef.current, width);
-    set(function (i) {
-      return {
-        w: wRef.current[i]
-      };
-    });
-  }, [width, set, order]);
-  return /*#__PURE__*/React.createElement(animated.div, _extends_1({
-    style: _extends_1({}, styles$4.cont, style)
-  }, props), s.map(function (_ref5, key) {
-    var w = _ref5.w;
-    return /*#__PURE__*/React.createElement(animated.div, _extends_1({}, bind(key), {
-      key: key
-    }, {
-      style: _extends_1({}, styles$4.item, styleItem, {
-        width: w.interpolate(function (v) {
-          return 100 * v + "%";
-        })
-      })
-    }), children[key]);
-  }));
-};
-
-function move(k, mx, s, m, _ref6, _ref7, W) {
   if (k === void 0) {
     k = 0;
   }
@@ -1805,13 +1928,12 @@ function move(k, mx, s, m, _ref6, _ref7, W) {
     m = 0;
   }
 
-  var _ref6$current = _ref6.current,
-      w = _ref6$current === void 0 ? [] : _ref6$current;
-  var _ref7$current = _ref7.current,
-      l = _ref7$current === void 0 ? 0 : _ref7$current;
+  if (l === void 0) {
+    l = 0;
+  }
 
-  if (W === void 0) {
-    W = window.innerWidth;
+  if (dis === void 0) {
+    dis = 256;
   }
 
   return function (i) {
@@ -1821,15 +1943,141 @@ function move(k, mx, s, m, _ref6, _ref7, W) {
 
     return [k, k + s].every(function (e) {
       return range(e, -1, l);
-    }) ? (i === k || i === k + s) && range(w[i] + mx * s * (i === k ? 1 : -1) / W, m, w[k] + w[k + s] - m) ? {
-      w: w[i] + mx * s * (i === k ? 1 : -1) / W
-    } : null : (i === k || i === k - s) && range(w[i] - mx * s * (i === k ? 1 : -1) / W, m, w[k] + w[k - s] - m) ? {
-      w: w[i] - mx * s * (i === k ? 1 : -1) / W
+    }) ? (i === k || i === k + s) && range(r[i] + mx * s * (i === k ? 1 : -1) / dis, m, r[k] + r[k + s] - m) ? {
+      r: r[i] + mx * s * (i === k ? 1 : -1) / dis
+    } : null : (i === k || i === k - s) && range(r[i] - mx * s * (i === k ? 1 : -1) / dis, m, r[k] + r[k - s] - m) ? {
+      r: r[i] - mx * s * (i === k ? 1 : -1) / dis
     } : null;
   };
 }
 
-var styles$5 = {
+function useSplit(_ref) {
+  var _ref$children = _ref.children,
+      children = _ref$children === void 0 ? null : _ref$children,
+      _ref$style = _ref.style,
+      style = _ref$style === void 0 ? {} : _ref$style,
+      _ref$min = _ref.min,
+      min = _ref$min === void 0 ? 0 : _ref$min,
+      _ref$width = _ref.width,
+      width = _ref$width === void 0 ? window.innerWidth : _ref$width,
+      _ref$height = _ref.height,
+      height = _ref$height === void 0 ? window.innerHeight : _ref$height,
+      _ref$order = _ref.order,
+      order = _ref$order === void 0 ? [] : _ref$order,
+      _ref$vertical = _ref.vertical,
+      vertical = _ref$vertical === void 0 ? false : _ref$vertical;
+  var len = useMemo(function () {
+    return (children == null ? void 0 : children.length) || 0;
+  }, [children]);
+  var dis = useMemo(function () {
+    return vertical ? height : width;
+  }, [vertical, height, width]);
+  var sRef = useRef(0);
+  var rRef = useRef(initSplit(order, len, dis));
+
+  var _useSprings = useSprings(len, function (i) {
+    return {
+      r: rRef.current[i]
+    };
+  }),
+      s = _useSprings[0],
+      _ = _useSprings[1];
+
+  var bind = useGesture({
+    onDrag: function onDrag(_ref2) {
+      var first = _ref2.first,
+          last = _ref2.last,
+          _ref2$args = _ref2.args,
+          key = _ref2$args[0],
+          movement = _ref2.movement,
+          direction = _ref2.direction;
+
+      var _map = [movement, direction].map(function (xy) {
+        return xy[vertical ? 1 : 0];
+      }),
+          m = _map[0],
+          d = _map[1];
+
+      if (sRef.current === 0 || first) sRef.current = sign(d);
+      if (sign(d) === sRef.current) _(moveSplit(rRef.current, key, m, sign(d), min, len, dis));
+      if (last) rRef.current = s.map(function (s) {
+        return s.r.animation.to || 0;
+      });
+    }
+  }); // *************** RENDER *************** //
+
+  var styles = useCallback(function (i) {
+    var _s$i, _s$i$r, _s$i2, _s$i2$r;
+
+    if (i === void 0) {
+      i = 0;
+    }
+
+    return _extends_1({}, style, vertical ? {
+      width: "100%",
+      height: (_s$i = s[i]) == null ? void 0 : (_s$i$r = _s$i.r) == null ? void 0 : _s$i$r.to(function (v) {
+        if (v === void 0) {
+          v = 0;
+        }
+
+        return 100 * v + "%";
+      })
+    } : {
+      height: "100%",
+      width: (_s$i2 = s[i]) == null ? void 0 : (_s$i2$r = _s$i2.r) == null ? void 0 : _s$i2$r.to(function (v) {
+        if (v === void 0) {
+          v = 0;
+        }
+
+        return 100 * v + "%";
+      })
+    }, {
+      verticalAlign: "top",
+      display: (vertical ? "" : "inline-") + "block"
+    });
+  }, [vertical, s, style]);
+  useEffect(function () {
+    rRef.current = initSplit(order, len, dis);
+
+    _(function (i) {
+      return {
+        r: rRef.current[i]
+      };
+    });
+  }, [order, len, dis, _]);
+  return [styles, bind];
+}
+
+function sign(num) {
+  if (num === void 0) {
+    num = 0;
+  }
+
+  return num < 0 && -1 || num > 0 && 1 || num === 0 && 0 || 0;
+}
+
+function Split(props) {
+  var _useSplit = useSplit(props),
+      styles = _useSplit[0],
+      bind = _useSplit[1];
+
+  return /*#__PURE__*/React.createElement(animated.div, {
+    style: {
+      width: "100%",
+      height: "100%",
+      whiteSpace: "nowrap"
+    }
+  }, Children.map(props.children, function (children, key) {
+    return /*#__PURE__*/React.createElement(animated.div, _extends_1({
+      style: styles(key)
+    }, bind(key), {
+      key: key,
+      children: children
+    }));
+  }));
+}
+
+var styles$4 = {
   top: {
     position: "fixed",
     top: 0,
@@ -1870,13 +2118,13 @@ var TransArea = function TransArea(_ref) {
       spring = _ref.spring;
   return /*#__PURE__*/React.createElement(animated.div, {
     style: _extends_1({
-      width: spring.r.interpolate(function (r) {
+      width: spring.r.to(function (r) {
         return 50 * size * (Math.cos(r / 90 * Math.PI) + 1.5) + "px";
       }),
-      background: spring.scale.interpolate(function (s) {
+      background: spring.scale.to(function (s) {
         return ["linear-gradient(90deg", "rgba(0,0,0,0)", "rgba(0,0,0," + (s - 1) + "))"].join(',');
       })
-    }, styles$5.area)
+    }, styles$4.area)
   });
 };
 var TransIcon = function TransIcon(_ref2) {
@@ -1886,7 +2134,7 @@ var TransIcon = function TransIcon(_ref2) {
       _ref2$circ = _ref2.circ,
       circ = _ref2$circ === void 0 ? false : _ref2$circ;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$5.icon, {
+    style: _extends_1({}, styles$4.icon, {
       top: 50 * size,
       rotateZ: spring.r
     })
@@ -1903,8 +2151,8 @@ var TransContainer = function TransContainer(_ref3) {
       size = _ref3$size === void 0 ? 1 : _ref3$size,
       spring = _ref3.spring;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$5.cont, {
-      width: spring.r.interpolate(function (r) {
+    style: _extends_1({}, styles$4.cont, {
+      width: spring.r.to(function (r) {
         if (r === void 0) {
           r = 0;
         }
@@ -1923,7 +2171,7 @@ var TransItem = function TransItem(_ref4) {
       _ref4$size = _ref4.size,
       size = _ref4$size === void 0 ? 1 : _ref4$size;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$5.item, {
+    style: _extends_1({}, styles$4.item, {
       margin: 50 * size / 4 + "px 0px",
       borderRadius: 50 * size + "px 0px  0px " + 50 * size + "px"
     })
@@ -2053,7 +2301,7 @@ var Trans = function Trans(_temp) {
     }
   });
   return /*#__PURE__*/React.createElement(animated.div, _extends_1({}, bind(), {
-    style: styles$5.top
+    style: styles$4.top
   }), /*#__PURE__*/React.createElement(TransIcon, {
     size: size,
     spring: spring
@@ -2071,241 +2319,4 @@ var Trans = function Trans(_temp) {
   })));
 };
 
-var treesConfig = {
-  restSpeedThreshold: 1,
-  restDisplacementThreshold: 0.01
-};
-var treesStyles = {
-  tree: {
-    padding: '4px 0px 0px 0px',
-    position: 'relative',
-    overflow: 'hidden',
-    verticalAlign: 'middle',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis'
-  },
-  tggl: {
-    verticalAlign: 'middle',
-    width: '1em',
-    height: '1em',
-    cursor: 'pointer',
-    marginRight: 10
-  },
-  type: {
-    verticalAlign: 'middle',
-    fontSize: '0.6em',
-    fontFamily: 'monospace',
-    textTransform: 'uppercase'
-  },
-  cont: {
-    verticalAlign: 'middle',
-    display: "inline-block"
-  },
-  top: {
-    willChange: 'transform, opacity, height',
-    marginLeft: 6
-  }
-};
-var treesPaths = {
-  close: "M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
-  minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
-  plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
-  eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z"
-};
-
-function useTrees(props) {
-  var _props$open = props.open,
-      open = _props$open === void 0 ? true : _props$open,
-      _props$visible = props.visible,
-      visible = _props$visible === void 0 ? true : _props$visible,
-      _props$immediate = props.immediate,
-      immediate = _props$immediate === void 0 ? true : _props$immediate,
-      springconfig = props.springconfig;
-
-  var _useState = useState({
-    open: open,
-    visible: visible,
-    immediate: immediate
-  }),
-      state = _useState[0],
-      set = _useState[1];
-
-  var spring = useSpring({
-    immediate: state.immediate,
-    config: _extends_1({}, config.default, springconfig || treesConfig),
-    from: {
-      height: 0,
-      opacity: 0,
-      transform: 'translate3d(20px,0,0)'
-    },
-    to: {
-      height: state.open ? 'auto' : 0,
-      opacity: state.open ? 1 : 0,
-      transform: state.open ? 'translate3d(0px,0,0)' : 'translate3d(20px,0,0)'
-    }
-  });
-  var icon = useMemo(function () {
-    return props.children ? state.open ? 'Minus' : 'Plus' : 'Close';
-  }, [props.children, state.open]);
-  useEffect(function () {
-    set(function (p) {
-      return visible !== p.visible ? _extends_1({}, p, {
-        visible: visible
-      }) : p;
-    });
-  }, [visible]);
-  var _props$dark = props.dark,
-      dark = _props$dark === void 0 ? false : _props$dark,
-      _props$size = props.size,
-      size = _props$size === void 0 ? 1 : _props$size,
-      _props$depth = props.depth,
-      depth = _props$depth === void 0 ? 0 : _props$depth,
-      _props$style = props.style,
-      style = _props$style === void 0 ? {} : _props$style,
-      _props$topStyle = props.topStyle,
-      topStyle = _props$topStyle === void 0 ? {} : _props$topStyle;
-
-  var _useMemo = useMemo(function () {
-    return [_extends_1({
-      fontSize: size * 50
-    }, treesStyles.tree, style, topStyle), _extends_1({}, depth > 0 ? {
-      borderLeft: "1px dashed #" + (dark ? 818181 : 212121)
-    } : {}, treesStyles.top, {
-      padding: "4px 0px 0px " + size * 25 + "px"
-    }, spring)];
-  }, [size, style, topStyle, dark, depth, spring]),
-      top = _useMemo[0],
-      child = _useMemo[1];
-
-  return [{
-    topStyle: top,
-    childStyle: child,
-    icon: icon
-  }, set];
-}
-
-var TreeIcons = {
-  CloseSquareO: function CloseSquareO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "64 -65 897 897"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.close
-    })));
-  },
-  MinusSquareO: function MinusSquareO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "64 -65 897 897"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.minus
-    })));
-  },
-  PlusSquareO: function PlusSquareO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "64 -65 897 897"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.plus
-    })));
-  },
-  EyeO: function EyeO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "61  51 902 666"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.eye
-    })));
-  }
-};
-function TreesContent(_ref) {
-  var content = _ref.content,
-      type = _ref.type,
-      set = _ref.set,
-      _ref$hide = _ref.hide,
-      hide = _ref$hide === void 0 ? false : _ref$hide,
-      _ref$icon = _ref.icon,
-      icon = _ref$icon === void 0 ? "Close" : _ref$icon,
-      _ref$opacity = _ref.opacity,
-      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
-      _ref$dark = _ref.dark,
-      dark = _ref$dark === void 0 ? false : _ref$dark;
-  var Icon = useMemo(function () {
-    return TreeIcons[icon + "SquareO"];
-  }, [icon]);
-  var color = useMemo(function () {
-    return dark ? "#818181" : "#212121";
-  }, [dark]);
-  var eyeClick = useCallback(function () {
-    return set && set(function (p) {
-      return _extends_1({}, p, {
-        immediate: true
-      });
-    });
-  }, [set]);
-  var iconClick = useCallback(function () {
-    return set && set(function (p) {
-      return {
-        open: !p.open,
-        immediate: false
-      };
-    });
-  }, [set]);
-  return !content ? null : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
-    style: _extends_1({}, treesStyles.tggl, {
-      opacity: opacity,
-      color: color
-    }),
-    onClick: iconClick
-  }), /*#__PURE__*/React.createElement("span", {
-    style: _extends_1({}, treesStyles.type, {
-      marginRight: type ? 10 : 0,
-      color: color
-    })
-  }, type), hide && /*#__PURE__*/React.createElement(TreeIcons.EyeO, {
-    style: _extends_1({}, treesStyles.tggl, {
-      color: color
-    }),
-    onClick: eyeClick
-  }), /*#__PURE__*/React.createElement("span", {
-    style: _extends_1({}, treesStyles.cont, {
-      color: color
-    })
-  }, content));
-}
-function Trees(props) {
-  var _props$depth = props.depth,
-      depth = _props$depth === void 0 ? 0 : _props$depth,
-      _props$root = props.root,
-      root = _props$root === void 0 ? 1 : _props$root;
-
-  var _useTrees = useTrees(props),
-      _useTrees$ = _useTrees[0],
-      topStyle = _useTrees$.topStyle,
-      childStyle = _useTrees$.childStyle,
-      icon = _useTrees$.icon,
-      set = _useTrees[1];
-
-  var children = useMemo(function () {
-    return Children.map(props.children, function (child) {
-      var _ref2, _ref2$props;
-
-      var grand = Children.toArray((_ref2 = child) == null ? void 0 : (_ref2$props = _ref2.props) == null ? void 0 : _ref2$props.children) || [];
-      return props.children && /*#__PURE__*/React.createElement(Trees, _extends_1({}, props, {
-        depth: depth + 1,
-        topStyle: {},
-        open: depth < root,
-        children: grand.length > 1 ? grand.slice(1) : null,
-        immediate: false,
-        content: grand.length > 1 ? grand[0] : child
-      }));
-    });
-  }, [props, depth, root]);
-  return /*#__PURE__*/React.createElement(animated.div, {
-    style: topStyle
-  }, /*#__PURE__*/React.createElement(TreesContent, _extends_1({}, props, {
-    icon: icon,
-    set: set,
-    opacity: (children == null ? void 0 : children.length) ? 1 : .3
-  })), /*#__PURE__*/React.createElement(animated.div, {
-    style: childStyle
-  }, children));
-}
-
-export { Card, Code, Foot, Grow, Head, Icon, Modal, Notes, NotesItem, NotesSide, Pills, Sides, SidesArea, SidesContainer, SidesIcon, SidesItem, Split, Trans, TransArea, TransContainer, TransIcon, TransItem, TreeIcons, Trees, TreesContent, clamp, defaultPage, equalPathname, getWRate, is, joinPage, joinURL, merge, normPage, pageConfig, range, samp, sign, swap, topUp, treesConfig, treesPaths, treesStyles, usePage, useTrees };
+export { Card, Code, Foot, Grow, Head, Icon, Modal, Notes, NotesItem, NotesSide, Pills, Sides, SidesArea, SidesContainer, SidesIcon, SidesItem, Split, Trans, TransArea, TransContainer, TransIcon, TransItem, TreeIcons, Trees, TreesContent, clamp, defaultPage, equalPathname, initSplit, is, joinPage, joinURL, merge, moveSplit, normPage, pageConfig, range, swap, topUp, treesConfig, treesPaths, treesStyles, usePage, useSplit, useTrees };

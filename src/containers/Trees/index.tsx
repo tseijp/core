@@ -1,45 +1,54 @@
-import React, {CSSProperties as CSS,Children,useMemo,useCallback} from 'react'
+import React, {Children, useMemo} from 'react'
 import {useTrees} from './hooks'
-import {treesPaths, treesStyles} from './utils'
-import {Props} from '../../types'
 import {animated as a} from 'react-spring'
+import styled from 'styled-components'
+// import {Props} from '../../types'
 
-export type TreeIcons = {
-    [key:string]: {(props:{style:CSS,onClick:()=>void,className?:string}): JSX.Element}
-}
-export const TreeIcons:TreeIcons = {
-    CloseSquareO: props => <svg {...props} viewBox="64 -65 897 897"><g><path d={treesPaths.close}/></g></svg>,
-    MinusSquareO: props => <svg {...props} viewBox="64 -65 897 897"><g><path d={treesPaths.minus}/></g></svg>,
-    PlusSquareO : props => <svg {...props} viewBox="64 -65 897 897"><g><path d={treesPaths.plus}/></g></svg>,
-    EyeO        : props => <svg {...props} viewBox="61  51 902 666"><g><path d={treesPaths.eye}/></g></svg>,
-}
-
-export function TreesContent (props: Props<{
-    [key:string]:any, set:any, content:any, type:any,
-    hide:boolean, opacity:number, root:number, icon:"Minus"|"Plus"|"Close"
-}>): JSX.Element
-
-export function TreesContent ({content,type,set,hide=false,icon="Close",opacity=1,dark=false}: any) {
-    const Icon  = useMemo(() => TreeIcons[`${icon}SquareO`], [icon])
-    const color = useMemo(() => dark? "#818181": "#212121", [dark])
-    const eyeClick  = useCallback(() => set&&set((p:any) => ({...p        ,immediate:true })), [set])
-    const iconClick = useCallback(() => set&&set((p:any) => ({open:!p.open,immediate:false})), [set])
-    return !content ? null : (
-        <>
-            <Icon style={{...treesStyles.tggl, opacity, color}} onClick={iconClick}/>
-            <span style={{...treesStyles.type, marginRight:type?10:0,color}}>{type}</span>
-            { hide &&
-            <TreeIcons.EyeO style={{...treesStyles.tggl, color}} onClick={eyeClick}/> }
-            <span style={{...treesStyles.cont,color}}>{content}</span>
-        </>
-    )
-}
-
+const TreesTop = styled<any>(a.div)`
+    padding: 4px 0px 0px 0px;
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-left: ${props => `1px dashed #${props.dark?818181:212121}`};
+    padding: ${props => `4px 0px 0px ${props.size*25}px`};
+`
+const TreesMain = styled<any>(a.div)`
+    font-size: ${props => props.size*50}px;
+    will-Cchange: transform, opacity, height;
+    margin-left: 6;
+`
+const TreesType = styled<any>(a.span)`
+    font-size: 0.6em;
+    font-family: monospace;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+    marginRight: ${props => props.type? 10:0};
+    color: ${props => props.dark? "#818181": "#212121"};
+`
+const TreesCont = styled<any>(a.div)`
+    display: inline-block;
+    verticalAlign: middle;
+    font-size: ${props => props.size*50}px;
+    color: ${props => props.dark? "#818181": "#212121"};
+`
+const TreesIcon = styled.svg<any>`
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+    margin-right: 10;
+    verticalAlign: middle;
+    font-size: ${props => props.size*50}px;
+    color: ${props => props.dark? "#818181": "#212121"}
+`
 export function Trees (props: any) {
-    const {depth=0, root=1} = props
-    const [{topStyle, childStyle, icon}, set] = useTrees(props)
+    const { content, type, depth=0, root=1, size=1.5,
+            dark=false, style={}, viewBox="64 -65 897 897"} = props
+    const [spring, bind, path] = useTrees(props)
 
-    const children = useMemo(() => Children.map(props.children, child => {
+    const main = useMemo(() => Children.map(props.children, child => {
         const grand = Children.toArray((child as any)?.props?.children) || []
         return props.children &&
             <Trees {...{...props,
@@ -49,11 +58,18 @@ export function Trees (props: any) {
     }), [props, depth, root])
 
     return (
-        <a.div style={topStyle}>
-            <TreesContent {...{...props, icon, set, opacity:children?.length?1:.3}}/>
-            <a.div style={childStyle}>{children}</a.div>
-        </a.div>
+        <TreesTop {...{style, size}}>
+            {!content ? null :
+            <TreesIcon {...{dark, size, viewBox}} {...bind()}>
+                <g><path d={path}/></g>
+            </TreesIcon>}
+            <TreesType {...{dark, type}}>{type}</TreesType>
+            <TreesCont {...{dark, size}}>{content}</TreesCont>
+            <TreesMain {...{depth, size}} style={spring}>{main}</TreesMain>
+        </TreesTop>
     )
 }
+
 export * from './hooks'
-export * from './utils'
+export * from './paths'
+// <TreesTggl {...{...props, set, icon, opacity:children?.length?1:.3}}/>

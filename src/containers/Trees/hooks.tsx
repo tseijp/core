@@ -11,17 +11,23 @@
 //     @springconfig, optional: react-spring animation config
 import {CSSProperties as CSS, useMemo, useState, useEffect} from 'react'
 import {useSpring, config} from 'react-spring'
+import {useGesture} from 'react-use-gesture'
 import {Props} from '../../types'
-import {treesStyles, treesConfig} from './utils'
+import {treesPaths} from './paths'
+
+const treesConfig = {restSpeedThreshold: 1,restDisplacementThreshold: 0.01}
 
 export function useTrees (props: Props<{
     open:boolean, visible:boolean, depth:number, springconfig:any,
     hide:boolean, immediate:boolean, topStyle:CSS, type:any, content:any,
-}>): any
+}>): any[]
 
 export function useTrees (props: any) {
     const {open=true, visible=true, immediate=true, springconfig} = props
     const [state, set] = useState<{[key:string]:boolean}>({open,visible,immediate})
+    const bind = useGesture({
+        onClick: () => set&&set((p:any) => ({open:!p.open,immediate:false})),
+    })
     const spring = useSpring({
         immediate: state.immediate,
         config: {...config.default, ...(springconfig||treesConfig)},
@@ -30,20 +36,12 @@ export function useTrees (props: any) {
               opacity: state.open? 1      : 0,
             transform: state.open? 'translate3d(0px,0,0)': 'translate3d(20px,0,0)'},
     })
-    const icon = useMemo(() => props.children
-        ? (state.open ? 'Minus' : 'Plus')
-        : 'Close', [props.children, state.open])
-
+    const path = useMemo(() => treesPaths[ props.children
+            ? (state.open ? 'Minus' : 'Plus')
+            : 'Close'], [props.children, state.open])
     useEffect(() => {
         set(p => visible!==p.visible?{...p, visible}:p)
     }, [visible])
 
-    const {dark=false, size=1, depth=0, style={}, topStyle={}} = props
-    const [top, child] = useMemo(() => [
-       {fontSize:size*50, ...treesStyles.tree, ...style, ...topStyle},
-       {...(depth > 0? {borderLeft:`1px dashed #${dark?818181:212121}`}:{}),
-        ...treesStyles.top, padding:`4px 0px 0px ${size*25}px`,
-        ...spring}] as any[],  [size, style, topStyle, dark, depth, spring])
-
-    return [{topStyle:top, childStyle: child, icon}, set]
+    return [spring, bind, path]
 }

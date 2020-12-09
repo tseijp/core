@@ -19,7 +19,7 @@ export const Card:Card = ({
     const [{xyz}, set] = useSpring(()=>({xyz:[0,0,0]}))
     const styleCard = useMemo<CSS>(() => {
         const minHeight = min||size*500
-        const maxHeight = max||null//size*500
+        const maxHeight = max||null
         return {margin:`${space}px auto ${space}px auto`, padding:0,position:"relative",
                 width:`min(80%,${size*500}px)`,borderRadius:size*25,overflow:"hidden",
             ...(minHeight&&{minHeight}),background : dark?"#212121":"#fff",

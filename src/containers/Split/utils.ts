@@ -1,5 +1,4 @@
 import {range} from '../../utils'
-
 // ([0,1,2,..., k, ..., n], k, p) => [0,1,2,...k,p,...,p]
 const sample = <T extends any>(a:T[], k:number, init?:T): T[] => [
     ...a.slice(0, k),
