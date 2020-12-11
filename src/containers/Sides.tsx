@@ -2,15 +2,15 @@ import React, {FC,CSSProperties as CSS,useCallback,useRef} from 'react';
 import {useSpring, animated as a, config} from 'react-spring'
 import {useGesture} from 'react-use-gesture'
 import {Props} from'../types'
-import {Trees} from '../containers'
+import {Trees} from './Trees'
 import {Icon} from '../components'
-const styles:{[key:string]:CSS} = {
+const styles:{[key:string]: CSS} = {
     area: {position:"fixed",top:0,left:0,height:"100%",zIndex:1},
     cont: {position:"fixed",top:"2%",left:0,zIndex:1,overflowX:"hidden",height:`96%`},
     icon: {position:"absolute",transform:`translate(-50%,-50%)`},
     item: {padding:"10px 10px 10px 32px",color:"#818181",display:"block",}
 }
-export const SidesArea :FC<Props> = ({spring, bind, size=1}) => (
+const SidesArea :FC<Props> = ({spring, bind, size=1}) => (
     <a.div style={{...styles.area,
         width     : spring.x.to((x:number)=>x>1?"100%":`${size*50/2}px`),
         background: spring.scale.to((s:number)=>{
@@ -18,7 +18,7 @@ export const SidesArea :FC<Props> = ({spring, bind, size=1}) => (
             return `linear-gradient(90deg,rgba(0,0,0,${rate+s-1}),rgba(0,0,0,0))`})
         }} {...bind()} />
 )
-export const SidesContainer : FC<Props> = ({size=1, spring, children}) => (
+const SidesContainer : FC<Props> = ({size=1, spring, children}) => (
     <a.div style={{...styles.cont,
         width:spring.x.to((x:number)=>x>0?x:0),
         borderRadius:`0px ${50*size}px ${50*size}px 0px`,
@@ -26,17 +26,17 @@ export const SidesContainer : FC<Props> = ({size=1, spring, children}) => (
         <div style={{margin:`${50*size}px 0px 0px 0px`, position:"absolute"}}>{children}</div>
     </a.div>
 )
-export const SidesIcon : FC<Props> = ({spring, bind, circ=false, size=1}) => (
+const SidesIcon : FC<Props> = ({spring, bind, circ=false, size=1}) => (
     <a.div {...bind()} style={{...styles.icon,...spring,top:size*50,left:size*50}}>
         <Icon fa="align-left" {...{circ,size}} />
     </a.div>
 )
-export const SidesItem :FC<Props> = ({children, size=1}) => (
+const SidesItem :FC<Props> = ({children, size=1}) => (
     <a.div style={{...styles.item,transition:"0.75s",fontSize:50*size} as any}
         onClick={(e:any)=>e.stopPropagation()}>{children}</a.div>
 )
-export type  Sides = FC<Partial<Props<{}>>>
-export const Sides:Sides = ({children, width=window.innerWidth/2, size=1, onOpen=()=>null}={}) => {
+export type  Sides = FC<Partial<Props>>
+export const Sides: Sides = ({children, width=window.innerWidth/2, size=1, onOpen=()=>null}={}) => {
     const opened = useRef<boolean>(false)
     const setOpened = useCallback((bool=true)=>1&&( (opened.current=bool), onOpen&&onOpen() ),[onOpen])
     const [spring, set] = useSpring( () => ({x:0,y:0,scale:1}) )

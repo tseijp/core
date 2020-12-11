@@ -1,27 +1,13 @@
 import React, { useMemo, useCallback, Children, useRef, useEffect, useState } from 'react';
 import { useGesture, useMove } from 'react-use-gesture';
 import { useSpring, animated, config, useSprings } from 'react-spring';
-import { Light } from 'react-syntax-highlighter';
+import { LightAsync } from 'react-syntax-highlighter';
 import { useView } from 'use-grid';
+import styled from 'styled-components';
 import { createPortal } from 'react-dom';
 
-function createCommonjsModule(fn, basedir, module) {
-	return module = {
-	  path: basedir,
-	  exports: {},
-	  require: function (path, base) {
-      return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
-    }
-	}, fn(module, module.exports), module.exports;
-}
-
-function commonjsRequire () {
-	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
-}
-
-var _extends_1 = createCommonjsModule(function (module) {
 function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
+  _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
 
@@ -38,9 +24,6 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
-module.exports = _extends;
-});
-
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -55,8 +38,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
   return target;
 }
-
-var objectWithoutPropertiesLoose = _objectWithoutPropertiesLoose;
 
 var Card = function Card(_ref) {
   var children = _ref.children,
@@ -76,7 +57,7 @@ var Card = function Card(_ref) {
       max = _ref$max === void 0 ? 0 : _ref$max,
       _ref$min = _ref.min,
       min = _ref$min === void 0 ? 0 : _ref$min,
-      props = objectWithoutPropertiesLoose(_ref, ["children", "size", "rate", "space", "style", "dark", "color", "max", "min"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["children", "size", "rate", "space", "style", "dark", "color", "max", "min"]);
 
   var _useSpring = useSpring(function () {
     return {
@@ -88,9 +69,8 @@ var Card = function Card(_ref) {
 
   var styleCard = useMemo(function () {
     var minHeight = min || size * 500;
-    var maxHeight = max || null; //size*500
-
-    return _extends_1({
+    var maxHeight = max || null;
+    return _extends({
       margin: space + "px auto " + space + "px auto",
       padding: 0,
       position: "relative",
@@ -142,8 +122,8 @@ var Card = function Card(_ref) {
       });
     }
   });
-  return /*#__PURE__*/React.createElement(animated.div, _extends_1({
-    style: _extends_1({
+  return /*#__PURE__*/React.createElement(animated.div, _extends({
+    style: _extends({
       boxShadow: xyz.to(function (x, y, z) {
         return [0.5 - x * 2 + "rem", //offset-x     : -1.5 ~ 0.5 ~ 2.5
         1.5 - y * 2 + "rem", //offset-y     : -0.5 ~ 1.5 ~ 3.5
@@ -160,7 +140,7 @@ var Card = function Card(_ref) {
         return x * y * z > 0 ? 1 : 0;
       })
     }, styleCard, style)
-  }, bind(), _extends_1({}, props, {
+  }, bind(), _extends({}, props, {
     children: children
   })));
 };
@@ -408,13 +388,13 @@ var Code = function Code(_ref) {
       size = _ref$size === void 0 ? 1 : _ref$size,
       _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
-      props = objectWithoutPropertiesLoose(_ref, ["code", "language", "inline", "dark", "size", "style"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["code", "language", "inline", "dark", "size", "style"]);
 
   var onDoubleClick = useCallback(function () {
     return navigator.clipboard.writeText(code);
   }, [code]);
   var customStyle = useMemo(function () {
-    return _extends_1({}, inline ? {
+    return _extends({}, inline ? {
       verticalAlign: "top",
       padding: 0
     } : {}, {
@@ -424,19 +404,18 @@ var Code = function Code(_ref) {
       margin: 0
     });
   }, [inline]);
-  return /*#__PURE__*/React.createElement(Light, _extends_1({}, props, {
+  return /*#__PURE__*/React.createElement(LightAsync, _extends({
+    useInlineStyles: true,
+    showLineNumbers: !inline,
     PreTag: inline ? "span" : "pre",
-    useInlineStyles: true
+    style: _extends({}, dark ? atomOneDark : atomOneLight, {
+      fontSize: size + "rem"
+    }, style)
   }, {
     customStyle: customStyle,
     onDoubleClick: onDoubleClick,
     language: language
-  }, {
-    showLineNumbers: !inline,
-    style: _extends_1({}, dark ? atomOneDark : atomOneLight, {
-      fontSize: size + "rem"
-    }, style)
-  }), code);
+  }, props), code);
 };
 
 var styles = [{
@@ -456,16 +435,16 @@ var Foot = function Foot(_ref) {
       size = _ref$size === void 0 ? 1 : _ref$size,
       _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
-      props = objectWithoutPropertiesLoose(_ref, ["children", "size", "style"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["children", "size", "style"]);
 
-  return /*#__PURE__*/React.createElement("div", _extends_1({}, props, {
-    style: _extends_1({}, styles[0], style, {
+  return /*#__PURE__*/React.createElement("div", _extends({}, props, {
+    style: _extends({}, styles[0], style, {
       borderRadius: size * 25 + "px " + size * 25 + "px 0px 0px",
       padding: "0px " + size * 50 + "px " + size * 25 + "px " + size * 50 + "px"
     })
   }), Children.map(children, function (child) {
     return /*#__PURE__*/React.createElement("div", {
-      style: _extends_1({}, styles[1], {
+      style: _extends({}, styles[1], {
         fontSize: size * 50
       })
     }, child);
@@ -481,7 +460,7 @@ var Grow = function Grow(_ref) {
       size = _ref$size === void 0 ? 1 : _ref$size,
       _ref$className = _ref.className,
       className = _ref$className === void 0 ? "spinner-grow" : _ref$className,
-      props = objectWithoutPropertiesLoose(_ref, ["onView", "role", "size", "className"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["onView", "role", "size", "className"]);
 
   var fn = useRef();
   var ref = useRef(null);
@@ -492,7 +471,7 @@ var Grow = function Grow(_ref) {
     return  e.isIntersecting && typeof fn.current === "function" && fn.current();
   });
   var style = useMemo(function () {
-    return _extends_1({
+    return _extends({
       position: "relative",
       display: "grid",
       margin: size * 50 + "px auto 0 auto",
@@ -500,7 +479,7 @@ var Grow = function Grow(_ref) {
       height: size * 250
     }, props.style || {});
   }, [size, props.style]);
-  return /*#__PURE__*/React.createElement("div", _extends_1({}, props, {
+  return /*#__PURE__*/React.createElement("div", _extends({}, props, {
     ref: ref,
     role: role,
     className: className,
@@ -518,10 +497,10 @@ var Head = function Head(_ref) {
       size = _ref$size === void 0 ? 1 : _ref$size,
       _ref$style = _ref.style,
       style = _ref$style === void 0 ? {} : _ref$style,
-      props = objectWithoutPropertiesLoose(_ref, ["children", "color", "dark", "size", "style"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["children", "color", "dark", "size", "style"]);
 
   style = useMemo(function () {
-    return _extends_1({
+    return _extends({
       fontSize: size * 50,
       color: color || dark ? "#818181" : "#000",
       width: "max(70vw, 100vw - " + size * 200 + "px)",
@@ -529,7 +508,7 @@ var Head = function Head(_ref) {
       margin: "auto"
     }, style);
   }, [color, dark, size, style]);
-  return /*#__PURE__*/React.createElement("div", _extends_1({
+  return /*#__PURE__*/React.createElement("div", _extends({
     children: children,
     style: style
   }, props));
@@ -550,7 +529,7 @@ var Icon = function Icon(_ref) {
       children = _ref.children,
       _ref$className = _ref.className,
       className = _ref$className === void 0 ? '' : _ref$className,
-      props = objectWithoutPropertiesLoose(_ref, ["fa", "fab", "dark", "circ", "size", "onOpen", "children", "className"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["fa", "fab", "dark", "circ", "size", "onOpen", "children", "className"]);
 
   var _useSpring = useSpring(function () {
     return {
@@ -573,7 +552,7 @@ var Icon = function Icon(_ref) {
     return props.color || circ ? dark ? "#818181" : "#fff" : "#212121";
   }, [props.color, circ, dark]);
   var style = useMemo(function () {
-    return _extends_1({
+    return _extends({
       padding: "0px",
       top: 0,
       right: 0,
@@ -589,14 +568,10 @@ var Icon = function Icon(_ref) {
       fontSize: size * 50
     });
   }, [size, circ, color, props.style]);
-  return /*#__PURE__*/React.createElement(animated.div, _extends_1({
-    style: _extends_1({
-      x: xys.to(function (x, y, s) {
-        return x * size * 50 + y * s;
-      }),
-      y: xys.to(function (x, y, s) {
-        return y * size * 50 + x * s;
-      }),
+  return /*#__PURE__*/React.createElement(animated.div, _extends({
+    style: _extends({
+      // x : xys.to((x,y,s) => x*size*50+y*s),
+      // y : xys.to((x,y,s) => y*size*50+x*s),
       filter: xys.to(function (x, y, s) {
         return ["drop-shadow(" + (0.1 + x) + "rem", // -x~0.5~x
         0.5 + y + "rem", // -y~1.5~y
@@ -821,7 +796,7 @@ var joinPage = function joinPage(page) {
   });
 };
 var normPage = function normPage(page) {
-  var state = _extends_1({}, page); //Page<T>
+  var state = _extends({}, page); //Page<T>
 
 
   Object.entries(state).sort(function (_ref) {
@@ -834,7 +809,7 @@ var normPage = function normPage(page) {
     return state[key] = typeof val === "function" ? val(state) : val;
   });
   var urls = joinPage(state);
-  return _extends_1({}, state, {
+  return _extends({}, state, {
     urls: urls instanceof Array ? urls.map(function (u) {
       return typeof u === "string" ? new URL(u) : u;
     }) : [typeof urls === "string" ? new URL(urls) : urls]
@@ -849,8 +824,8 @@ config) {
 
   if (typeof props === "function") props = props();
   if (typeof config === "function") config = config();
-  var pageRef = useRef(_extends_1({}, defaultPage, props));
-  var confRef = useRef(_extends_1({}, pageConfig, config));
+  var pageRef = useRef(_extends({}, defaultPage, props));
+  var confRef = useRef(_extends({}, pageConfig, config));
 
   var _useState = useState(normPage(pageRef.current)),
       page = _useState[0],
@@ -858,7 +833,7 @@ config) {
 
   var setPage = useCallback(function (state) {
     if (typeof state === "function") state = state(pageRef.current);
-    pageRef.current = _extends_1({}, pageRef.current, state);
+    pageRef.current = _extends({}, pageRef.current, state);
     set(function (pre) {
       var newPage = normPage(pageRef.current);
       if (pre.pathname === newPage.pathname) return newPage;
@@ -873,48 +848,26 @@ config) {
   return [page, setPage];
 };
 
+function _taggedTemplateLiteralLoose(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  strings.raw = raw;
+  return strings;
+}
+
+var treesPaths = {
+  Close: "M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
+  Minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
+  Plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
+  Eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z"
+};
+
 var treesConfig = {
   restSpeedThreshold: 1,
   restDisplacementThreshold: 0.01
 };
-var treesStyles = {
-  tree: {
-    padding: '4px 0px 0px 0px',
-    position: 'relative',
-    overflow: 'hidden',
-    verticalAlign: 'middle',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis'
-  },
-  tggl: {
-    verticalAlign: 'middle',
-    width: '1em',
-    height: '1em',
-    cursor: 'pointer',
-    marginRight: 10
-  },
-  type: {
-    verticalAlign: 'middle',
-    fontSize: '0.6em',
-    fontFamily: 'monospace',
-    textTransform: 'uppercase'
-  },
-  cont: {
-    verticalAlign: 'middle',
-    display: "inline-block"
-  },
-  top: {
-    willChange: 'transform, opacity, height',
-    marginLeft: 6
-  }
-};
-var treesPaths = {
-  close: "M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
-  minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
-  plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
-  eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z"
-};
-
 function useTrees(props) {
   var _props$open = props.open,
       open = _props$open === void 0 ? true : _props$open,
@@ -932,9 +885,19 @@ function useTrees(props) {
       state = _useState[0],
       set = _useState[1];
 
+  var bind = useGesture({
+    onClick: function onClick() {
+      return set && set(function (p) {
+        return {
+          open: !p.open,
+          immediate: false
+        };
+      });
+    }
+  });
   var spring = useSpring({
     immediate: state.immediate,
-    config: _extends_1({}, config.default, springconfig || treesConfig),
+    config: _extends({}, config.default, springconfig || treesConfig),
     from: {
       height: 0,
       opacity: 0,
@@ -946,150 +909,119 @@ function useTrees(props) {
       transform: state.open ? 'translate3d(0px,0,0)' : 'translate3d(20px,0,0)'
     }
   });
-  var icon = useMemo(function () {
-    return props.children ? state.open ? 'Minus' : 'Plus' : 'Close';
+  var path = useMemo(function () {
+    return treesPaths[props.children ? state.open ? 'Minus' : 'Plus' : 'Close'];
   }, [props.children, state.open]);
   useEffect(function () {
     set(function (p) {
-      return visible !== p.visible ? _extends_1({}, p, {
+      return visible !== p.visible ? _extends({}, p, {
         visible: visible
       }) : p;
     });
   }, [visible]);
-  var _props$dark = props.dark,
-      dark = _props$dark === void 0 ? false : _props$dark,
-      _props$size = props.size,
-      size = _props$size === void 0 ? 1 : _props$size,
+  return [spring, bind, path];
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteralLoose(["\n    width: 1em;\n    height: 1em;\n    cursor: pointer;\n    margin-right: 10;\n    verticalAlign: middle;\n    font-size: ", "px;\n    color: ", "\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteralLoose(["\n    display: inline-block;\n    verticalAlign: middle;\n    font-size: ", "px;\n    color: ", ";\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteralLoose(["\n    font-size: 0.6em;\n    font-family: monospace;\n    text-transform: uppercase;\n    white-space: nowrap;\n    vertical-align: middle;\n    marginRight: ", ";\n    color: ", ";\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteralLoose(["\n    font-size: ", "px;\n    will-Cchange: transform, opacity, height;\n    margin-left: 6;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteralLoose(["\n    padding: 4px 0px 0px 0px;\n    position: relative;\n    overflow: hidden;\n    vertical-align: middle;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    border-left: ", ";\n    padding: ", ";\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+var TreesTop = styled(animated.div)(_templateObject(), function (props) {
+  return "1px dashed #" + (props.dark ? 818181 : 212121);
+}, function (props) {
+  return "4px 0px 0px " + props.size * 25 + "px";
+});
+var TreesMain = styled(animated.div)(_templateObject2(), function (props) {
+  return props.size * 50;
+});
+var TreesType = styled(animated.span)(_templateObject3(), function (props) {
+  return props.type ? 10 : 0;
+}, function (props) {
+  return props.dark ? "#818181" : "#212121";
+});
+var TreesCont = styled(animated.div)(_templateObject4(), function (props) {
+  return props.size * 50;
+}, function (props) {
+  return props.dark ? "#818181" : "#212121";
+});
+var TreesIcon = styled.svg(_templateObject5(), function (props) {
+  return props.size * 50;
+}, function (props) {
+  return props.dark ? "#818181" : "#212121";
+});
+function Trees(props) {
+  var content = props.content,
+      type = props.type,
       _props$depth = props.depth,
       depth = _props$depth === void 0 ? 0 : _props$depth,
+      _props$root = props.root,
+      root = _props$root === void 0 ? 1 : _props$root,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 1.5 : _props$size,
+      _props$dark = props.dark,
+      dark = _props$dark === void 0 ? false : _props$dark,
       _props$style = props.style,
       style = _props$style === void 0 ? {} : _props$style,
-      _props$topStyle = props.topStyle,
-      topStyle = _props$topStyle === void 0 ? {} : _props$topStyle;
-
-  var _useMemo = useMemo(function () {
-    return [_extends_1({
-      fontSize: size * 50
-    }, treesStyles.tree, style, topStyle), _extends_1({}, depth > 0 ? {
-      borderLeft: "1px dashed #" + (dark ? 818181 : 212121)
-    } : {}, treesStyles.top, {
-      padding: "4px 0px 0px " + size * 25 + "px"
-    }, spring)];
-  }, [size, style, topStyle, dark, depth, spring]),
-      top = _useMemo[0],
-      child = _useMemo[1];
-
-  return [{
-    topStyle: top,
-    childStyle: child,
-    icon: icon
-  }, set];
-}
-
-var TreeIcons = {
-  CloseSquareO: function CloseSquareO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "64 -65 897 897"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.close
-    })));
-  },
-  MinusSquareO: function MinusSquareO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "64 -65 897 897"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.minus
-    })));
-  },
-  PlusSquareO: function PlusSquareO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "64 -65 897 897"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.plus
-    })));
-  },
-  EyeO: function EyeO(props) {
-    return /*#__PURE__*/React.createElement("svg", _extends_1({}, props, {
-      viewBox: "61  51 902 666"
-    }), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
-      d: treesPaths.eye
-    })));
-  }
-};
-function TreesContent(_ref) {
-  var content = _ref.content,
-      type = _ref.type,
-      set = _ref.set,
-      _ref$hide = _ref.hide,
-      hide = _ref$hide === void 0 ? false : _ref$hide,
-      _ref$icon = _ref.icon,
-      icon = _ref$icon === void 0 ? "Close" : _ref$icon,
-      _ref$opacity = _ref.opacity,
-      opacity = _ref$opacity === void 0 ? 1 : _ref$opacity,
-      _ref$dark = _ref.dark,
-      dark = _ref$dark === void 0 ? false : _ref$dark;
-  var Icon = useMemo(function () {
-    return TreeIcons[icon + "SquareO"];
-  }, [icon]);
-  var color = useMemo(function () {
-    return dark ? "#818181" : "#212121";
-  }, [dark]);
-  var eyeClick = useCallback(function () {
-    return set && set(function (p) {
-      return _extends_1({}, p, {
-        immediate: true
-      });
-    });
-  }, [set]);
-  var iconClick = useCallback(function () {
-    return set && set(function (p) {
-      return {
-        open: !p.open,
-        immediate: false
-      };
-    });
-  }, [set]);
-  return !content ? null : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Icon, {
-    style: _extends_1({}, treesStyles.tggl, {
-      opacity: opacity,
-      color: color
-    }),
-    onClick: iconClick
-  }), /*#__PURE__*/React.createElement("span", {
-    style: _extends_1({}, treesStyles.type, {
-      marginRight: type ? 10 : 0,
-      color: color
-    })
-  }, type), hide && /*#__PURE__*/React.createElement(TreeIcons.EyeO, {
-    style: _extends_1({}, treesStyles.tggl, {
-      color: color
-    }),
-    onClick: eyeClick
-  }), /*#__PURE__*/React.createElement("span", {
-    style: _extends_1({}, treesStyles.cont, {
-      color: color
-    })
-  }, content));
-}
-function Trees(props) {
-  var _props$depth = props.depth,
-      depth = _props$depth === void 0 ? 0 : _props$depth,
-      _props$root = props.root,
-      root = _props$root === void 0 ? 1 : _props$root;
+      _props$viewBox = props.viewBox,
+      viewBox = _props$viewBox === void 0 ? "64 -65 897 897" : _props$viewBox;
 
   var _useTrees = useTrees(props),
-      _useTrees$ = _useTrees[0],
-      topStyle = _useTrees$.topStyle,
-      childStyle = _useTrees$.childStyle,
-      icon = _useTrees$.icon,
-      set = _useTrees[1];
+      spring = _useTrees[0],
+      bind = _useTrees[1],
+      path = _useTrees[2];
 
-  var children = useMemo(function () {
+  var main = useMemo(function () {
     return Children.map(props.children, function (child) {
-      var _ref2, _ref2$props;
+      var _ref, _ref$props;
 
-      var grand = Children.toArray((_ref2 = child) == null ? void 0 : (_ref2$props = _ref2.props) == null ? void 0 : _ref2$props.children) || [];
-      return props.children && /*#__PURE__*/React.createElement(Trees, _extends_1({}, props, {
+      var grand = Children.toArray((_ref = child) == null ? void 0 : (_ref$props = _ref.props) == null ? void 0 : _ref$props.children) || [];
+      return props.children && /*#__PURE__*/React.createElement(Trees, _extends({}, props, {
         depth: depth + 1,
         topStyle: {},
         open: depth < root,
@@ -1099,16 +1031,29 @@ function Trees(props) {
       }));
     });
   }, [props, depth, root]);
-  return /*#__PURE__*/React.createElement(animated.div, {
-    style: topStyle
-  }, /*#__PURE__*/React.createElement(TreesContent, _extends_1({}, props, {
-    icon: icon,
-    set: set,
-    opacity: (children == null ? void 0 : children.length) ? 1 : .3
-  })), /*#__PURE__*/React.createElement(animated.div, {
-    style: childStyle
-  }, children));
+  return /*#__PURE__*/React.createElement(TreesTop, {
+    style: style,
+    size: size
+  }, !content ? null : /*#__PURE__*/React.createElement(TreesIcon, _extends({
+    dark: dark,
+    size: size,
+    viewBox: viewBox
+  }, bind()), /*#__PURE__*/React.createElement("g", null, /*#__PURE__*/React.createElement("path", {
+    d: path
+  }))), /*#__PURE__*/React.createElement(TreesType, {
+    dark: dark,
+    type: type
+  }, type), /*#__PURE__*/React.createElement(TreesCont, {
+    dark: dark,
+    size: size
+  }, content), /*#__PURE__*/React.createElement(TreesMain, _extends({
+    depth: depth,
+    size: size
+  }, {
+    style: spring
+  }), main));
 }
+ // <TreesTggl {...{...props, set, icon, opacity:children?.length?1:.3}}/>
 
 var Modal = function Modal(_ref) {
   var _ref$open = _ref.open,
@@ -1122,7 +1067,7 @@ var Modal = function Modal(_ref) {
       children = _ref.children,
       _ref$color = _ref.color,
       color = _ref$color === void 0 ? "" : _ref$color,
-      props = objectWithoutPropertiesLoose(_ref, ["open", "onClose", "dark", "size", "children", "color"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["open", "onClose", "dark", "size", "children", "color"]);
 
   var width = useMemo(function () {
     return 500 * size;
@@ -1177,7 +1122,7 @@ var Modal = function Modal(_ref) {
     return document.getElementById('root');
   }, []);
   var style = useMemo(function () {
-    return _extends_1({
+    return _extends({
       left: 0,
       width: "100%",
       display: "flex",
@@ -1204,8 +1149,8 @@ var Modal = function Modal(_ref) {
     onClick: function onClick() {
       return onClose && onClose();
     }
-  }, /*#__PURE__*/React.createElement(animated.div, _extends_1({
-    style: _extends_1({
+  }, /*#__PURE__*/React.createElement(animated.div, _extends({
+    style: _extends({
       position: "relative"
     }, s)
   }, bind(), {
@@ -1270,7 +1215,7 @@ var NotesSide = function NotesSide(_ref2) {
     return Math.pow(px, 2) <= 0;
   }) ? null : /*#__PURE__*/React.createElement(animated.div, {
     children: children,
-    style: _extends_1({}, styles$1.side, {
+    style: _extends({}, styles$1.side, {
       height: height
     }, background({
       b: 255,
@@ -1296,7 +1241,7 @@ var NotesItem = function NotesItem(_ref3) {
   var children = _ref3.children,
       x = _ref3.x;
   return !children ? null : /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$1.btn, {
+    style: _extends({}, styles$1.btn, {
       display: x.to(function (px) {
         return px < 0 ? "inline" : "none";
       })
@@ -1323,7 +1268,7 @@ var Notes = function Notes(_ref4) {
       size = _ref4$size === void 0 ? 1 : _ref4$size,
       _ref4$style = _ref4.style,
       style = _ref4$style === void 0 ? {} : _ref4$style,
-      props = objectWithoutPropertiesLoose(_ref4, ["order", "grandren", "debug", "right", "left", "depth", "space", "size", "style"]);
+      props = _objectWithoutPropertiesLoose(_ref4, ["order", "grandren", "debug", "right", "left", "depth", "space", "size", "style"]);
 
   var _useState = useState(((_ref5 = props == null ? void 0 : props.children) == null ? void 0 : _ref5.length) || 1),
       length = _useState[0],
@@ -1499,7 +1444,7 @@ var Notes = function Notes(_ref4) {
       // TODO for depth > 0
       React.cloneElement(child, {
         children: grand[0],
-        grandren: /*#__PURE__*/React.createElement(Notes, _extends_1({}, props, {
+        grandren: /*#__PURE__*/React.createElement(Notes, _extends({}, props, {
           depth: depth + 1,
           children: grand.slice(1)
         }))
@@ -1519,7 +1464,7 @@ var Notes = function Notes(_ref4) {
   }, [setPosition, set, getG]);
   return /*#__PURE__*/React.createElement("div", {
     ref: targetRef,
-    style: _extends_1({}, styles$1.cont, {
+    style: _extends({}, styles$1.cont, {
       height: height
     }, style, background({
       r: 255,
@@ -1531,7 +1476,7 @@ var Notes = function Notes(_ref4) {
     var x = _ref12.x,
         y = _ref12.y,
         scale = _ref12.scale;
-    return /*#__PURE__*/React.createElement(animated.div, _extends_1({
+    return /*#__PURE__*/React.createElement(animated.div, _extends({
       key: key
     }, bind(key), {
       style: {
@@ -1541,7 +1486,7 @@ var Notes = function Notes(_ref4) {
         width: "100%"
       }
     }), /*#__PURE__*/React.createElement(animated.div, {
-      style: _extends_1({}, styles$1.main, {
+      style: _extends({}, styles$1.main, {
         scale: scale,
         padding: space
       }, background({
@@ -1584,7 +1529,7 @@ var Pills = function Pills(_ref) {
       size = _ref$size === void 0 ? 1 : _ref$size,
       _ref$isOpen = _ref.isOpen,
       isOpen = _ref$isOpen === void 0 ? true : _ref$isOpen,
-      props = objectWithoutPropertiesLoose(_ref, ["position", "depth", "rate", "size", "isOpen"]);
+      props = _objectWithoutPropertiesLoose(_ref, ["position", "depth", "rate", "size", "isOpen"]);
 
   var length = useMemo(function () {
     var _ref2;
@@ -1636,7 +1581,7 @@ var Pills = function Pills(_ref) {
 
       set(fn());
       return child && ((_ref3 = child) == null ? void 0 : (_ref3$props = _ref3.props) == null ? void 0 : _ref3$props.children) ? /*#__PURE__*/React.cloneElement(child, {
-        children: /*#__PURE__*/React.createElement(Pills, _extends_1({
+        children: /*#__PURE__*/React.createElement(Pills, _extends({
           key: key,
           isOpen: isOpen && childHub[key],
           depth: depth + 1,
@@ -1656,7 +1601,7 @@ var Pills = function Pills(_ref) {
   }, springs.map(function (spring, key) {
     return /*#__PURE__*/React.createElement(animated.div, {
       key: depth + "-" + key,
-      style: _extends_1({}, spring, styles$2.pill),
+      style: _extends({}, spring, styles$2.pill),
       onClick: function onClick(e) {
         return setHub(e, key);
       }
@@ -1690,13 +1635,14 @@ var styles$3 = {
     display: "block"
   }
 };
+
 var SidesArea = function SidesArea(_ref) {
   var spring = _ref.spring,
       bind = _ref.bind,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 1 : _ref$size;
-  return /*#__PURE__*/React.createElement(animated.div, _extends_1({
-    style: _extends_1({}, styles$3.area, {
+  return /*#__PURE__*/React.createElement(animated.div, _extends({
+    style: _extends({}, styles$3.area, {
       width: spring.x.to(function (x) {
         return x > 1 ? "100%" : size * 50 / 2 + "px";
       }),
@@ -1708,13 +1654,14 @@ var SidesArea = function SidesArea(_ref) {
     })
   }, bind()));
 };
+
 var SidesContainer = function SidesContainer(_ref2) {
   var _ref2$size = _ref2.size,
       size = _ref2$size === void 0 ? 1 : _ref2$size,
       spring = _ref2.spring,
       children = _ref2.children;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$3.cont, {
+    style: _extends({}, styles$3.cont, {
       width: spring.x.to(function (x) {
         return x > 0 ? x : 0;
       }),
@@ -1728,6 +1675,7 @@ var SidesContainer = function SidesContainer(_ref2) {
     }
   }, children));
 };
+
 var SidesIcon = function SidesIcon(_ref3) {
   var spring = _ref3.spring,
       bind = _ref3.bind,
@@ -1735,24 +1683,25 @@ var SidesIcon = function SidesIcon(_ref3) {
       circ = _ref3$circ === void 0 ? false : _ref3$circ,
       _ref3$size = _ref3.size,
       size = _ref3$size === void 0 ? 1 : _ref3$size;
-  return /*#__PURE__*/React.createElement(animated.div, _extends_1({}, bind(), {
-    style: _extends_1({}, styles$3.icon, spring, {
+  return /*#__PURE__*/React.createElement(animated.div, _extends({}, bind(), {
+    style: _extends({}, styles$3.icon, spring, {
       top: size * 50,
       left: size * 50
     })
-  }), /*#__PURE__*/React.createElement(Icon, _extends_1({
+  }), /*#__PURE__*/React.createElement(Icon, _extends({
     fa: "align-left"
   }, {
     circ: circ,
     size: size
   })));
 };
+
 var SidesItem = function SidesItem(_ref4) {
   var children = _ref4.children,
       _ref4$size = _ref4.size,
       size = _ref4$size === void 0 ? 1 : _ref4$size;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$3.item, {
+    style: _extends({}, styles$3.item, {
       transition: "0.75s",
       fontSize: 50 * size
     }),
@@ -1761,6 +1710,7 @@ var SidesItem = function SidesItem(_ref4) {
     }
   }, children);
 };
+
 var Sides = function Sides(_temp) {
   var _ref5 = _temp === void 0 ? {} : _temp,
       children = _ref5.children,
@@ -1812,7 +1762,7 @@ var Sides = function Sides(_temp) {
     return  (setOpened(false), set({
       x: 0,
       y: 0,
-      config: _extends_1({}, config.stiff, {
+      config: _extends({}, config.stiff, {
         velocity: v
       })
     }));
@@ -2013,7 +1963,7 @@ function useSplit(_ref) {
       i = 0;
     }
 
-    return _extends_1({}, style, vertical ? {
+    return _extends({}, style, vertical ? {
       width: "100%",
       height: (_s$i = s[i]) == null ? void 0 : (_s$i$r = _s$i.r) == null ? void 0 : _s$i$r.to(function (v) {
         if (v === void 0) {
@@ -2056,19 +2006,36 @@ function sign(num) {
   return num < 0 && -1 || num > 0 && 1 || num === 0 && 0 || 0;
 }
 
+function _templateObject2$1() {
+  var data = _taggedTemplateLiteralLoose([""]);
+
+  _templateObject2$1 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n    width: 100%;\n    height: 100%;\n    whiteSpace: nowrap;\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var SplitWrapp = styled(animated.div)(_templateObject$1());
+var SplitChild = styled(animated.div)(_templateObject2$1());
 function Split(props) {
   var _useSplit = useSplit(props),
       styles = _useSplit[0],
       bind = _useSplit[1];
 
-  return /*#__PURE__*/React.createElement(animated.div, {
-    style: {
-      width: "100%",
-      height: "100%",
-      whiteSpace: "nowrap"
-    }
+  return /*#__PURE__*/React.createElement(SplitWrapp, {
+    style: props.style
   }, Children.map(props.children, function (children, key) {
-    return /*#__PURE__*/React.createElement(animated.div, _extends_1({
+    return /*#__PURE__*/React.createElement(SplitChild, _extends({
       style: styles(key)
     }, bind(key), {
       key: key,
@@ -2117,7 +2084,7 @@ var TransArea = function TransArea(_ref) {
       size = _ref$size === void 0 ? 1 : _ref$size,
       spring = _ref.spring;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({
+    style: _extends({
       width: spring.r.to(function (r) {
         return 50 * size * (Math.cos(r / 90 * Math.PI) + 1.5) + "px";
       }),
@@ -2134,11 +2101,11 @@ var TransIcon = function TransIcon(_ref2) {
       _ref2$circ = _ref2.circ,
       circ = _ref2$circ === void 0 ? false : _ref2$circ;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$4.icon, {
+    style: _extends({}, styles$4.icon, {
       top: 50 * size,
       rotateZ: spring.r
     })
-  }, /*#__PURE__*/React.createElement(Icon, _extends_1({
+  }, /*#__PURE__*/React.createElement(Icon, _extends({
     fa: "align-justify"
   }, {
     circ: circ,
@@ -2151,7 +2118,7 @@ var TransContainer = function TransContainer(_ref3) {
       size = _ref3$size === void 0 ? 1 : _ref3$size,
       spring = _ref3.spring;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$4.cont, {
+    style: _extends({}, styles$4.cont, {
       width: spring.r.to(function (r) {
         if (r === void 0) {
           r = 0;
@@ -2171,7 +2138,7 @@ var TransItem = function TransItem(_ref4) {
       _ref4$size = _ref4.size,
       size = _ref4$size === void 0 ? 1 : _ref4$size;
   return /*#__PURE__*/React.createElement(animated.div, {
-    style: _extends_1({}, styles$4.item, {
+    style: _extends({}, styles$4.item, {
       margin: 50 * size / 4 + "px 0px",
       borderRadius: 50 * size + "px 0px  0px " + 50 * size + "px"
     })
@@ -2245,7 +2212,7 @@ var Trans = function Trans(_temp) {
 
     return  (setOpened(false), set({
       r: getr(v),
-      config: _extends_1({}, config.stiff)
+      config: _extends({}, config.stiff)
     }));
   };
 
@@ -2300,7 +2267,7 @@ var Trans = function Trans(_temp) {
       });
     }
   });
-  return /*#__PURE__*/React.createElement(animated.div, _extends_1({}, bind(), {
+  return /*#__PURE__*/React.createElement(animated.div, _extends({}, bind(), {
     style: styles$4.top
   }), /*#__PURE__*/React.createElement(TransIcon, {
     size: size,
@@ -2319,4 +2286,4 @@ var Trans = function Trans(_temp) {
   })));
 };
 
-export { Card, Code, Foot, Grow, Head, Icon, Modal, Notes, NotesItem, NotesSide, Pills, Sides, SidesArea, SidesContainer, SidesIcon, SidesItem, Split, Trans, TransArea, TransContainer, TransIcon, TransItem, TreeIcons, Trees, TreesContent, clamp, defaultPage, equalPathname, initSplit, is, joinPage, joinURL, merge, moveSplit, normPage, pageConfig, range, swap, topUp, treesConfig, treesPaths, treesStyles, usePage, useSplit, useTrees };
+export { Card, Code, Foot, Grow, Head, Icon, Modal, Notes, NotesItem, NotesSide, Pills, Sides, Split, Trans, TransArea, TransContainer, TransIcon, TransItem, Trees, clamp, defaultPage, equalPathname, initSplit, is, joinPage, joinURL, merge, moveSplit, normPage, pageConfig, range, swap, topUp, treesPaths, usePage, useSplit, useTrees };

@@ -12,7 +12,7 @@ react-app-env.d.ts
 /coverage
 
 # production
-#/build
+/build
 
 # misc
 .DS_Store
