@@ -1,7 +1,7 @@
 {
-  "short_name": "React App",
+  "short_name": "TSEIJP",
   "start_url": "/",
-  "name": "Create React App Sample",
+  "name": "TSEIJP",
   "icons": [
     {
       "src": "data/4KB.jpg",
@@ -20,6 +20,6 @@
     }
   ],
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#212121",
+  "background_color": "#212121"
 }
