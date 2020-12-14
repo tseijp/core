@@ -3,8 +3,9 @@ import {useGrid}  from 'use-grid';
 import {Controls} from 'react-three-gui';
 import {Helmet}   from 'react-helmet-async';
 import {hookTree,hookPage,HookPage,pageConfig} from './utils';
-import {is,topUp,Card,Code,Notes,Sides,Split,Trees,Trans} from '../src'
-import {usePage} from './notes'
+import {is,topUp,Card,Notes,Sides,Split,Trees,Trans} from '../src'
+import {usePage} from '@tsei/note'
+import {Code} from '@tsei/mdmd'
 
 const styles:{[key:string]:CSS} = {
     top : {position:"relative",transition:"1s",overflowX:"hidden",minHeight:"100%",},
@@ -51,7 +52,7 @@ export const Hook:FC = () => {
                 </CardHook>
                 { page.code && is.str(page.code) &&
                 <CardHook {...{dark,size}}>
-                    <Code {...{dark,size,code:page.code}}/>
+                    <Code {...{dark,size,value:page.code}}/>
                 </CardHook>}
             </Notes>
         </Split>)}

@@ -1,5 +1,5 @@
 import axios  from 'axios'
-import {Credit, URL, Page} from '../notes'
+import {Credit, URLType, Page} from '@tsei/note'
 import * as CODES from '../codes'
 import {topUp} from '../../src'
 // *************************📋 FOR NOTE 📋************************* //
@@ -16,15 +16,15 @@ export const customPage : Partial<Page<CustomPage>> = {
         `/api/note/${ id?id+'/':'' }`,
         status!=="UP"? `/auth/`: `/api/user/`]
 }
-export const fetcher = async (url:URL,headers={'Content-Type':'application/json'}) =>
-   axios.get(url.href, {headers})
+export const fetcher = async (URL:URLType,headers={'Content-Type':'application/json'}) =>
+   axios.get(URL.href, {headers})
         .then(res => {
             if(!res || res.status!==200)
                 throw new Error('Bad Request')
             return res.data
         })
-export const signin = async (url:URL, cred:Credit, headers={'Content-Type':'application/json'}) =>
-   axios.post(url.href, cred, {headers})
+export const signin = async (URL:URLType, cred:Credit, headers={'Content-Type':'application/json'}) =>
+   axios.post(URL.href, cred, {headers})
         .then((res) => {
             if (res.status>201 || !res.data.token)
                 throw new Error('Bad Request')
@@ -33,7 +33,7 @@ export const signin = async (url:URL, cred:Credit, headers={'Content-Type':'appl
 
 // *************************🤏 FOR HOOK 🤏************************* //
 export const hookTree = [
-    ["Components","Card","Code","Grow",],//"Head","Icon"],
+    ["Components","Card","Grow",],//"Head","Icon"],
     ["Containers","Notes","Split","Trees"],
     ["Mesh","Kinect","Model","Motion"],
 ]

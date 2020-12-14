@@ -3,27 +3,14 @@ import React, {Suspense,useRef,useState,useCallback} from "react";
 import {Flex, Box} from "react-three-flex";
 import {useAspect, Html} from "drei";
 import {Canvas, useThree, useFrame} from "react-three-fiber";
-import {Render} from 'react-mol'
 import {useGrid} from 'use-grid'
-import {
-    Icon,
-    Sides,
-    Trans,
-} from '../src'
+import {Icon, Sides,Trans,} from '../src'
 import {Title} from './meshs'
-// const Scroll = styled.div`
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     width: 100vw;
-//     height: 100vh;
-//     overflow: auto;
-//     background: #212121;
-//     `
+// import {Render, Flow, Vec3} from 'react-mol'
+// const {sin, cos, random} = Math
 const width  = "100%"
 const height = "100%"
 const state = {top: 0}
-// const {sin} = Math
 function Page ({ onChangePages, count:c=1000}:any) {
     const vec = new THREE.Vector3();
     const group = useRef<THREE.Group>();
@@ -34,16 +21,6 @@ function Page ({ onChangePages, count:c=1000}:any) {
     return (
         <group ref={group}>
             <Flex dir="column" size={[...aspect, 0] as any} {...{onReflow,width,height}}>
-                <Render position={[-c/4,-1,-c/4]} max={2500}>
-                    <sphereBufferGeometry attach="geometry" args={[1,32,32]}/>
-                    <meshPhongMaterial    attach="material" />
-                    {/*Array(c**2).fill(0).map((_,i) =>
-                        <Flow key={i} color={"black"}
-                            args={(t,x,_,z) => [sin((x+t)/3)+sin((z+t)/2)]}
-                            position={r => [i%c,r,i/c%c]}
-                            scale={r => [r/3,r/3,r/3]} />
-                    )*/}
-                </Render>
                 <Box marginBottom={2}>
                     <Title dark>TSEI.jp</Title>
                 </Box>
