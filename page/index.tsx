@@ -23,7 +23,7 @@ const App = (
                     <Route    path="/home" component={Home}  exact/>
                     <Route    path='/hook' component={Hook}/>
                     <Route    path='/none' component={None}/>
-                    <Redirect              to='/none' />
+                    <Redirect to={window.location.host.match("localhost")?'/none':'/home'}/>
                 </Switch>
             </BrowserRouter>
         </ControlsProvider>

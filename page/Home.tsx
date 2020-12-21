@@ -1,62 +1,58 @@
 import * as THREE from "three";
-import React, {Suspense,useRef,useState,useCallback} from "react";
-import {Flex, Box} from "react-three-flex";
-import {useAspect, Html} from "drei";
-import {Canvas, useThree, useFrame} from "react-three-fiber";
+import React, {Suspense,useMemo,useRef} from "react";
+import {Html} from "drei";
+import {Canvas, useFrame} from "react-three-fiber";
 import {useGrid} from 'use-grid'
-import {Icon, Sides,Trans,} from '../src'
+import {Render, Flow, Vec3} from 'react-mol'
+import {Sides,Trans,} from '../src'
 import {Title} from './meshs'
-// import {Render, Flow, Vec3} from 'react-mol'
-// const {sin, cos, random} = Math
-const width  = "100%"
-const height = "100%"
-const state = {top: 0}
-function Page ({ onChangePages, count:c=1000}:any) {
+// import {Flex, Box} from "react-three-flex";
+const {sin, cos, random} = Math
+const state = {x: 0, y: 0}
+function Page () {
     const vec = new THREE.Vector3();
     const group = useRef<THREE.Group>();
-    const {size} = useThree();
-    const aspect = useAspect("cover", size.width, size.height, 2);
-    const onReflow = useCallback((_,h=0) => onChangePages(h/aspect[1]),[onChangePages, aspect]);
-    useFrame(() => group.current?.position?.lerp(vec.set(0, state.top/100, 0), 0.1));
+    useFrame(() => group.current?.position?.lerp(vec.set(state.x/100, state.y/100, 0), 0.1));
     return (
         <group ref={group}>
-            <Flex dir="column" size={[...aspect, 0] as any} {...{onReflow,width,height}}>
-                <Box marginBottom={2}>
-                    <Title dark>TSEI.jp</Title>
-                </Box>
-                <Box dir="column" {...{width, height}}>
-                    <Box {...{width, height}}>
-                        <Html center style={{width:"50vw", height, display:"flex", justifyContent: "space-evenly"}}>
-                            <Icon fab="twitter"    onClick={()=>window.open('https://twitter.com/tseijp')}/>
-                            <Icon fab="github"     onClick={()=>window.open('https://github.com/tseijp')} />
-                            <Icon fab="soundcloud" onClick={()=>window.open('https://soundcloud.com/tsei')}/>
-                        </Html>
-                    </Box>
-                </Box>
-            </Flex>
+            <gridHelper position={[0,0,0]} args={[100,50]}/>
+            <Title dark position={[0,0,3]}>TSEI.jp</Title>
+            {useMemo(() => (
+                <Render max={1000}>
+                    <dodecahedronBufferGeometry args={[1,0]}/>
+                    <meshStandardMaterial />
+                    {Array(1000).fill(0).map((_,i) =>
+                        <Flow key={i}
+                            args={[...Array(4)].map(_ => random())}
+                            position={(t=0,s=0,x=0,y=0,z=0) => [
+                                ((x-.5) - cos(t*s+x) - sin(t*s/1))*(x*100+50),
+                                ((y-.5) - sin(t*s+y) - cos(t*s/3))*(y*100+50),
+                                ((z-.5) - cos(t*s+z) - sin(t*s/5))*(z*100+50),
+                            ]}
+                            rotation={(t=0,s=0)=>Array(3).fill(cos(t*s)*5) as Vec3}
+                            scale={(t=0,s=0)=>Array(3).fill(cos(t*s/2)*5) as Vec3}
+                            color="black"/>
+                    )}
+                </Render>
+            ), [])}
         </group>
     );
 }
 export function Home() {
-    const onScroll = (e:any) => (state.top = e.target.scrollTop);
-    const [page, setPage] = useState(0);
     const [dark, setDark] = useGrid<number>({init:0, md:1, lg:0  })
     const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
     return (
-        <div>
-            <Canvas colorManagement shadowMap
-                camera={{position:[0,0,2], zoom:1}}
-                style={{position:"absolute", width:"100vw", height:"100vh"}}>
-                <pointLight position={[0,1,4]} intensity={0.1} />
-                <ambientLight intensity={0.2} />
-                <spotLight castShadow position={[1,1,1]} penumbra={1}/>
+        <div style={{width: "100%", height:"100%"}}>
+            <Canvas pixelRatio={window.devicePixelRatio}
+                    camera={{fov: 75, position: [0, 0, 5]}}
+                    gl={{alpha: true, antialias: false, logarithmicDepthBuffer: true}}>
+                <ambientLight intensity={.3} />
+                <pointLight position={[ 100, 100, 100]} intensity={2.2} />
+                <pointLight position={[-100,-100,-100]} intensity={5}/>
                 <Suspense fallback={<Html center>loading..</Html>}>
-                    <Page onChangePages={setPage} dark={dark}/>
+                    <Page/>
                 </Suspense>
             </Canvas>
-            <div onScroll={onScroll} style={{position: "absolute",top: 0,left: 0,width: "100vw",height: "100vh",overflow: "auto",}}>
-                <div style={{ height: `${page * 100}vh` }} />
-            </div>
             <Sides {...{size}}>
                 <a style={{color:"#818181"}} href="/"    >Home</a>
                 <a style={{color:"#818181"}} href="/hook">Hook</a>
