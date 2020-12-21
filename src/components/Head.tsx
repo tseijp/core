@@ -1,17 +1,21 @@
-import React, {CSSProperties as CSS, FC, useMemo} from 'react'
+import React from 'react'
 import {Props} from '../types'
+import styled from 'styled-components'
 
-export type Head = FC<Props>
-export const Head:Head = ({
-    children, color="", dark=false,size=1, style={}, ...props
-}) => {
-    style = useMemo<CSS>(()=>({
-        fontSize:size*50,
-        color:color||dark?"#818181":"#000",
-        width:`max(70vw, 100vw - ${size*200}px)`,
-        height:"auto",
-        margin:"auto",
-        ...style
-    }), [color,dark,size,style])
-    return <div {...{children,style,...props}}/>
+const Item = styled.div<any>`
+    fontSize:size*50,
+    color: ${props => props.color};
+    width:${({size}) => `max(70vw, 100vw - ${size*200}px)`},
+    height: auto;
+    margin: auto;
+`
+
+export type Head = {
+    (props: Props): JSX.Element
 }
+export const Head = React.forwardRef(({
+    children, dark=false,size=1, style={}, ...props
+}: any, ref) => {
+    const color = props.color||dark? "#818181" : "#000"
+    return <Item {...{children,ref,style,color,...props}}/>
+})

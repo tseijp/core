@@ -2,22 +2,27 @@
   *     Ref : https://codesandbox.io/embed/rj998k4vmm
   *           https://coliss.com/articles/build-websites/operation/css/
  ***/
-import React, {CSSProperties as CSS, FC, useMemo} from 'react'
+import React, {useMemo} from 'react'
 import {Props} from '../types'
 import {useGesture} from 'react-use-gesture'
 import {useSpring, animated as a} from 'react-spring'
-export type Card = FC<Props<{
-    max:number,
-    min:number,
-    rate:number,
-    space:number,
-}>>
-export const Card:Card = ({
+// import styled from 'styled-components'
+
+
+export type Card = {
+    (props: Props<{
+        max:number,
+        min:number,
+        rate:number,
+        space:number,
+    }>): JSX.Element
+}
+export const Card = React.forwardRef(({
     children, size=1, rate=1, space=0, style={},
     dark=false, color="",max=0, min=0, ...props
-}) => {
+}: any, ref) => {
     const [{xyz}, set] = useSpring(()=>({xyz:[0,0,0]}))
-    const styleCard = useMemo<CSS>(() => {
+    const styleCard = useMemo<any>(() => {
         const minHeight = min||size*500
         const maxHeight = max||null
         return {margin:`${space}px auto ${space}px auto`, padding:0,position:"relative",
@@ -49,5 +54,5 @@ export const Card:Card = ({
             zIndex: xyz.to((x,y,z) => x*y*z>0 ? 1 : 0) as any,
             ...styleCard, ...style } as any}
            {...bind()}
-           {...{...props,children}}/>
-}
+           {...{...props,ref,children}}/>
+})

@@ -1,20 +1,35 @@
-import React, {CSSProperties as CSS, FC, Children} from 'react'
+import React, {Children} from 'react'
 import {Props} from '../types'
-const styles:CSS[] = [
-   {position:"absolute",left:0,bottom:0,background:"#212121",minWidth:"100%",height:"auto",},
-   {position:"relative",textAlign:"center"},
-]
-export type Foot = FC<Props>
-export const Foot:Foot = ({
+import styled from 'styled-components'
+
+const Wrap = styled.div<any>`
+    position: relative;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    background: #212121;
+    min-width: 100%;
+    borderRadius: ${({size=1}) => `${size*25}px ${size*25}px 0px 0px`};
+    padding     : ${({size=1}) => `0px ${size*50}px ${size*25}px ${size*50}px`}
+`
+const Item = styled.div<any>`
+    position: relative;
+    text-align: center;
+    fontSize: ${({size}) => `${~~(size*50)}px`}
+`
+
+export type Foot = {
+    (props: Props): JSX.Element
+}
+export const Foot = React.forwardRef(({
     children, size=1, style={}, ...props
-}) => {
+}: any, ref) => {
     return (
-        <div {...props} style={{...styles[0], ...style,
-            borderRadius:`${size*25}px ${size*25}px 0px 0px`,
-            padding     :`0px ${size*50}px ${size*25}px ${size*50}px`}}>
+        <Wrap {...props} {...{ref, style}}>
             {Children.map(children, child =>
-                <div style={{...styles[1],fontSize:size*50}}>{child}</div>
+                <Item>{child}</Item>
             )}
-        </div>
+        </Wrap>
     )
 }
+)

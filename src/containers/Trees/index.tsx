@@ -26,13 +26,13 @@ const TreesType = styled<any>(a.span)`
     white-space: nowrap;
     vertical-align: middle;
     marginRight: ${props => props.type? 10:0};
-    color: ${props => props.dark? "#818181": "#212121"};
+    color: ${props => props.color};
 `
 const TreesCont = styled<any>(a.div)`
     display: inline-block;
     verticalAlign: middle;
     font-size: ${props => props.size*50}px;
-    color: ${props => props.dark? "#818181": "#212121"};
+    color: ${props => props.color};
 `
 const TreesIcon = styled.svg<any>`
     width: 1em;
@@ -41,14 +41,14 @@ const TreesIcon = styled.svg<any>`
     margin-right: 10;
     verticalAlign: middle;
     font-size: ${props => props.size*50}px;
-    color: ${props => props.dark? "#818181": "#212121"}
+    color: ${props => props.color}
 `
 export function Trees (props: any) {
     const { content, type, depth=0, root=1, size=1.5,
             dark=false, style={}, viewBox="64 -65 897 897"} = props
     const [spring, bind, path] = useTrees(props)
-
-    const main = useMemo(() => Children.map(props.children, child => {
+    const color = useMemo(() => dark? "#818181": "#212121", [dark])
+    const main  = useMemo(() => Children.map(props.children, child => {
         const grand = Children.toArray((child as any)?.props?.children) || []
         return props.children &&
             <Trees {...{...props,
@@ -60,11 +60,11 @@ export function Trees (props: any) {
     return (
         <TreesTop {...{style, size}}>
             {!content ? null :
-            <TreesIcon {...{dark, size, viewBox}} {...bind()}>
+            <TreesIcon {...{color, size, viewBox}} {...bind()}>
                 <g><path d={path}/></g>
             </TreesIcon>}
-            <TreesType {...{dark, type}}>{type}</TreesType>
-            <TreesCont {...{dark, size}}>{content}</TreesCont>
+            <TreesType {...{color, type}}>{type}</TreesType>
+            <TreesCont {...{color, size}}>{content}</TreesCont>
             <TreesMain {...{depth, size}} style={spring}>{main}</TreesMain>
         </TreesTop>
     )

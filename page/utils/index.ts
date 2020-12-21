@@ -1,6 +1,7 @@
 import axios  from 'axios'
 import {Credit, URLType, Page} from '@tsei/note'
 import * as CODES from '../codes'
+import * as DEMOS from '../demos'
 import {topUp} from '../../src'
 // *************************📋 FOR NOTE 📋************************* //
 export * from './serviceWorker'
@@ -35,13 +36,13 @@ export const signin = async (URL:URLType, cred:Credit, headers={'Content-Type':'
 export const hookTree = [
     ["Components","Card","Grow",],//"Head","Icon"],
     ["Containers","Notes","Split","Trees"],
-    ["Mesh","Kinect","Model","Motion"],
+    ["Mesh","Kinect","Motion"],
 ]
 export type  HookPage = {pathname:string, Hook:any, code:any, codes:any}
 const getval = (obj={},key='') => key in obj ? (obj as any)[key] : ""
 export const hookPage = {
     pathname: ({id=""}) => `/hook/${id}`,
-    Hook : ({id="",codes={}}) => getval(codes, 'Hook' + topUp(id)), //'page' +
-    code : ({id="",codes={}}) => getval(codes, 'code' + topUp(id)),
+    Demo : ({id=""}) => getval(DEMOS, topUp(id)),
+    code : ({id=""}) => getval(CODES, topUp(id)),
     codes: Object.assign({}, ...Object.entries(CODES).map(([k,v])=>({[k]:v})))
 }

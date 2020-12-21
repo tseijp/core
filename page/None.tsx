@@ -1,26 +1,32 @@
-import React, {CSSProperties as CSS, FC, useState} from 'react'
+import React, {useState} from 'react'
 //import { Card, Foot, Head } from '../src/components'
 import { /*Modal, Pills, */Sides, Trans } from '../src/containers'
 import { useGrid } from 'use-grid'
 import { Canvas } from 'react-three-fiber'
 import { Helmet } from 'react-helmet-async';
 import {Render, Flow} from 'react-mol'
+import styled from 'styled-components'
 // import * as THREE from 'three'
 // import {Provider} from 'jotai'
 // import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer'
 // import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 // import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
-const styles:{[key:string]:CSS} = {
-    top: {position:"fixed",top:0,left:0,width:'100%',height:'100%'},
-}
+const Wrap = styled.div<any>`
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: ${props => props.background}
+`
 const {cos, sin, random} = Math
-export const None :FC =  () => {
+export function None () {
     const [lang, setLang] = useState<string>(window?.navigator?.language||'ja')
     const [dark, setDark] = useGrid<boolean>({md:true, lg:false})
     const [size, setSize] = useGrid<number> ({md:1    , lg:1.5 })
     return (
         <>
-            <div style={{...styles.top, background:dark?"#000":"#fff"}}>
+            <Wrap background={dark?"#000":"#fff"}>
                 <Canvas gl={{ alpha: false, antialias: false, logarithmicDepthBuffer: true }}
                         camera={{ position:[0,0,500], far:2000 }}
                         pixelRatio={window.devicePixelRatio}>
@@ -45,7 +51,7 @@ export const None :FC =  () => {
                         )}
                     </Render>
                 </Canvas>
-            </div>
+            </Wrap>
             <Helmet>
                 <title>404 NOT FOUND</title>
                 <link rel="canonical" href="https://tsei.jp/" />
