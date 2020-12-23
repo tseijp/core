@@ -4,11 +4,18 @@ import {Html} from "drei";
 import {Canvas, useFrame} from "react-three-fiber";
 import {useGrid} from 'use-grid'
 import {Render, Flow, Vec3} from 'react-mol'
-import {Sides,Trans,} from '../src'
+import {Sides,Trans,Grow} from '../src'
 import {Title} from './meshs'
-// import {Flex, Box} from "react-three-flex";
+import styled from 'styled-components'
 const {sin, cos, random} = Math
 const state = {x: 0, y: 0}
+
+const Wrap = styled.div<any>`
+    width: 100%;
+    height: 100%;
+    background: ${props => props.background};
+`
+
 function Page () {
     const vec = new THREE.Vector3();
     const group = useRef<THREE.Group>();
@@ -38,21 +45,23 @@ function Page () {
         </group>
     );
 }
+
 export function Home() {
-    const [dark, setDark] = useGrid<number>({init:0, md:1, lg:0  })
-    const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
+    const [dark, setDark] = useGrid<number>({init:0, xs: 1, md:0, lg:1  })
+    const [size, setSize] = useGrid<number>({init:0, xs:.5, md:1, lg:1.5})
     return (
-        <div style={{width: "100%", height:"100%"}}>
+        <Wrap background={dark?"#212121":"#fff"}>
             <Canvas pixelRatio={window.devicePixelRatio}
                     camera={{fov: 75, position: [0, 0, 5]}}
                     gl={{alpha: true, antialias: false, logarithmicDepthBuffer: true}}>
                 <ambientLight intensity={.3} />
                 <pointLight position={[ 100, 100, 100]} intensity={2.2} />
                 <pointLight position={[-100,-100,-100]} intensity={5}/>
-                <Suspense fallback={<Html center>loading..</Html>}>
+                <Suspense fallback={<Html center><Grow /></Html>}>
                     <Page/>
                 </Suspense>
             </Canvas>
+            <Grow />
             <Sides {...{size}}>
                 <a style={{color:"#818181"}} href="/"    >Home</a>
                 <a style={{color:"#818181"}} href="/hook">Hook</a>
@@ -62,6 +71,6 @@ export function Home() {
                 <div onClick={()=>setDark((p:any)=>({md:p.lg,lg:p.md}))}>{dark?'🌞':'🌛'}</div>
                 <div onClick={()=>setSize((p:any)=>({md:p.lg,lg:p.md}))}>{size<75?'👨':'👶'}</div>
             </Trans>
-        </div>
+        </Wrap>
     );
 }

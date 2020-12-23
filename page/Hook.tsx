@@ -2,7 +2,7 @@ import React, {CSSProperties as CSS, useMemo, FC} from 'react';
 import {useGrid}  from 'use-grid';
 import {Controls} from 'react-three-gui';
 import {Helmet}   from 'react-helmet-async';
-import {hookTree,hookPage,HookPage,pageConfig} from './utils';
+import {hookPage,HookPage,pageConfig} from './utils';
 import {topUp,Card,Notes,Sides,Split,Trees,Trans} from '../src'
 import styled from 'styled-components'
 import {usePage} from '@tsei/note'
@@ -31,8 +31,8 @@ const HookCtrl = ({title, background, color, size}: any) =>
 
 
 export const Hook:FC = () => {
-    const [dark, setDark] = useGrid<number>({init:0, md:1, lg:0  })
-    const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
+    const [dark, setDark] = useGrid<number>({init:0, xs: 1, md:1, lg:0  })
+    const [size, setSize] = useGrid<number>({init:0, xs:.8, md:1, lg:1.5})
     const [page, setPage] = usePage<HookPage>(hookPage, pageConfig)
     const [side, setSide] = useGrid<number>({xs:0,lg:89/233})
     const [ctrl, demo, code, trees] = useMemo(() => {
@@ -40,25 +40,21 @@ export const Hook:FC = () => {
         const color = dark?"#818181":"#000"
         return [
             page.id   && <HookCtrl {...{background, color, size}} title={page.id}/>,
-            page.Demo && <page.Demo />,
+            page.Demo && <div style={{height: "calc(100vh - 2rem)"}}><page.Demo /></div>,
             page.code && <Code {...{dark,size,value:page.code}}/>,
-            <Trees  {...{dark,size:size/2,root:page.id?0:1}}
-                {...(page.id?{fontSize:"14px"}:{})}
-                topStyle={{padding:page.Demo? 25*size: 100*size}}
-                content ={
-                    <span onClick={() => setPage({id:""})}>Hook</span>}>
-                { hookTree.map((ids,i) => ids instanceof Array
-                ?   <span key={i}>{ ids.map((id, j) =>
-                    <span key={id} onClick={() => j&&setPage({id})}>{id}</span>) }</span>
-                :   <span key={i}  onClick={() =>    setPage({id:ids})}>{ids}</span>) }
+            page.tree && <Trees  {...{dark,size:size/2,root:page.id?0:1}}>
+                { page.tree.map((ids: any,i=0) =>
+                    <span key={i}>{ ids.map((id: any, j=0) =>
+                    <span key={id} onClick={() => j&&setPage({id})}>{id}</span>) }
+                    </span>)}
                 </Trees>
         ]
-    }, [dark, page.Demo, page.code, page.id, setPage, size])
+    }, [dark, page.Demo, page.code, page.id, page.tree, setPage, size])
     return (
         <HookWrap background={dark?"#000":"#fff"}>
-            {(page.hash==="#app"&&page.Demo&&<page.Demo/>)
-             || (page.hash==="#raw"&&page.code&&<>{page.code}</>)
-             || (
+            {  (page.hash==="#app" && page.Demo && <page.Demo/>)
+             ||(page.hash==="#raw" && page.code && <>{page.code}</>)
+             ||(
             <HookMain order={page.Demo? [side, -1]: [1, 0]}>
                 <Notes {...{dark,size,space:"1rem"}}>
                     <HookCard {...{dark,size}}>{ctrl}</HookCard>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 //import { Card, Foot, Head } from '../src/components'
-import { /*Modal, Pills, */Sides, Trans } from '../src/containers'
+import { Sides, Trans } from '../src'
 import { useGrid } from 'use-grid'
 import { Canvas } from 'react-three-fiber'
 import { Helmet } from 'react-helmet-async';

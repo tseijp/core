@@ -16,7 +16,7 @@ const TreesTop = styled<any>(a.div)`
 `
 const TreesMain = styled<any>(a.div)`
     font-size: ${props => props.size*50}px;
-    will-Cchange: transform, opacity, height;
+    will-change: transform, opacity, height;
     margin-left: 6;
 `
 const TreesType = styled<any>(a.span)`
@@ -25,12 +25,12 @@ const TreesType = styled<any>(a.span)`
     text-transform: uppercase;
     white-space: nowrap;
     vertical-align: middle;
-    marginRight: ${props => props.type? 10:0};
+    margin-right: ${props => props.type? 10:0};
     color: ${props => props.color};
 `
 const TreesCont = styled<any>(a.div)`
     display: inline-block;
-    verticalAlign: middle;
+    vertical-align: middle;
     font-size: ${props => props.size*50}px;
     color: ${props => props.color};
 `
@@ -39,7 +39,7 @@ const TreesIcon = styled.svg<any>`
     height: 1em;
     cursor: pointer;
     margin-right: 10;
-    verticalAlign: middle;
+    vertical-align: middle;
     font-size: ${props => props.size*50}px;
     color: ${props => props.color}
 `
@@ -59,7 +59,7 @@ export function Trees (props: any) {
 
     return (
         <TreesTop {...{style, size}}>
-            {!content ? null :
+            {path && !content ? null :
             <TreesIcon {...{color, size, viewBox}} {...bind()}>
                 <g><path d={path}/></g>
             </TreesIcon>}

@@ -36,9 +36,9 @@ export function useTrees (props: any) {
               opacity: state.open? 1      : 0,
             transform: state.open? 'translate3d(0px,0,0)': 'translate3d(20px,0,0)'},
     })
-    const path = useMemo(() => treesPaths[ props.children
-            ? (state.open ? 'Minus' : 'Plus')
-            : 'Close'], [props.children, state.open])
+    const path = useMemo(() => props.children && treesPaths[(
+        state.open ? 'Minus' : 'Plus'
+    )], [props.children, state.open])
     useEffect(() => {
         set(p => visible!==p.visible?{...p, visible}:p)
     }, [visible])

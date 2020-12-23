@@ -1,4 +1,5 @@
 export * from './components'
 export * from './containers'
+export * from './navigators'
 export * from './types'
 export * from './utils'

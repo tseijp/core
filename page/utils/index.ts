@@ -33,16 +33,15 @@ export const signin = async (URL:URLType, cred:Credit, headers={'Content-Type':'
         })
 
 // *************************🤏 FOR HOOK 🤏************************* //
-export const hookTree = [
-    ["Components","Card","Grow",],//"Head","Icon"],
-    ["Containers","Notes","Split","Trees"],
-    ["Mesh","Kinect","Motion"],
-]
-export type  HookPage = {pathname:string, Hook:any, code:any, codes:any}
+export type  HookPage = {pathname:string, Hook:any, code:any, codes:any, tree: any}
 const getval = (obj={},key='') => key in obj ? (obj as any)[key] : ""
+const codes = Object.assign({}, ...Object.values(CODES))
+const demos = Object.assign({}, ...Object.values(DEMOS))
 export const hookPage = {
     pathname: ({id=""}) => `/hook/${id}`,
-    Demo : ({id=""}) => getval(DEMOS, topUp(id)),
-    code : ({id=""}) => getval(CODES, topUp(id)),
-    codes: Object.assign({}, ...Object.entries(CODES).map(([k,v])=>({[k]:v})))
+    code: ({id=""}) => getval(codes, topUp(id)),
+    Demo: ({id=""}) => getval(demos, topUp(id)),
+    tree: Object.entries(DEMOS).map(([file, names]: any) => [
+        file, ...Object.keys(names)
+    ])
 }

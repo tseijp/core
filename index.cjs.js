@@ -652,10 +652,10 @@ config) {
 };
 
 var treesPaths = {
-  Close: "M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
+  // Close:"M717.5 589.5q-10.5 10.5 -25.5 10.5t-26 -10l-154 -155l-154 155q-11 10 -26 10t-25.5 -10.5t-10.5 -25.5t11 -25l154 -155l-154 -155q-11 -10 -11 -25t10.5 -25.5t25.5 -10.5t26 10l154 155l154 -155q11 -10 26 -10t25.5 10.5t10.5 25t-11 25.5l-154 155l154 155 q11 10 11 25t-10.5 25.5zM888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0z",
   Minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
-  Plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
-  Eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z"
+  Plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z" // Eye: "M963 384q0 14 -21 62q-26 65 -61 109q-57 71 -139 112q-99 50 -230 50t-231 -50q-80 -41 -138 -112q-34 -43 -61 -109q-21 -48 -21 -62v0v0v0v0q0 -14 21 -62q27 -66 61 -109q57 -71 139 -112q100 -50 230 -50t230 50q81 41 139 112q35 44 62 109q20 48 20 62v0v0v0v0z M889 384q-25 -77 -64 -126h-1q-46 -59 -114 -93q-85 -42 -198.5 -42t-198.5 42q-67 34 -114 93q-40 49 -65 126q25 77 65 126q47 59 114 93q85 43 199 43t198 -43q67 -33 114 -93q40 -49 65 -126zM512 558q-72 0 -122.5 -50.5t-50.5 -122.5t50.5 -122.5t122.5 -50.5 t122.5 50.5t50.5 122.5t-50.5 122.5t-122.5 50.5zM614 385q0 -42 -30 -72t-72 -30t-72 30t-30 72t30 72t72 30t72 -30t30 -72z",
+
 };
 
 var treesConfig = {
@@ -704,7 +704,7 @@ function useTrees(props) {
     }
   });
   var path = React.useMemo(function () {
-    return treesPaths[props.children ? state.open ? 'Minus' : 'Plus' : 'Close'];
+    return props.children && treesPaths[state.open ? 'Minus' : 'Plus'];
   }, [props.children, state.open]);
   React.useEffect(function () {
     set(function (p) {
@@ -717,7 +717,7 @@ function useTrees(props) {
 }
 
 function _templateObject5() {
-  var data = taggedTemplateLiteralLoose(["\n    width: 1em;\n    height: 1em;\n    cursor: pointer;\n    margin-right: 10;\n    verticalAlign: middle;\n    font-size: ", "px;\n    color: ", "\n"]);
+  var data = taggedTemplateLiteralLoose(["\n    width: 1em;\n    height: 1em;\n    cursor: pointer;\n    margin-right: 10;\n    vertical-align: middle;\n    font-size: ", "px;\n    color: ", "\n"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -727,7 +727,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = taggedTemplateLiteralLoose(["\n    display: inline-block;\n    verticalAlign: middle;\n    font-size: ", "px;\n    color: ", ";\n"]);
+  var data = taggedTemplateLiteralLoose(["\n    display: inline-block;\n    vertical-align: middle;\n    font-size: ", "px;\n    color: ", ";\n"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -737,7 +737,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = taggedTemplateLiteralLoose(["\n    font-size: 0.6em;\n    font-family: monospace;\n    text-transform: uppercase;\n    white-space: nowrap;\n    vertical-align: middle;\n    marginRight: ", ";\n    color: ", ";\n"]);
+  var data = taggedTemplateLiteralLoose(["\n    font-size: 0.6em;\n    font-family: monospace;\n    text-transform: uppercase;\n    white-space: nowrap;\n    vertical-align: middle;\n    margin-right: ", ";\n    color: ", ";\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -747,7 +747,7 @@ function _templateObject3() {
 }
 
 function _templateObject2$1() {
-  var data = taggedTemplateLiteralLoose(["\n    font-size: ", "px;\n    will-Cchange: transform, opacity, height;\n    margin-left: 6;\n"]);
+  var data = taggedTemplateLiteralLoose(["\n    font-size: ", "px;\n    will-change: transform, opacity, height;\n    margin-left: 6;\n"]);
 
   _templateObject2$1 = function _templateObject2() {
     return data;
@@ -831,7 +831,7 @@ function Trees(props) {
   return /*#__PURE__*/React__default.createElement(TreesTop, {
     style: style,
     size: size
-  }, !content ? null : /*#__PURE__*/React__default.createElement(TreesIcon, _extends_1({
+  }, path && !content ? null : /*#__PURE__*/React__default.createElement(TreesIcon, _extends_1({
     color: color,
     size: size,
     viewBox: viewBox
@@ -1406,9 +1406,8 @@ var Pills = function Pills(_ref) {
   }));
 };
 
-function Sheet(_ref) {
-  var children = _ref.children,
-      _ref$height = _ref.height,
+function useSheet(_ref) {
+  var _ref$height = _ref.height,
       height = _ref$height === void 0 ? 100 : _ref$height,
       _ref$started = _ref.started,
       started = _ref$started === void 0 ? false : _ref$started,
@@ -1422,7 +1421,7 @@ function Sheet(_ref) {
       y: height
     };
   }),
-      y = _useSpring[0].y,
+      spring = _useSpring[0],
       set = _useSpring[1];
 
   var open = React.useCallback(function (c) {
@@ -1464,7 +1463,7 @@ function Sheet(_ref) {
     });
   }, {
     initial: function initial() {
-      return [0, y.get()];
+      return [0, spring.y.get()];
     },
     filterTaps: true,
     bounds: {
@@ -1478,34 +1477,41 @@ function Sheet(_ref) {
   React.useEffect(function () {
     f.current(started);
   }, [started]);
+  return [spring, bind];
+}
+
+function _templateObject$5() {
+  var data = taggedTemplateLiteralLoose(["\n    bottom: ", ";\n    left: 2vw;\n    width: 96vw;\n    height: calc(100vh + 100px);\n    z-index: 1;\n    position: fixed;\n    background: rgba(0,0,0,0);\n    touch-action:  none;\n    border-radius: 4em 4em 0px;\n"]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap$1 = styled(reactSpring.animated.div)(_templateObject$5(), function (_ref) {
+  var height = _ref.height;
+  return "calc(-100vh + " + (height - 100) + "px)";
+});
+function Sheet(props) {
+  var _useSheet = useSheet(props),
+      y = _useSheet[0].y,
+      bind = _useSheet[1];
+
   var display = y.to(function (py) {
     if (py === void 0) {
       py = 0;
     }
 
-    return py < height ? 'block' : 'none';
+    return py < props.height ? 'block' : 'none';
   });
-  var style = React.useMemo(function () {
-    var bottom = "calc(-100vh + " + (height - 100) + "px)";
-    return {
-      bottom: bottom,
-      left: "2vw",
-      width: "96vw",
-      height: "calc(100vh + 100px)",
-      position: "fixed",
-      borderRadius: "4em 4em 0px",
-      zIndex: 100,
-      backgroundColor: 'rgba(0,0,0,0)',
-      touchAction: "none"
-    };
-  }, [height]); //console.log('\tRender Sheet');
-
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends_1({}, bind(), {
-    style: _extends_1({}, style, {
+  return /*#__PURE__*/React__default.createElement(Wrap$1, _extends_1({}, bind(), {
+    height: props.height,
+    style: {
       y: y,
       display: display
-    })
-  }), children);
+    }
+  }), props.children);
 }
 
 var styles$2 = {
@@ -1722,28 +1728,7 @@ var Sides = function Sides(_temp) {
   }))));
 };
 
-function _templateObject2$2() {
-  var data = taggedTemplateLiteralLoose(["\n    position: absolute;\n    will-change: transform;\n"]);
-
-  _templateObject2$2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject$5() {
-  var data = taggedTemplateLiteralLoose(["\n    left: 0;\n    bottom: 0;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n"]);
-
-  _templateObject$5 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Wrap$1 = styled(reactSpring.animated.div)(_templateObject$5());
-var Item$4 = styled(reactSpring.animated.div)(_templateObject2$2());
-function Slide(_ref) {
+function useSlide(_ref) {
   var children = _ref.children,
       _ref$width = _ref.width,
       width = _ref$width === void 0 ? 600 : _ref$width,
@@ -1764,13 +1749,13 @@ function Slide(_ref) {
       x: (i < len - 1 ? i : -1) * width
     };
   }),
-      springs = _useSprings[0],
+      s = _useSprings[0],
       set = _useSprings[1];
 
   var prev = React.useRef([0, 1]);
-  var wheelOffset = React.useRef(0);
-  var dragOffset = React.useRef(0);
-  var runSprings = React.useCallback(function (xy, vxy) {
+  var drag = React.useRef(0);
+  var wheel = React.useRef(0);
+  var run = React.useCallback(function (xy, vxy) {
     var firstVis = idx(Math.floor(xy / width) % len);
     var firstVisIdx = vxy < 0 ? len - visible : 1;
     set(function (i) {
@@ -1795,28 +1780,54 @@ function Slide(_ref) {
           x = _ref2$offset[0],
           _ref2$vxvy = _ref2.vxvy,
           vx = _ref2$vxvy[0];
-      return vx && (dragOffset.current = -x, runSprings(wheelOffset.current - x, -vx));
+      return vx && (drag.current = -x, run(wheel.current - x, -vx));
     },
     onWheel: function onWheel(_ref3) {
       var _ref3$offset = _ref3.offset,
           y = _ref3$offset[1],
           _ref3$vxvy = _ref3.vxvy,
           vy = _ref3$vxvy[1];
-      return vy && (wheelOffset.current = y, runSprings(dragOffset.current + y, vy));
+      return vy && (wheel.current = y, run(drag.current + y, vy));
     }
   });
-  console.log('\t\tRender Slider');
-  return /*#__PURE__*/React__default.createElement(Wrap$1, bind(), springs.map(function (_ref4, i) {
-    var x = _ref4.x;
-    return /*#__PURE__*/React__default.createElement(Item$4, {
+  return [s, bind];
+}
+
+function _templateObject2$2() {
+  var data = taggedTemplateLiteralLoose(["\n    position: absolute;\n    will-change: transform;\n"]);
+
+  _templateObject2$2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$6() {
+  var data = taggedTemplateLiteralLoose(["\n    left: 0;\n    bottom: 0;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n"]);
+
+  _templateObject$6 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap$2 = styled(reactSpring.animated.div)(_templateObject$6());
+var Item$4 = styled(reactSpring.animated.div)(_templateObject2$2());
+function Slide(props) {
+  var _useSlide = useSlide(props),
+      springs = _useSlide[0],
+      bind = _useSlide[1];
+
+  return /*#__PURE__*/React__default.createElement(Wrap$2, bind(), React__default.Children.map(props.children, function (children, i) {
+    return /*#__PURE__*/React__default.createElement(Item$4, _extends_1({
       key: i,
-      style: {
-        x: x
-      }
-    }, children[i]);
+      style: springs[i]
+    }, {
+      children: children
+    }));
   }));
 } // export * from './utils'
-// export * from './hooks'
 
 var sample = function sample(a, k, init) {
   return [].concat(a.slice(0, k), k - a.length > 0 ? Array(k - a.length).fill(init || a[0]) : []);
@@ -2011,16 +2022,16 @@ function _templateObject2$3() {
   return data;
 }
 
-function _templateObject$6() {
+function _templateObject$7() {
   var data = taggedTemplateLiteralLoose(["\n    width: 100%;\n    height: 100%;\n    whiteSpace: nowrap;\n"]);
 
-  _templateObject$6 = function _templateObject() {
+  _templateObject$7 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var SplitWrapp = styled(reactSpring.animated.div)(_templateObject$6());
+var SplitWrapp = styled(reactSpring.animated.div)(_templateObject$7());
 var SplitChild = styled(reactSpring.animated.div)(_templateObject2$3());
 function Split(props) {
   var _useSplit = useSplit(props),
@@ -2317,5 +2328,7 @@ exports.swap = swap;
 exports.topUp = topUp;
 exports.treesPaths = treesPaths;
 exports.usePage = usePage;
+exports.useSheet = useSheet;
+exports.useSlide = useSlide;
 exports.useSplit = useSplit;
 exports.useTrees = useTrees;
