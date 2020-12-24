@@ -40,7 +40,7 @@ export const Hook:FC = () => {
         const color = dark?"#818181":"#000"
         return [
             page.id   && <HookCtrl {...{background, color, size}} title={page.id}/>,
-            page.Demo && <div style={{height: "calc(100vh - 2rem)"}}><page.Demo /></div>,
+            page.Demo && <page.Demo />,
             page.code && <Code {...{dark,size,value:page.code}}/>,
             page.tree && <Trees  {...{dark,size:size/2,root:page.id?0:1}}>
                 { page.tree.map((ids: any,i=0) =>

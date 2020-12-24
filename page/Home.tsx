@@ -61,7 +61,6 @@ export function Home() {
                     <Page/>
                 </Suspense>
             </Canvas>
-            <Grow />
             <Sides {...{size}}>
                 <a style={{color:"#818181"}} href="/"    >Home</a>
                 <a style={{color:"#818181"}} href="/hook">Hook</a>

@@ -1,4 +1,4 @@
-import {useCallback,useRef} from 'react';
+import {useRef} from 'react';
 import {useSpring, SpringValue, config} from 'react-spring'
 import {useGesture} from 'react-use-gesture'
 import {Props} from '../../types'
@@ -17,10 +17,10 @@ export function useSides ({
     width=window.innerWidth/2, onOpen=()=>null
 }: any) {
     const opened = useRef<number>(0)
-    const setOpened = useCallback((o=1)=>1&&( (opened.current=o), onOpen&&onOpen() ),[onOpen])
     const [spring, set] = useSpring(() => ({x:0,y:0,s:1}))
-    const open =(v=0)=>1&&(setOpened(1),set({x:width,y:0,config:v!==0?config.wobbly:config.slow}))
-    const close=(v=0)=>1&&(setOpened(0),set({x:0   ,y:0,config:{...config.stiff,velocity:v }}))
+    const run  =(o=1)=>1&&( (opened.current=o), onOpen&&onOpen() )
+    const open =(v=0)=>1&&(run(1),set({x:width,y:0,config:v!==0?config.wobbly:config.slow}))
+    const close=(v=0)=>1&&(run(0),set({x:0   ,y:0,config:{...config.stiff,velocity:v }}))
     const bind = useGesture({
         onHover : ({hovering}) => set({s:hovering?1.2:1}),
         onDrag : ({last,down,vxvy:[vx,],movement:[mx,my],cancel}) => {

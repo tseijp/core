@@ -4,28 +4,30 @@ import {animated} from 'react-spring'
 import {usePulls, PullsProps} from './hooks'
 
 const Wrap = styled<any>(animated.div)`
-    position: relative;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    bottom: 0px;
+    position: absolute;
     pointer-events: all;
-    background: rgba(255, 0, 0, 0.5);
+    overflow: hidden;
 `
 const Item = styled<any>(animated.div)`
+    position: absolute;
     background: rgba(0, 0, 255, 0.5);
-    position: relative;
-    display: grid;
-    margin: 0px auto 0px auto;
-    width: ${props => props.size*250}px;
-    height: ${props => props.size*250}px;
+    ${({align}) => `${align}: 0px;`}
+    ${({align, width, size}) => align==="left"||align==="right"
+        ? `width: ${width*size}px; height: 100%;`
+        : `width: 100%; height: ${width*size}px;`}
 `
 
 export type Pulls = {(props: PullsProps): JSX.Element}
 export const Pulls = React.forwardRef((props: any, ref) => {
-    const [spring, bind] = usePulls(props)
+    const {align="bottom", width=50, size=1, style={}} = props;
+    const [{x, y}, bind] = usePulls(props)
     return (
-        <Wrap {...bind()} ref={ref}>
-            <Item style={spring}>
+        <Wrap {...bind()} style={style} ref={ref}>
+            <Item style={{x, y}} size={size} align={align} width={width}>
                 {props.children}
             </Item>
         </Wrap>
