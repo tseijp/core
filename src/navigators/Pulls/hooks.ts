@@ -3,41 +3,58 @@ import { useSpring, SpringValue } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import {Props} from '../../types'
 export type PullsProps = Props<{
+    onOpen: () => any,
+    onClose: () => any,
+    wheelRate: number,
+    dragRate: number,
     timeout: number,
     width: number,
     align: string,
+    rate: number,
     open: boolean,
 }>
-
 export function usePulls (props: PullsProps): [{
     x: SpringValue<number>,
     y: SpringValue<number>,
 }, (...args: any) => any]
 
 export function usePulls ({
+    onOpen= ()=> void null,
+    onClose= ()=> void null,
+    wheelRate=-0.5,
+    dragRate=1,
     timeout=0,
     width=100,
     align="bottom",
     size=1,
+    rate=1,
     open=false,
 }) {
     const [spring, set] = useSpring(() => setup(width*size, align))
     const timeouted = useRef(false)
     const changed = useCallback((opened=1) => {
         set(opened? {x: 0, y: 0}:  setup(width*size, align))
+        if (!opened && onClose) onClose()
+        if ( opened && onOpen ) onOpen()
         if (timeout <= 0 || opened <= 0 || timeouted.current) return
         timeouted.current = true
         setTimeout(() => void (timeouted.current = false, changed(0)), timeout)
-    }, [align, set, size, timeout, width])
+    }, [align, set, size, timeout, width, onOpen, onClose])
+    const dist = width* size
+    const axis = align==="bottom" || align==="top"  ? 1: 0
+    const sign = align==="bottom" || align==="right"?-1: 1
     const bind = useGesture({
-        onDrag : ({last, down, movement}) => {
-            const axis = align==="bottom" || align==="top"  ? 1: 0
-            const sign = align==="bottom" || align==="right"?-1: 1
-            const move = movement[axis]
-            const dist = width* size
-            const newx = (down?move: 0) - dist*sign
+        onWheel: ({last, wheeling, movement}) => {
+            const move = movement[axis] * wheelRate * rate
+            const next = (wheeling? move: 0) - dist * sign
             if (last) return void changed(move* sign > dist)
-            set({[["x", "y"][axis]]: newx, [["y", "x"][axis]]: 0});
+            set({[["x", "y"][axis]]: next, [["y", "x"][axis]]: 0});
+        },
+        onDrag: ({last, dragging, movement}) => {
+            const move = movement[axis] * dragRate * rate
+            const next = (dragging? move: 0) - dist * sign
+            if (last) return void changed(move* sign > dist)
+            set({[["x", "y"][axis]]: next, [["y", "x"][axis]]: 0});
         },
     })
     useEffect(() => void changed(open && align), [open, align, changed])

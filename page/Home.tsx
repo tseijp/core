@@ -4,7 +4,7 @@ import {Html} from "drei";
 import {Canvas, useFrame} from "react-three-fiber";
 import {useGrid} from 'use-grid'
 import {Render, Flow, Vec3} from 'react-mol'
-import {Sides,Trans,Grow,Pulls} from '../src'
+import {Sides,Trans,Pulls} from '../src'
 import {Title} from './meshs'
 import styled from 'styled-components'
 const {sin, cos, random} = Math
@@ -13,6 +13,7 @@ const state = {x: 0, y: 0}
 const Wrap = styled.div<any>`
     width: 100%;
     height: 100%;
+    position: relative;
     background: ${props => props.background};
 `
 
@@ -47,8 +48,8 @@ function Page () {
 }
 
 export function Home() {
-    const [dark, setDark] = useGrid<number>({init:0, xs: 1, md:0, lg:1  })
-    const [size, setSize] = useGrid<number>({init:0, xs:.5, md:1, lg:1.5})
+    const [dark, setDark] = useGrid<number>({init:0, md:0, lg:1  })
+    const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
     return (
         <Wrap background={dark?"#212121":"#fff"}>
             <Canvas pixelRatio={window.devicePixelRatio}
@@ -57,16 +58,15 @@ export function Home() {
                 <ambientLight intensity={.3} />
                 <pointLight position={[ 100, 100, 100]} intensity={2.2} />
                 <pointLight position={[-100,-100,-100]} intensity={5}/>
-                <Suspense fallback={<Html center><Grow /></Html>}>
+                <Suspense fallback={<Html center>Loading...</Html>}>
                     <Page/>
                 </Suspense>
             </Canvas>
-            <Pulls align="bottom" width={500}>
-            </Pulls>
+            <Pulls open align="top" rate={3}/>
             <Sides {...{size}}>
                 <a style={{color:"#818181"}} href="/"    >Home</a>
-                <a style={{color:"#818181"}} href="/note">Note</a>
                 <a style={{color:"#818181"}} href="/hook">Hook</a>
+                <a style={{color:"#818181"}} href="/note">Note</a>
                 <a style={{color:"#818181"}} href="/book">Book</a>
                 <a style={{color:"#818181"}} href="/rmol">Rmol</a>
                 <a style={{color:"#818181"}} href="/mdmd">Mdmd</a>

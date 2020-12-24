@@ -16,11 +16,11 @@ export const Pulls = () => {
     const timeout = _('timeout', {type: 'number', value: 5000, min: 0, max: 10000})
     const aligns = ['left', 'right', 'top', 'bottom']
     const align = _('align', {type: 'select', value: "top", items: aligns})
-    const style = {position: "absolute", width: "100px", height: "100px", color: "rgba(0,255,0,.5)"}
+    const style = {fontSize: width*size/1.5, textAlign:"center"}
     return (
         <Card min={500} rate={0}>
             <PullsTarget {...{dark, size, timeout, open, width, align}}>
-                <span style={style as any} children="🤯"/>
+                <div style={style as any} children="🤯"/>
             </PullsTarget>
         </Card>
     )

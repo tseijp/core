@@ -182,6 +182,38 @@ function _taggedTemplateLiteralLoose(strings, raw) {
 
 var taggedTemplateLiteralLoose = _taggedTemplateLiteralLoose;
 
+function useEdit() {
+  var _useSpring = reactSpring.useSpring(function () {
+    return {
+      x: 0
+    };
+  }),
+      spring = _useSpring[0];
+
+  var bind = reactUseGesture.useGesture({});
+  return [spring, bind];
+}
+
+function _templateObject() {
+  var data = taggedTemplateLiteralLoose(["\n    margin: 25px;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Input = styled(reactSpring.animated.input)(_templateObject());
+var Edit = function Edit(props) {
+  var _useEdit = useEdit(),
+      spring = _useEdit[0],
+      bind = _useEdit[1];
+
+  return /*#__PURE__*/React__default.createElement(Input, _extends_1({}, bind(), props, {
+    style: spring
+  }));
+};
+
 function _templateObject2() {
   var data = taggedTemplateLiteralLoose(["\n    position: relative;\n    text-align: center;\n    fontSize: ", "\n"]);
 
@@ -192,16 +224,16 @@ function _templateObject2() {
   return data;
 }
 
-function _templateObject() {
+function _templateObject$1() {
   var data = taggedTemplateLiteralLoose(["\n    position: relative;\n    left: 0;\n    bottom: 0;\n    height: auto;\n    background: #212121;\n    min-width: 100%;\n    borderRadius: ", ";\n    padding     : ", "\n"]);
 
-  _templateObject = function _templateObject() {
+  _templateObject$1 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Wrap = styled.div(_templateObject(), function (_ref) {
+var Wrap = styled.div(_templateObject$1(), function (_ref) {
   var _ref$size = _ref.size,
       size = _ref$size === void 0 ? 1 : _ref$size;
   return size * 25 + "px " + size * 25 + "px 0px 0px";
@@ -229,16 +261,16 @@ var Foot = /*#__PURE__*/React__default.forwardRef(function (_ref4, ref) {
   }));
 });
 
-function _templateObject$1() {
+function _templateObject$2() {
   var data = taggedTemplateLiteralLoose(["\n    position: relative;\n    display: grid;\n    margin: ", "px auto 0 auto;\n    width: ", "px;\n    height: ", "px;\n"]);
 
-  _templateObject$1 = function _templateObject() {
+  _templateObject$2 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var Item$1 = styled(reactSpring.animated.div)(_templateObject$1(), function (props) {
+var Item$1 = styled(reactSpring.animated.div)(_templateObject$2(), function (props) {
   return props.size * 50;
 }, function (props) {
   return props.size * 250;
@@ -267,41 +299,8 @@ var Grow = /*#__PURE__*/React__default.forwardRef(function (_ref, forwardRef) {
   });
 });
 
-function _templateObject$2() {
-  var data = taggedTemplateLiteralLoose(["\n    fontSize:size*50,\n    color: ", ";\n    width:", ",\n    height: auto;\n    margin: auto;\n"]);
-
-  _templateObject$2 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Item$2 = styled.div(_templateObject$2(), function (props) {
-  return props.color;
-}, function (_ref) {
-  var size = _ref.size;
-  return "max(70vw, 100vw - " + size * 200 + "px)";
-});
-var Head = /*#__PURE__*/React__default.forwardRef(function (_ref2, ref) {
-  var children = _ref2.children,
-      _ref2$dark = _ref2.dark,
-      dark = _ref2$dark === void 0 ? false : _ref2$dark,
-      _ref2$size = _ref2.size,
-      _ref2$style = _ref2.style,
-      style = _ref2$style === void 0 ? {} : _ref2$style,
-      props = objectWithoutPropertiesLoose(_ref2, ["children", "dark", "size", "style"]);
-
-  var color = props.color || dark ? "#818181" : "#000";
-  return /*#__PURE__*/React__default.createElement(Item$2, _extends_1({
-    children: children,
-    ref: ref,
-    style: style,
-    color: color
-  }, props));
-});
-
 function _templateObject$3() {
-  var data = taggedTemplateLiteralLoose(["\n    top: 0px;\n    right: 0px;\n    padding: 0px;\n    text-align: center;\n    user-select: none;\n    color: ", ";\n    width: ", "px;\n    height: ", "px;\n    font-size: ", "px;\n    border-radius: ", "px;\n    background: ", ";\n\n"]);
+  var data = taggedTemplateLiteralLoose(["\n    font-size: ", "px;\n    color: ", ";\n    width:", ";\n    height: auto;\n    margin: auto;\n"]);
 
   _templateObject$3 = function _templateObject() {
     return data;
@@ -309,7 +308,45 @@ function _templateObject$3() {
 
   return data;
 }
-var Item$3 = styled(reactSpring.animated.div)(_templateObject$3(), function (props) {
+var Item$2 = styled.div(_templateObject$3(), function (_ref) {
+  var size = _ref.size;
+  return size * 50;
+}, function (props) {
+  return props.color;
+}, function (_ref2) {
+  var size = _ref2.size;
+  return "max(70vw, 100vw - " + size * 200 + "px)";
+});
+var Head = /*#__PURE__*/React__default.forwardRef(function (_ref3, ref) {
+  var children = _ref3.children,
+      _ref3$dark = _ref3.dark,
+      dark = _ref3$dark === void 0 ? false : _ref3$dark,
+      _ref3$size = _ref3.size,
+      size = _ref3$size === void 0 ? 1 : _ref3$size,
+      _ref3$style = _ref3.style,
+      style = _ref3$style === void 0 ? {} : _ref3$style,
+      props = objectWithoutPropertiesLoose(_ref3, ["children", "dark", "size", "style"]);
+
+  var color = props.color || dark ? "#818181" : "#000";
+  return /*#__PURE__*/React__default.createElement(Item$2, _extends_1({
+    children: children,
+    ref: ref,
+    size: size,
+    style: style,
+    color: color
+  }, props));
+});
+
+function _templateObject$4() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 0px;\n    right: 0px;\n    padding: 0px;\n    text-align: center;\n    user-select: none;\n    color: ", ";\n    width: ", "px;\n    height: ", "px;\n    font-size: ", "px;\n    border-radius: ", "px;\n    background: ", ";\n\n"]);
+
+  _templateObject$4 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Item$3 = styled(reactSpring.animated.div)(_templateObject$4(), function (props) {
   return props.color;
 }, function (_ref) {
   var _ref$size = _ref.size,
@@ -756,17 +793,17 @@ function _templateObject2$1() {
   return data;
 }
 
-function _templateObject$4() {
+function _templateObject$5() {
   var data = taggedTemplateLiteralLoose(["\n    padding: 4px 0px 0px 0px;\n    position: relative;\n    overflow: hidden;\n    vertical-align: middle;\n    white-space: nowrap;\n    text-overflow: ellipsis;\n    border-left: ", ";\n    padding: ", ";\n"]);
 
-  _templateObject$4 = function _templateObject() {
+  _templateObject$5 = function _templateObject() {
     return data;
   };
 
   return data;
 }
 
-var TreesTop = styled(reactSpring.animated.div)(_templateObject$4(), function (props) {
+var TreesTop = styled(reactSpring.animated.div)(_templateObject$5(), function (props) {
   return "1px dashed #" + (props.dark ? 818181 : 212121);
 }, function (props) {
   return "4px 0px 0px " + props.size * 25 + "px";
@@ -851,111 +888,6 @@ function Trees(props) {
   }), main));
 }
  // <TreesTggl {...{...props, set, icon, opacity:children?.length?1:.3}}/>
-
-var Modal = function Modal(_ref) {
-  var _ref$open = _ref.open,
-      open = _ref$open === void 0 ? false : _ref$open,
-      _ref$onClose = _ref.onClose,
-      onClose = _ref$onClose === void 0 ? null : _ref$onClose,
-      _ref$dark = _ref.dark,
-      dark = _ref$dark === void 0 ? false : _ref$dark,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 1 : _ref$size,
-      children = _ref.children,
-      _ref$color = _ref.color,
-      color = _ref$color === void 0 ? "" : _ref$color,
-      props = objectWithoutPropertiesLoose(_ref, ["open", "onClose", "dark", "size", "children", "color"]);
-
-  var width = React.useMemo(function () {
-    return 500 * size;
-  }, [size]);
-
-  var _useSpring = reactSpring.useSpring(function () {
-    return {
-      x: 0,
-      y: -width,
-      scale: 0
-    };
-  }),
-      s = _useSpring[0],
-      set = _useSpring[1];
-
-  var bind = reactUseGesture.useGesture({
-    onHover: function onHover(_ref2) {
-      var hovering = _ref2.hovering;
-      return set({
-        scale: hovering ? 0.9 : 1
-      });
-    },
-    onDrag: function onDrag(_ref3) {
-      var last = _ref3.last,
-          down = _ref3.down,
-          _ref3$vxvy = _ref3.vxvy,
-          vx = _ref3$vxvy[0],
-          vy = _ref3$vxvy[1],
-          _ref3$movement = _ref3.movement,
-          mx = _ref3$movement[0],
-          my = _ref3$movement[1],
-          cancel = _ref3.cancel;
-      if ((my < -width * .5 || width * .5 < my) && cancel) cancel();
-      if (!last) return set({
-        x: down ? mx : 0,
-        y: down ? my : 0
-      });
-      return Math.pow(mx, 2) < Math.pow(width, 2) / 4 && Math.pow(vx, 2) + Math.pow(vy, 2) < 10 ? set({
-        x: 0,
-        y: 0,
-        scale: 1
-      }) : set({
-        x: vx * width,
-        y: (vy - 1) * width,
-        scale: 0
-      }) && onClose && setTimeout(function () {
-        return onClose();
-      }, Math.pow(vx, 2) + Math.pow(vy, 2));
-    }
-  });
-  var root = React.useMemo(function () {
-    return document.getElementById('root');
-  }, []);
-  var style = React.useMemo(function () {
-    return _extends_1({
-      left: 0,
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      top: 0,
-      height: "100%",
-      position: "fixed",
-      alignItems: "center",
-      transition: "1s",
-      color: color || dark ? "#212121" : "#000",
-      zIndex: 200,
-      background: "rgba(" + (dark ? "80,80,80" : "0,0,0") + ",.5)"
-    }, props.style);
-  }, [dark, color, props.style]);
-  React.useEffect(function () {
-    open && set({
-      x: 0,
-      y: 0,
-      scale: 1
-    });
-  }, [open, set]);
-  return open ? /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/React__default.createElement("div", {
-    style: style,
-    onClick: function onClick() {
-      return onClose && onClose();
-    }
-  }, /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends_1({
-    style: _extends_1({
-      position: "relative"
-    }, s)
-  }, bind(), {
-    onClick: function onClick(e) {
-      return e.stopPropagation();
-    }
-  }), children)), root) : null;
-};
 
 var background = function background(_ref) {
   var _ref$r = _ref.r,
@@ -1303,431 +1235,6 @@ var Notes = function Notes(_ref4) {
   }));
 };
 
-var styles$1 = {
-  pill: {
-    position: "absolute",
-    padding: "0px",
-    zIndex: 1,
-    transform: "translate(-50%,-50%)"
-  }
-};
-var Pills = function Pills(_ref) {
-  var _ref$position = _ref.position,
-      position = _ref$position === void 0 ? {
-    x: 0,
-    y: 0,
-    r: Math.PI / 4
-  } : _ref$position,
-      _ref$depth = _ref.depth,
-      depth = _ref$depth === void 0 ? 0 : _ref$depth,
-      _ref$rate = _ref.rate,
-      rate = _ref$rate === void 0 ? 1.414 : _ref$rate,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 1 : _ref$size,
-      _ref$isOpen = _ref.isOpen,
-      isOpen = _ref$isOpen === void 0 ? true : _ref$isOpen,
-      props = objectWithoutPropertiesLoose(_ref, ["position", "depth", "rate", "size", "isOpen"]);
-
-  var length = React.useMemo(function () {
-    var _ref2;
-
-    return ((_ref2 = props == null ? void 0 : props.children) == null ? void 0 : _ref2.length) || 1;
-  }, [props]);
-  var childPos = React.useRef(Array(length).fill(position));
-  var fn = React.useCallback(function () {
-    return function (i) {
-      if (i === void 0) {
-        i = 0;
-      }
-
-      var r = position.r / 2 + Math.PI / 2 * ((length - i - 1) * 10 + 1) / ((length - 1) * 10 + 2) - Math.PI / 8;
-      var x = isOpen ? 50 * rate * size * Math.cos(r) : 0;
-      var y = isOpen ? -50 * rate * size * Math.sin(r) : 0;
-      childPos.current[i] = {
-        x: x,
-        y: -y,
-        r: r
-      };
-      return {
-        x: x,
-        y: y,
-        scale: isOpen ? 1 : 0
-      };
-    };
-  }, [isOpen, length, position.r, rate, size]);
-
-  var _useSprings = reactSpring.useSprings(length, fn()),
-      springs = _useSprings[0],
-      set = _useSprings[1];
-
-  var _useState = React.useState(Array(length).fill(false)),
-      childHub = _useState[0],
-      setChildHub = _useState[1];
-
-  var setHub = React.useCallback(function (e, key) {
-    setChildHub(function (p) {
-      var _Object$assign;
-
-      return Object.assign([], p, (_Object$assign = {}, _Object$assign[key] = !p[key], _Object$assign));
-    });
-    e.stopPropagation();
-  }, []);
-  var children = React.useMemo(function () {
-    return React.Children.map(props.children, function (child, key) {
-      var _ref3, _ref3$props;
-
-      set(fn());
-      return child && ((_ref3 = child) == null ? void 0 : (_ref3$props = _ref3.props) == null ? void 0 : _ref3$props.children) ? /*#__PURE__*/React__default.cloneElement(child, {
-        children: /*#__PURE__*/React__default.createElement(Pills, _extends_1({
-          key: key,
-          isOpen: isOpen && childHub[key],
-          depth: depth + 1,
-          position: childPos.current[key],
-          rate: rate * (1 + (depth + 1) * 0.2),
-          fontSize: 50 * size / (1 + (depth + 1) * 0.2)
-        }, child.props || {}))
-      }) : child;
-    });
-  }, [childHub, depth, fn, isOpen, props.children, rate, set, size]);
-  return /*#__PURE__*/React__default.createElement("div", {
-    style: {
-      position: "fixed",
-      left: position.x,
-      bottom: position.y
-    }
-  }, springs.map(function (spring, key) {
-    return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-      key: depth + "-" + key,
-      style: _extends_1({}, spring, styles$1.pill),
-      onClick: function onClick(e) {
-        return setHub(e, key);
-      }
-    }, children[key]);
-  }));
-};
-
-function useSheet(_ref) {
-  var _ref$height = _ref.height,
-      height = _ref$height === void 0 ? 100 : _ref$height,
-      _ref$started = _ref.started,
-      started = _ref$started === void 0 ? false : _ref$started,
-      _ref$onOpen = _ref.onOpen,
-      onOpen = _ref$onOpen === void 0 ? null : _ref$onOpen,
-      _ref$onClose = _ref.onClose,
-      onClose = _ref$onClose === void 0 ? null : _ref$onClose;
-
-  var _useSpring = reactSpring.useSpring(function () {
-    return {
-      y: height
-    };
-  }),
-      spring = _useSpring[0],
-      set = _useSpring[1];
-
-  var open = React.useCallback(function (c) {
-    if (c === void 0) {
-      c = false;
-    }
-
-    return onOpen && (onOpen(), set({
-      y: 0,
-      config: c ? reactSpring.config.wobbly : reactSpring.config.stiff
-    }));
-  }, [onOpen, set]);
-  var close = React.useCallback(function (v) {
-    if (v === void 0) {
-      v = 0;
-    }
-
-    return onClose && (onClose(), set({
-      y: height,
-      config: _extends_1({}, reactSpring.config.stiff, {
-        velocity: v
-      })
-    }));
-  }, [height, onClose, set]);
-  var bind = reactUseGesture.useDrag(function (_ref2) {
-    var last = _ref2.last,
-        _ref2$vxvy = _ref2.vxvy,
-        vy = _ref2$vxvy[1],
-        _ref2$movement = _ref2.movement,
-        mx = _ref2$movement[0],
-        my = _ref2$movement[1],
-        cancel = _ref2.cancel;
-    if (my < -height / 3) cancel && cancel();
-    if (last) return (my > height * 0.5 || vy > 2.5) && -100 < mx && mx < 100 ? close(vy) : open(vy > 0);
-    set({
-      y: my,
-      immediate: false,
-      config: reactSpring.config.stiff
-    });
-  }, {
-    initial: function initial() {
-      return [0, spring.y.get()];
-    },
-    filterTaps: true,
-    bounds: {
-      top: 0
-    },
-    rubberband: true
-  });
-  var f = React.useRef(function (started) {
-    return started ? open() : close();
-  });
-  React.useEffect(function () {
-    f.current(started);
-  }, [started]);
-  return [spring, bind];
-}
-
-function _templateObject$5() {
-  var data = taggedTemplateLiteralLoose(["\n    bottom: ", ";\n    left: 2vw;\n    width: 96vw;\n    height: calc(100vh + 100px);\n    z-index: 1;\n    position: fixed;\n    background: rgba(0,0,0,0);\n    touch-action:  none;\n    border-radius: 4em 4em 0px;\n"]);
-
-  _templateObject$5 = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-var Wrap$1 = styled(reactSpring.animated.div)(_templateObject$5(), function (_ref) {
-  var height = _ref.height;
-  return "calc(-100vh + " + (height - 100) + "px)";
-});
-function Sheet(props) {
-  var _useSheet = useSheet(props),
-      y = _useSheet[0].y,
-      bind = _useSheet[1];
-
-  var display = y.to(function (py) {
-    if (py === void 0) {
-      py = 0;
-    }
-
-    return py < props.height ? 'block' : 'none';
-  });
-  return /*#__PURE__*/React__default.createElement(Wrap$1, _extends_1({}, bind(), {
-    height: props.height,
-    style: {
-      y: y,
-      display: display
-    }
-  }), props.children);
-}
-
-var styles$2 = {
-  area: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    height: "100%",
-    zIndex: 1
-  },
-  cont: {
-    position: "fixed",
-    top: "2%",
-    left: 0,
-    zIndex: 1,
-    overflowX: "hidden",
-    height: "96%"
-  },
-  icon: {
-    position: "absolute",
-    transform: "translate(-50%,-50%)"
-  },
-  item: {
-    padding: "10px 10px 10px 32px",
-    color: "#818181",
-    display: "block"
-  }
-};
-
-var SidesArea = function SidesArea(_ref) {
-  var spring = _ref.spring,
-      bind = _ref.bind,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 1 : _ref$size;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends_1({
-    style: _extends_1({}, styles$2.area, {
-      width: spring.x.to(function (x) {
-        return x > 1 ? "100%" : size * 50 / 2 + "px";
-      }),
-      background: spring.scale.to(function (s) {
-        var rate = spring.x.animation.to / window.innerWidth; //0 ~ 0.5
-
-        return "linear-gradient(90deg,rgba(0,0,0," + (rate + s - 1) + "),rgba(0,0,0,0))";
-      })
-    })
-  }, bind()));
-};
-
-var SidesContainer = function SidesContainer(_ref2) {
-  var _ref2$size = _ref2.size,
-      size = _ref2$size === void 0 ? 1 : _ref2$size,
-      spring = _ref2.spring,
-      children = _ref2.children;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends_1({}, styles$2.cont, {
-      width: spring.x.to(function (x) {
-        return x > 0 ? x : 0;
-      }),
-      borderRadius: "0px " + 50 * size + "px " + 50 * size + "px 0px",
-      background: "#212121"
-    })
-  }, /*#__PURE__*/React__default.createElement("div", {
-    style: {
-      margin: 50 * size + "px 0px 0px 0px",
-      position: "absolute"
-    }
-  }, children));
-};
-
-var SidesIcon = function SidesIcon(_ref3) {
-  var spring = _ref3.spring,
-      bind = _ref3.bind,
-      _ref3$circ = _ref3.circ,
-      circ = _ref3$circ === void 0 ? false : _ref3$circ,
-      _ref3$size = _ref3.size,
-      size = _ref3$size === void 0 ? 1 : _ref3$size;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends_1({}, bind(), {
-    style: _extends_1({}, styles$2.icon, spring, {
-      top: size * 50,
-      left: size * 50
-    })
-  }), /*#__PURE__*/React__default.createElement(Icon, _extends_1({
-    fa: "align-left"
-  }, {
-    circ: circ,
-    size: size
-  })));
-};
-
-var SidesItem = function SidesItem(_ref4) {
-  var children = _ref4.children,
-      _ref4$size = _ref4.size,
-      size = _ref4$size === void 0 ? 1 : _ref4$size;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends_1({}, styles$2.item, {
-      transition: "0.75s",
-      fontSize: 50 * size
-    }),
-    onClick: function onClick(e) {
-      return e.stopPropagation();
-    }
-  }, children);
-};
-
-var Sides = function Sides(_temp) {
-  var _ref5 = _temp === void 0 ? {} : _temp,
-      children = _ref5.children,
-      _ref5$width = _ref5.width,
-      width = _ref5$width === void 0 ? window.innerWidth / 2 : _ref5$width,
-      _ref5$size = _ref5.size,
-      size = _ref5$size === void 0 ? 1 : _ref5$size,
-      _ref5$onOpen = _ref5.onOpen,
-      onOpen = _ref5$onOpen === void 0 ? function () {
-    return null;
-  } : _ref5$onOpen;
-
-  var opened = React.useRef(false);
-  var setOpened = React.useCallback(function (bool) {
-    if (bool === void 0) {
-      bool = true;
-    }
-
-    return  (opened.current = bool, onOpen && onOpen());
-  }, [onOpen]);
-
-  var _useSpring = reactSpring.useSpring(function () {
-    return {
-      x: 0,
-      y: 0,
-      scale: 1
-    };
-  }),
-      spring = _useSpring[0],
-      set = _useSpring[1];
-
-  var open = function open(v) {
-    if (v === void 0) {
-      v = 0;
-    }
-
-    return  (setOpened(true), set({
-      x: width,
-      y: 0,
-      config: v !== 0 ? reactSpring.config.wobbly : reactSpring.config.slow
-    }));
-  };
-
-  var close = function close(v) {
-    if (v === void 0) {
-      v = 0;
-    }
-
-    return  (setOpened(false), set({
-      x: 0,
-      y: 0,
-      config: _extends_1({}, reactSpring.config.stiff, {
-        velocity: v
-      })
-    }));
-  };
-
-  var bind = reactUseGesture.useGesture({
-    onHover: function onHover(_ref6) {
-      var hovering = _ref6.hovering;
-      return set({
-        scale: hovering ? 1.2 : 1
-      });
-    },
-    onDrag: function onDrag(_ref7) {
-      var last = _ref7.last,
-          down = _ref7.down,
-          _ref7$vxvy = _ref7.vxvy,
-          vx = _ref7$vxvy[0],
-          _ref7$movement = _ref7.movement,
-          mx = _ref7$movement[0],
-          my = _ref7$movement[1],
-          cancel = _ref7.cancel;
-      if ((my < -width * .5 || width * .5 < my) && cancel) cancel();
-      if (!last) return set({
-        x: (opened.current ? width : 0) + (down ? mx : 0),
-        y: down ? my : 0
-      });
-      if (!opened.current) return mx === 0 || mx > width * 0.5 || vx > 0.5 ? open(vx) : close(vx);
-      if (opened.current) return mx === 0 || mx < -width * 0.5 || vx < -0.5 ? close(vx) : open(vx);
-    }
-  });
-  return /*#__PURE__*/React__default.createElement("div", {
-    style: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      zIndex: 100
-    }
-  }, /*#__PURE__*/React__default.createElement(SidesIcon, {
-    size: size,
-    spring: spring,
-    bind: bind
-  }), /*#__PURE__*/React__default.createElement(SidesArea, {
-    size: size,
-    spring: spring,
-    bind: bind
-  }), /*#__PURE__*/React__default.createElement(SidesContainer, {
-    size: size,
-    spring: spring,
-    bind: bind
-  }, /*#__PURE__*/React__default.createElement(Trees, {
-    dark: true,
-    size: size
-  }, React__default.Children.map(children, function (child, key) {
-    return /*#__PURE__*/React__default.createElement(SidesItem, {
-      size: size,
-      key: key
-    }, child);
-  }))));
-};
-
 function useSlide(_ref) {
   var children = _ref.children,
       _ref$width = _ref.width,
@@ -1812,14 +1319,14 @@ function _templateObject$6() {
 
   return data;
 }
-var Wrap$2 = styled(reactSpring.animated.div)(_templateObject$6());
+var Wrap$1 = styled(reactSpring.animated.div)(_templateObject$6());
 var Item$4 = styled(reactSpring.animated.div)(_templateObject2$2());
 function Slide(props) {
   var _useSlide = useSlide(props),
       springs = _useSlide[0],
       bind = _useSlide[1];
 
-  return /*#__PURE__*/React__default.createElement(Wrap$2, bind(), React__default.Children.map(props.children, function (children, i) {
+  return /*#__PURE__*/React__default.createElement(Wrap$1, bind(), React__default.Children.map(props.children, function (children, i) {
     return /*#__PURE__*/React__default.createElement(Item$4, _extends_1({
       key: i,
       style: springs[i]
@@ -2050,154 +1557,411 @@ function Split(props) {
   }));
 }
 
-var styles$3 = {
-  top: {
-    position: "fixed",
+var Modal = function Modal(_ref) {
+  var _ref$open = _ref.open,
+      open = _ref$open === void 0 ? false : _ref$open,
+      _ref$onClose = _ref.onClose,
+      onClose = _ref$onClose === void 0 ? null : _ref$onClose,
+      _ref$dark = _ref.dark,
+      dark = _ref$dark === void 0 ? false : _ref$dark,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 1 : _ref$size,
+      children = _ref.children,
+      _ref$color = _ref.color,
+      color = _ref$color === void 0 ? "" : _ref$color,
+      props = objectWithoutPropertiesLoose(_ref, ["open", "onClose", "dark", "size", "children", "color"]);
+
+  var width = React.useMemo(function () {
+    return 500 * size;
+  }, [size]);
+
+  var _useSpring = reactSpring.useSpring(function () {
+    return {
+      x: 0,
+      y: -width,
+      scale: 0
+    };
+  }),
+      s = _useSpring[0],
+      set = _useSpring[1];
+
+  var bind = reactUseGesture.useGesture({
+    onHover: function onHover(_ref2) {
+      var hovering = _ref2.hovering;
+      return set({
+        scale: hovering ? 0.9 : 1
+      });
+    },
+    onDrag: function onDrag(_ref3) {
+      var last = _ref3.last,
+          down = _ref3.down,
+          _ref3$vxvy = _ref3.vxvy,
+          vx = _ref3$vxvy[0],
+          vy = _ref3$vxvy[1],
+          _ref3$movement = _ref3.movement,
+          mx = _ref3$movement[0],
+          my = _ref3$movement[1],
+          cancel = _ref3.cancel;
+      if ((my < -width * .5 || width * .5 < my) && cancel) cancel();
+      if (!last) return set({
+        x: down ? mx : 0,
+        y: down ? my : 0
+      });
+      return Math.pow(mx, 2) < Math.pow(width, 2) / 4 && Math.pow(vx, 2) + Math.pow(vy, 2) < 10 ? set({
+        x: 0,
+        y: 0,
+        scale: 1
+      }) : set({
+        x: vx * width,
+        y: (vy - 1) * width,
+        scale: 0
+      }) && onClose && setTimeout(function () {
+        return onClose();
+      }, Math.pow(vx, 2) + Math.pow(vy, 2));
+    }
+  });
+  var root = React.useMemo(function () {
+    return document.getElementById('root');
+  }, []);
+  var style = React.useMemo(function () {
+    return _extends_1({
+      left: 0,
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      top: 0,
+      height: "100%",
+      position: "fixed",
+      alignItems: "center",
+      transition: "1s",
+      color: color || dark ? "#212121" : "#000",
+      zIndex: 200,
+      background: "rgba(" + (dark ? "80,80,80" : "0,0,0") + ",.5)"
+    }, props.style);
+  }, [dark, color, props.style]);
+  React.useEffect(function () {
+    open && set({
+      x: 0,
+      y: 0,
+      scale: 1
+    });
+  }, [open, set]);
+  return open ? /*#__PURE__*/reactDom.createPortal( /*#__PURE__*/React__default.createElement("div", {
+    style: style,
+    onClick: function onClick() {
+      return onClose && onClose();
+    }
+  }, /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends_1({
+    style: _extends_1({
+      position: "relative"
+    }, s)
+  }, bind(), {
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }), children)), root) : null;
+};
+
+function usePulls(_ref) {
+  var _ref$onOpen = _ref.onOpen,
+      onOpen = _ref$onOpen === void 0 ? function () {
+    return void null;
+  } : _ref$onOpen,
+      _ref$onClose = _ref.onClose,
+      onClose = _ref$onClose === void 0 ? function () {
+    return void null;
+  } : _ref$onClose,
+      _ref$wheelRate = _ref.wheelRate,
+      wheelRate = _ref$wheelRate === void 0 ? -0.5 : _ref$wheelRate,
+      _ref$dragRate = _ref.dragRate,
+      dragRate = _ref$dragRate === void 0 ? 1 : _ref$dragRate,
+      _ref$timeout = _ref.timeout,
+      timeout = _ref$timeout === void 0 ? 0 : _ref$timeout,
+      _ref$width = _ref.width,
+      width = _ref$width === void 0 ? 100 : _ref$width,
+      _ref$align = _ref.align,
+      align = _ref$align === void 0 ? "bottom" : _ref$align,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 1 : _ref$size,
+      _ref$rate = _ref.rate,
+      rate = _ref$rate === void 0 ? 1 : _ref$rate,
+      _ref$open = _ref.open,
+      open = _ref$open === void 0 ? false : _ref$open;
+
+  var _useSpring = reactSpring.useSpring(function () {
+    return setup(width * size, align);
+  }),
+      spring = _useSpring[0],
+      set = _useSpring[1];
+
+  var timeouted = React.useRef(false);
+  var changed = React.useCallback(function (opened) {
+    if (opened === void 0) {
+      opened = 1;
+    }
+
+    set(opened ? {
+      x: 0,
+      y: 0
+    } : setup(width * size, align));
+    if (!opened && onClose) onClose();
+    if (opened && onOpen) onOpen();
+    if (timeout <= 0 || opened <= 0 || timeouted.current) return;
+    timeouted.current = true;
+    setTimeout(function () {
+      return void (timeouted.current = false, changed(0));
+    }, timeout);
+  }, [align, set, size, timeout, width, onOpen, onClose]);
+  var dist = width * size;
+  var axis = align === "bottom" || align === "top" ? 1 : 0;
+  var sign = align === "bottom" || align === "right" ? -1 : 1;
+  var bind = reactUseGesture.useGesture({
+    onWheel: function onWheel(_ref2) {
+      var _set;
+
+      var last = _ref2.last,
+          wheeling = _ref2.wheeling,
+          movement = _ref2.movement;
+      var move = movement[axis] * wheelRate * rate;
+      var next = (wheeling ? move : 0) - dist * sign;
+      if (last) return void changed(move * sign > dist);
+      set((_set = {}, _set[["x", "y"][axis]] = next, _set[["y", "x"][axis]] = 0, _set));
+    },
+    onDrag: function onDrag(_ref3) {
+      var _set2;
+
+      var last = _ref3.last,
+          dragging = _ref3.dragging,
+          movement = _ref3.movement;
+      var move = movement[axis] * dragRate * rate;
+      var next = (dragging ? move : 0) - dist * sign;
+      if (last) return void changed(move * sign > dist);
+      set((_set2 = {}, _set2[["x", "y"][axis]] = next, _set2[["y", "x"][axis]] = 0, _set2));
+    }
+  });
+  React.useEffect(function () {
+    return void changed(open && align);
+  }, [open, align, changed]);
+  return [spring, bind];
+}
+
+function setup(v, align) {
+  if (v === void 0) {
+    v = 0;
+  }
+
+  if (align === void 0) {
+    align = "bottom";
+  }
+
+  var x = {
     top: 0,
-    right: 0,
-    zIndex: 100
-  },
-  //*dev*/, background:"rgba(0,0,0,.1)"},
-  area: {
-    position: "fixed",
-    top: 0,
-    right: 0,
-    height: "100%"
-  },
-  //*dev*/,background:"rgba(255,0,0,.1)"},
-  cont: {
-    position: "fixed",
-    height: "96%",
-    top: "2%",
-    right: 0,
-    overflowX: "hidden"
-  },
-  //*dev*/,background:"rgba(0,255,0,.1)"},
-  icon: {
+    bottom: 0,
+    left: -v,
+    right: v
+  }[align] || 0;
+  var y = {
+    top: -v,
+    bottom: v,
+    left: 0,
+    right: 0
+  }[align] || 0;
+  return {
+    x: x,
+    y: y
+  };
+}
+
+function _templateObject2$4() {
+  var data = taggedTemplateLiteralLoose(["\n    position: absolute;\n    ", "\n    ", "\n"]);
+
+  _templateObject2$4 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$8() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    pointer-events: all;\n    overflow: hidden;\n"]);
+
+  _templateObject$8 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap$2 = styled(reactSpring.animated.div)(_templateObject$8()); // background: rgba(255, 0, 0, 0.1);
+// background: rgba(0, 0, 255, 0.1);
+
+var Item$5 = styled(reactSpring.animated.div)(_templateObject2$4(), function (_ref) {
+  var align = _ref.align;
+  return align + ": 0px;";
+}, function (_ref2) {
+  var align = _ref2.align,
+      width = _ref2.width,
+      size = _ref2.size;
+  return align === "left" || align === "right" ? "width: " + width * size + "px; height: 100%;" : "width: 100%; height: " + width * size + "px;";
+});
+var Pulls = /*#__PURE__*/React__default.forwardRef(function (props, ref) {
+  var _props$align = props.align,
+      align = _props$align === void 0 ? "bottom" : _props$align,
+      _props$width = props.width,
+      width = _props$width === void 0 ? 100 : _props$width,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 1 : _props$size,
+      _props$style = props.style,
+      style = _props$style === void 0 ? {} : _props$style;
+
+  var _usePulls = usePulls(props),
+      _usePulls$ = _usePulls[0],
+      x = _usePulls$.x,
+      y = _usePulls$.y,
+      bind = _usePulls[1];
+
+  return /*#__PURE__*/React__default.createElement(Wrap$2, _extends_1({}, bind(), {
+    ref: ref,
+    style: style
+  }), /*#__PURE__*/React__default.createElement(Item$5, {
+    style: {
+      x: x,
+      y: y
+    },
+    size: size,
+    align: align,
+    width: width
+  }, props.children));
+}); // const {size=1, className="spinner-grow"} = props
+// <Item className={className} size={size} />
+
+var styles$1 = {
+  pill: {
     position: "absolute",
-    right: 0,
+    padding: "0px",
+    zIndex: 1,
     transform: "translate(-50%,-50%)"
-  },
-  //*dev*/,background:"rgba(0,0,255,.1)"},
-  item: {
-    backgroundColor: "#212121",
-    color: "#818181",
-    display: "inline-block"
   }
 };
-var TransArea = function TransArea(_ref) {
-  var _ref$size = _ref.size,
+var Pills = function Pills(_ref) {
+  var _ref$position = _ref.position,
+      position = _ref$position === void 0 ? {
+    x: 0,
+    y: 0,
+    r: Math.PI / 4
+  } : _ref$position,
+      _ref$depth = _ref.depth,
+      depth = _ref$depth === void 0 ? 0 : _ref$depth,
+      _ref$rate = _ref.rate,
+      rate = _ref$rate === void 0 ? 1.414 : _ref$rate,
+      _ref$size = _ref.size,
       size = _ref$size === void 0 ? 1 : _ref$size,
-      spring = _ref.spring;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends_1({
-      width: spring.r.to(function (r) {
-        return 50 * size * (Math.cos(r / 90 * Math.PI) + 1.5) + "px";
-      }),
-      background: spring.scale.to(function (s) {
-        return ["linear-gradient(90deg", "rgba(0,0,0,0)", "rgba(0,0,0," + (s - 1) + "))"].join(',');
-      })
-    }, styles$3.area)
-  });
-};
-var TransIcon = function TransIcon(_ref2) {
-  var _ref2$size = _ref2.size,
-      size = _ref2$size === void 0 ? 1 : _ref2$size,
-      spring = _ref2.spring,
-      _ref2$circ = _ref2.circ,
-      circ = _ref2$circ === void 0 ? false : _ref2$circ;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends_1({}, styles$3.icon, {
-      top: 50 * size,
-      rotateZ: spring.r
-    })
-  }, /*#__PURE__*/React__default.createElement(Icon, _extends_1({
-    fa: "align-justify"
-  }, {
-    circ: circ,
-    size: size
-  })));
-};
-var TransContainer = function TransContainer(_ref3) {
-  var children = _ref3.children,
-      _ref3$size = _ref3.size,
-      size = _ref3$size === void 0 ? 1 : _ref3$size,
-      spring = _ref3.spring;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends_1({}, styles$3.cont, {
-      width: spring.r.to(function (r) {
-        if (r === void 0) {
-          r = 0;
-        }
+      _ref$isOpen = _ref.isOpen,
+      isOpen = _ref$isOpen === void 0 ? true : _ref$isOpen,
+      props = objectWithoutPropertiesLoose(_ref, ["position", "depth", "rate", "size", "isOpen"]);
 
-        return 50 * size * (Math.cos(r / 90 * Math.PI) + 1) + "px";
-      })
-    })
-  }, /*#__PURE__*/React__default.createElement("div", {
+  var length = React.useMemo(function () {
+    var _ref2;
+
+    return ((_ref2 = props == null ? void 0 : props.children) == null ? void 0 : _ref2.length) || 1;
+  }, [props]);
+  var childPos = React.useRef(Array(length).fill(position));
+  var fn = React.useCallback(function () {
+    return function (i) {
+      if (i === void 0) {
+        i = 0;
+      }
+
+      var r = position.r / 2 + Math.PI / 2 * ((length - i - 1) * 10 + 1) / ((length - 1) * 10 + 2) - Math.PI / 8;
+      var x = isOpen ? 50 * rate * size * Math.cos(r) : 0;
+      var y = isOpen ? -50 * rate * size * Math.sin(r) : 0;
+      childPos.current[i] = {
+        x: x,
+        y: -y,
+        r: r
+      };
+      return {
+        x: x,
+        y: y,
+        scale: isOpen ? 1 : 0
+      };
+    };
+  }, [isOpen, length, position.r, rate, size]);
+
+  var _useSprings = reactSpring.useSprings(length, fn()),
+      springs = _useSprings[0],
+      set = _useSprings[1];
+
+  var _useState = React.useState(Array(length).fill(false)),
+      childHub = _useState[0],
+      setChildHub = _useState[1];
+
+  var setHub = React.useCallback(function (e, key) {
+    setChildHub(function (p) {
+      var _Object$assign;
+
+      return Object.assign([], p, (_Object$assign = {}, _Object$assign[key] = !p[key], _Object$assign));
+    });
+    e.stopPropagation();
+  }, []);
+  var children = React.useMemo(function () {
+    return React.Children.map(props.children, function (child, key) {
+      var _ref3, _ref3$props;
+
+      set(fn());
+      return child && ((_ref3 = child) == null ? void 0 : (_ref3$props = _ref3.props) == null ? void 0 : _ref3$props.children) ? /*#__PURE__*/React__default.cloneElement(child, {
+        children: /*#__PURE__*/React__default.createElement(Pills, _extends_1({
+          key: key,
+          isOpen: isOpen && childHub[key],
+          depth: depth + 1,
+          position: childPos.current[key],
+          rate: rate * (1 + (depth + 1) * 0.2),
+          fontSize: 50 * size / (1 + (depth + 1) * 0.2)
+        }, child.props || {}))
+      }) : child;
+    });
+  }, [childHub, depth, fn, isOpen, props.children, rate, set, size]);
+  return /*#__PURE__*/React__default.createElement("div", {
     style: {
-      margin: "calc(" + 50 * size * 2 + "px - 2%) 0px 0px 0px"
+      position: "fixed",
+      left: position.x,
+      bottom: position.y
     }
-  }, children));
+  }, springs.map(function (spring, key) {
+    return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
+      key: depth + "-" + key,
+      style: _extends_1({}, spring, styles$1.pill),
+      onClick: function onClick(e) {
+        return setHub(e, key);
+      }
+    }, children[key]);
+  }));
 };
-var TransItem = function TransItem(_ref4) {
-  var children = _ref4.children,
-      _ref4$size = _ref4.size,
-      size = _ref4$size === void 0 ? 1 : _ref4$size;
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, {
-    style: _extends_1({}, styles$3.item, {
-      margin: 50 * size / 4 + "px 0px",
-      borderRadius: 50 * size + "px 0px  0px " + 50 * size + "px"
-    })
-  }, /*#__PURE__*/React__default.createElement("div", {
-    onClick: function onClick(e) {
-      return e == null ? void 0 : e.stopPropagation();
-    },
-    style: {
-      height: 50 * size,
-      margin: "auto " + 50 * size / 2 + "px",
-      fontSize: 50 * size,
-      zIndex: 1,
-      display: "flex",
-      alignItems: "center"
-    }
-  }, children));
-};
-var Trans = function Trans(_temp) {
-  var _ref5 = _temp === void 0 ? {} : _temp,
-      children = _ref5.children,
-      _ref5$size = _ref5.size,
-      size = _ref5$size === void 0 ? 1 : _ref5$size,
-      _ref5$onOpen = _ref5.onOpen,
-      onOpen = _ref5$onOpen === void 0 ? function () {
+
+function useSides(_ref) {
+  var _ref$width = _ref.width,
+      width = _ref$width === void 0 ? window.innerWidth / 2 : _ref$width,
+      _ref$onOpen = _ref.onOpen,
+      onOpen = _ref$onOpen === void 0 ? function () {
     return null;
-  } : _ref5$onOpen;
-
-  var opened = React.useRef(false);
-  var setOpened = React.useCallback(function (bool) {
-    return  (opened.current = bool, onOpen && onOpen());
-  }, [onOpen]);
+  } : _ref$onOpen;
+  var opened = React.useRef(0);
 
   var _useSpring = reactSpring.useSpring(function () {
     return {
       x: 0,
       y: 0,
-      r: 90,
-      scale: 1
+      s: 1
     };
   }),
       spring = _useSpring[0],
       set = _useSpring[1];
 
-  var getr = function getr(velocity) {
-    if (velocity === void 0) {
-      velocity = 0;
+  var run = function run(o) {
+    if (o === void 0) {
+      o = 1;
     }
 
-    var pre = ~~(spring.r.animation.to / 90); //  Math.round( spring.r.animation.to/90 || 0 ) //
-
-    var unit = ((opened.current ? 1 : 0) === pre % 2 ? 0 : 1) ? 0 : 1; //to change:1 no diff:0
-
-    return 90 * (pre + unit * (velocity < 0 ? -1 : 1));
+    return  (opened.current = o, onOpen && onOpen());
   };
 
   var open = function open(v) {
@@ -2205,7 +1969,338 @@ var Trans = function Trans(_temp) {
       v = 0;
     }
 
-    return  (setOpened(true), set({
+    return  (run(1), set({
+      x: width,
+      y: 0,
+      config: v !== 0 ? reactSpring.config.wobbly : reactSpring.config.slow
+    }));
+  };
+
+  var close = function close(v) {
+    if (v === void 0) {
+      v = 0;
+    }
+
+    return  (run(0), set({
+      x: 0,
+      y: 0,
+      config: _extends_1({}, reactSpring.config.stiff, {
+        velocity: v
+      })
+    }));
+  };
+
+  var bind = reactUseGesture.useGesture({
+    onHover: function onHover(_ref2) {
+      var hovering = _ref2.hovering;
+      return set({
+        s: hovering ? 1.2 : 1
+      });
+    },
+    onDrag: function onDrag(_ref3) {
+      var last = _ref3.last,
+          down = _ref3.down,
+          _ref3$vxvy = _ref3.vxvy,
+          vx = _ref3$vxvy[0],
+          _ref3$movement = _ref3.movement,
+          mx = _ref3$movement[0],
+          my = _ref3$movement[1],
+          cancel = _ref3.cancel;
+      if ((my < -width * .5 || width * .5 < my) && cancel) cancel();
+      if (!last) return set({
+        x: (opened.current ? width : 0) + (down ? mx : 0),
+        y: down ? my : 0
+      });
+      if (!opened.current) return mx === 0 || mx > width * 0.5 || vx > 0.5 ? open(vx) : close(vx);
+      if (opened.current) return mx === 0 || mx < -width * 0.5 || vx < -0.5 ? close(vx) : open(vx);
+    }
+  });
+  return [spring, bind];
+}
+
+function _templateObject5$1() {
+  var data = taggedTemplateLiteralLoose(["\n    color: #818181;\n    display: block;\n    padding: 10px 10px 10px 50px;\n    transition: 0.75s;\n    font-size: ", "px;\n"]);
+
+  _templateObject5$1 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$1() {
+  var data = taggedTemplateLiteralLoose(["\n    top: ", "px;\n    left: ", "px;\n    position: absolute;\n"]);
+
+  _templateObject4$1 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 2%;\n    left: 0px;\n    height: 96%;\n    padding-top: ", "px;;\n    border-radius: ", ";\n    overflow-x: scroll;\n    background: #212121;\n    position: absolute;\n"]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$5() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 0;\n    left: 0;\n    height: 100%;\n    transition: 0.25s;\n    position: absolute;\n"]);
+
+  _templateObject2$5 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$9() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 0;\n    left: 0;\n"]);
+
+  _templateObject$9 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var SidesTop = styled.div(_templateObject$9());
+var SidesArea = styled(reactSpring.animated.div)(_templateObject2$5());
+var SidesWrap = styled(reactSpring.animated.div)(_templateObject3$1(), function (_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 1 : _ref$size;
+  return size * 50;
+}, function (_ref2) {
+  var _ref2$size = _ref2.size,
+      size = _ref2$size === void 0 ? 1 : _ref2$size;
+  return "0px " + 50 * size + "px " + 50 * size + "px 0px";
+});
+var SidesIcon = styled(reactSpring.animated.div)(_templateObject4$1(), function (_ref3) {
+  var _ref3$size = _ref3.size,
+      size = _ref3$size === void 0 ? 1 : _ref3$size;
+  return 25 * size;
+}, function (_ref4) {
+  var _ref4$size = _ref4.size,
+      size = _ref4$size === void 0 ? 1 : _ref4$size;
+  return 25 * size;
+});
+var SidesItem = styled(reactSpring.animated.div)(_templateObject5$1(), function (_ref5) {
+  var _ref5$size = _ref5.size,
+      size = _ref5$size === void 0 ? 1 : _ref5$size;
+  return 50 * size;
+});
+var Sides = function Sides(props) {
+  var size = props.size,
+      _props$fa = props.fa,
+      fa = _props$fa === void 0 ? "align-left" : _props$fa,
+      children = props.children;
+
+  var _useSides = useSides(props),
+      _useSides$ = _useSides[0],
+      x = _useSides$.x,
+      y = _useSides$.y,
+      s = _useSides$.s,
+      bind = _useSides[1];
+
+  var wrap = {
+    width: x.to(function (x) {
+      return x > 0 ? x : 0;
+    })
+  },
+      area = {
+    width: x.to(function (x) {
+      return x > 0 ? "100%" : size * 25 + "px";
+    }),
+    background: s.to(function (s) {
+      var rate = x.animation.to / window.innerWidth + s - 1;
+      return "linear-gradient(90deg,rgba(0,0,0," + rate + "),rgba(0,0,0,0))";
+    })
+  };
+  return /*#__PURE__*/React__default.createElement(SidesTop, {
+    style: props.style
+  }, /*#__PURE__*/React__default.createElement(SidesIcon, _extends_1({}, bind(), {
+    size: size,
+    style: {
+      x: x,
+      y: y,
+      scale: s
+    }
+  }), /*#__PURE__*/React__default.createElement(Icon, {
+    fa: fa,
+    size: size,
+    circ: false
+  })), /*#__PURE__*/React__default.createElement(SidesArea, _extends_1({}, bind(), {
+    size: size,
+    style: area
+  })), /*#__PURE__*/React__default.createElement(SidesWrap, _extends_1({}, bind(), {
+    size: size,
+    style: wrap
+  }), React__default.Children.map(children, function (child, key) {
+    return /*#__PURE__*/React__default.createElement(SidesItem, {
+      children: child,
+      key: key,
+      size: size
+    });
+  })));
+};
+
+function useSheet(_ref) {
+  var _ref$height = _ref.height,
+      height = _ref$height === void 0 ? 100 : _ref$height,
+      _ref$started = _ref.started,
+      started = _ref$started === void 0 ? false : _ref$started,
+      _ref$onOpen = _ref.onOpen,
+      onOpen = _ref$onOpen === void 0 ? null : _ref$onOpen,
+      _ref$onClose = _ref.onClose,
+      onClose = _ref$onClose === void 0 ? null : _ref$onClose;
+
+  var _useSpring = reactSpring.useSpring(function () {
+    return {
+      y: height
+    };
+  }),
+      spring = _useSpring[0],
+      set = _useSpring[1];
+
+  var open = React.useCallback(function (c) {
+    if (c === void 0) {
+      c = false;
+    }
+
+    return onOpen && (onOpen(), set({
+      y: 0,
+      config: c ? reactSpring.config.wobbly : reactSpring.config.stiff
+    }));
+  }, [onOpen, set]);
+  var close = React.useCallback(function (v) {
+    if (v === void 0) {
+      v = 0;
+    }
+
+    return onClose && (onClose(), set({
+      y: height,
+      config: _extends_1({}, reactSpring.config.stiff, {
+        velocity: v
+      })
+    }));
+  }, [height, onClose, set]);
+  var bind = reactUseGesture.useDrag(function (_ref2) {
+    var last = _ref2.last,
+        _ref2$vxvy = _ref2.vxvy,
+        vy = _ref2$vxvy[1],
+        _ref2$movement = _ref2.movement,
+        mx = _ref2$movement[0],
+        my = _ref2$movement[1],
+        cancel = _ref2.cancel;
+    if (my < -height / 3) cancel && cancel();
+    if (last) return (my > height * 0.5 || vy > 2.5) && -100 < mx && mx < 100 ? close(vy) : open(vy > 0);
+    set({
+      y: my,
+      immediate: false,
+      config: reactSpring.config.stiff
+    });
+  }, {
+    initial: function initial() {
+      return [0, spring.y.get()];
+    },
+    filterTaps: true,
+    bounds: {
+      top: 0
+    },
+    rubberband: true
+  });
+  var f = React.useRef(function (started) {
+    return started ? open() : close();
+  });
+  React.useEffect(function () {
+    f.current(started);
+  }, [started]);
+  return [spring, bind];
+}
+
+function _templateObject$a() {
+  var data = taggedTemplateLiteralLoose(["\n    bottom: ", ";\n    left: 2vw;\n    width: 96vw;\n    height: calc(100vh + 100px);\n    z-index: 1;\n    position: fixed;\n    background: rgba(0,0,0,0);\n    touch-action:  none;\n    border-radius: 4em 4em 0px;\n"]);
+
+  _templateObject$a = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Wrap$3 = styled(reactSpring.animated.div)(_templateObject$a(), function (_ref) {
+  var height = _ref.height;
+  return "calc(-100vh + " + (height - 100) + "px)";
+});
+function Sheet(props) {
+  var _useSheet = useSheet(props),
+      y = _useSheet[0].y,
+      bind = _useSheet[1];
+
+  var display = y.to(function (py) {
+    if (py === void 0) {
+      py = 0;
+    }
+
+    return py < props.height ? 'block' : 'none';
+  });
+  return /*#__PURE__*/React__default.createElement(Wrap$3, _extends_1({}, bind(), {
+    height: props.height,
+    style: {
+      y: y,
+      display: display
+    }
+  }), props.children);
+}
+
+function useTrans(_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 1 : _ref$size,
+      _ref$onOpen = _ref.onOpen,
+      onOpen = _ref$onOpen === void 0 ? function () {
+    return null;
+  } : _ref$onOpen;
+  var opened = React.useRef(1);
+
+  var _useSpring = reactSpring.useSpring(function () {
+    return {
+      x: 0,
+      y: 0,
+      r: 90,
+      s: 1
+    };
+  }),
+      spring = _useSpring[0],
+      set = _useSpring[1];
+
+  var getr = function getr(v) {
+    if (v === void 0) {
+      v = 0;
+    }
+
+    var pre = ~~(spring.r.animation.to / 90); //  Math.round( spring.r.animation.to/90 || 0 ) //
+
+    var unit = (opened.current === pre % 2 ? 0 : 1) ? 0 : 1; //to change:1 no diff:0
+
+    return 90 * (pre + unit * (v < 0 ? -1 : 1));
+  };
+
+  var run = function run(v) {
+    if (v === void 0) {
+      v = 0;
+    }
+
+    return  (opened.current = v, onOpen && onOpen());
+  };
+
+  var open = function open(v) {
+    if (v === void 0) {
+      v = 0;
+    }
+
+    return  (run(1), set({
       r: getr(v),
       config: v !== 0 ? reactSpring.config.wobbly : reactSpring.config.slow
     }));
@@ -2216,21 +2311,21 @@ var Trans = function Trans(_temp) {
       v = 0;
     }
 
-    return  (setOpened(false), set({
+    return  (run(0), set({
       r: getr(v),
       config: _extends_1({}, reactSpring.config.stiff)
     }));
   };
 
-  var onBind = function onBind(_ref6) {
-    var _ref6$mx = _ref6.mx,
-        mx = _ref6$mx === void 0 ? 0 : _ref6$mx,
-        _ref6$vx = _ref6.vx,
-        vx = _ref6$vx === void 0 ? 0 : _ref6$vx,
-        _ref6$down = _ref6.down,
-        down = _ref6$down === void 0 ? false : _ref6$down,
-        _ref6$last = _ref6.last,
-        last = _ref6$last === void 0 ? false : _ref6$last;
+  var onBind = function onBind(_ref2) {
+    var _ref2$mx = _ref2.mx,
+        mx = _ref2$mx === void 0 ? 0 : _ref2$mx,
+        _ref2$vx = _ref2.vx,
+        vx = _ref2$vx === void 0 ? 0 : _ref2$vx,
+        _ref2$down = _ref2.down,
+        down = _ref2$down === void 0 ? false : _ref2$down,
+        _ref2$last = _ref2.last,
+        last = _ref2$last === void 0 ? false : _ref2$last;
     if (!last) return set({
       r: spring.r.animation.to + (down ? 2 * -mx / size / 500 : 0)
     });
@@ -2239,18 +2334,18 @@ var Trans = function Trans(_temp) {
   };
 
   var bind = reactUseGesture.useGesture({
-    onHover: function onHover(_ref7) {
-      var hovering = _ref7.hovering;
+    onHover: function onHover(_ref3) {
+      var hovering = _ref3.hovering;
       return set({
-        scale: hovering ? 1.2 : 1
+        s: hovering ? 1.2 : 1
       });
     },
-    onPinch: function onPinch(_ref8) {
-      var last = _ref8.last,
-          down = _ref8.down,
-          _ref8$offset = _ref8.offset,
-          _ = _ref8$offset[0],
-          a = _ref8$offset[1];
+    onPinch: function onPinch(_ref4) {
+      var last = _ref4.last,
+          down = _ref4.down,
+          _ref4$offset = _ref4.offset,
+          _ = _ref4$offset[0],
+          a = _ref4$offset[1];
       return onBind({
         down: down,
         last: last,
@@ -2258,13 +2353,13 @@ var Trans = function Trans(_temp) {
         mx: a
       });
     },
-    onDrag: function onDrag(_ref9) {
-      var last = _ref9.last,
-          down = _ref9.down,
-          _ref9$vxvy = _ref9.vxvy,
-          vx = _ref9$vxvy[0],
-          _ref9$movement = _ref9.movement,
-          mx = _ref9$movement[0];
+    onDrag: function onDrag(_ref5) {
+      var last = _ref5.last,
+          down = _ref5.down,
+          _ref5$vxvy = _ref5.vxvy,
+          vx = _ref5$vxvy[0],
+          _ref5$movement = _ref5.movement,
+          mx = _ref5$movement[0];
       return onBind({
         down: down,
         last: last,
@@ -2273,26 +2368,153 @@ var Trans = function Trans(_temp) {
       });
     }
   });
-  return /*#__PURE__*/React__default.createElement(reactSpring.animated.div, _extends_1({}, bind(), {
-    style: styles$3.top
-  }), /*#__PURE__*/React__default.createElement(TransIcon, {
+  return [spring, bind];
+}
+
+function _templateObject6() {
+  var data = taggedTemplateLiteralLoose(["\n    font-size: ", "px;\n    height: ", "px;\n    margin: ", ";\n    align-items: center;\n    display: flex;\n    z-index: 1;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$2() {
+  var data = taggedTemplateLiteralLoose(["\n    margin: ", ";\n    border-radius: ", ";\n    color: #818181;\n    display: inline-block;\n    background-color: #212121;\n"]);
+
+  _templateObject5$2 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$2() {
+  var data = taggedTemplateLiteralLoose(["\n    margin: ", ";\n    height: 96%;\n    top: 2%;\n    right: 0px;\n    overflow-x: hidden;\n    position: absolute;\n"]);
+
+  _templateObject4$2 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$2() {
+  var data = taggedTemplateLiteralLoose(["\n    top: ", "px;\n    right: ", "px;\n    transform: translate(-50%,-50%);\n    position: absolute;\n"]);
+
+  _templateObject3$2 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$6() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 0px;\n    right: 0px;\n    height: 100%;\n    position: absolute;\n"]);
+
+  _templateObject2$6 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$b() {
+  var data = taggedTemplateLiteralLoose(["\n    top: 0px;\n    right: 0px;\n    z-index: 100;\n    background: rgba(0,0,0,0.1);\n"]);
+
+  _templateObject$b = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var TransTop = styled.div(_templateObject$b());
+var TransArea = styled(reactSpring.animated.div)(_templateObject2$6());
+var TransIcon = styled(reactSpring.animated.div)(_templateObject3$2(), function (_ref) {
+  var size = _ref.size;
+  return 25 * size;
+}, function (_ref2) {
+  var size = _ref2.size;
+  return 25 * size;
+});
+var TransWrap = styled(reactSpring.animated.div)(_templateObject4$2(), function (_ref3) {
+  var size = _ref3.size;
+  return "calc(" + 50 * size * 2 + "px - 2%) 0px 0px 0px";
+});
+var TransItem = styled(reactSpring.animated.div)(_templateObject5$2(), function (_ref4) {
+  var size = _ref4.size;
+  return 50 * size / 4 + "px 0px";
+}, function (_ref5) {
+  var size = _ref5.size;
+  return 50 * size + "px 0px  0px " + 50 * size + "px";
+});
+var TransToggle = styled.div(_templateObject6(), function (_ref6) {
+  var size = _ref6.size;
+  return 50 * size;
+}, function (_ref7) {
+  var size = _ref7.size;
+  return 50 * size;
+}, function (_ref8) {
+  var size = _ref8.size;
+  return "auto " + 50 * size / 2 + "px";
+});
+var Trans = function Trans(props) {
+  var size = props.size,
+      children = props.children;
+
+  var _useTrans = useTrans(props),
+      _useTrans$ = _useTrans[0],
+      r = _useTrans$.r,
+      s = _useTrans$.s,
+      bind = _useTrans[1];
+
+  var wrap = {
+    width: r.to(function (r) {
+      if (r === void 0) {
+        r = 0;
+      }
+
+      return 50 * size * (Math.cos(r / 90 * Math.PI) + 1) + "px";
+    })
+  },
+      area = {
+    width: r.to(function (r) {
+      return 50 * size * (Math.cos(r / 90 * Math.PI) + 1.5) + "px";
+    }),
+    background: s.to(function (s) {
+      return ["linear-gradient(90deg", "rgba(0,0,0,0)", "rgba(0,0,0," + (s - 1) + "))"].join(',');
+    })
+  };
+  return /*#__PURE__*/React__default.createElement(TransTop, bind(), /*#__PURE__*/React__default.createElement(TransIcon, {
     size: size,
-    spring: spring
-  }), /*#__PURE__*/React__default.createElement(TransArea, {
+    style: {
+      rotateZ: r
+    }
+  }, /*#__PURE__*/React__default.createElement(Icon, {
+    fa: "align-justify",
+    circ: false,
+    size: size
+  })), /*#__PURE__*/React__default.createElement(TransArea, {
     size: size,
-    spring: spring
-  }), /*#__PURE__*/React__default.createElement(TransContainer, {
+    style: area
+  }), /*#__PURE__*/React__default.createElement(TransWrap, {
     size: size,
-    spring: spring
+    style: wrap
   }, React__default.Children.map(children, function (child, key) {
     return /*#__PURE__*/React__default.createElement(TransItem, {
       size: size,
       key: key
-    }, child);
+    }, /*#__PURE__*/React__default.createElement(TransToggle, {
+      size: size,
+      children: child
+    }));
   })));
 };
 
 exports.Card = Card;
+exports.Edit = Edit;
 exports.Foot = Foot;
 exports.Grow = Grow;
 exports.Head = Head;
@@ -2302,15 +2524,12 @@ exports.Notes = Notes;
 exports.NotesItem = NotesItem;
 exports.NotesSide = NotesSide;
 exports.Pills = Pills;
+exports.Pulls = Pulls;
 exports.Sheet = Sheet;
 exports.Sides = Sides;
 exports.Slide = Slide;
 exports.Split = Split;
 exports.Trans = Trans;
-exports.TransArea = TransArea;
-exports.TransContainer = TransContainer;
-exports.TransIcon = TransIcon;
-exports.TransItem = TransItem;
 exports.Trees = Trees;
 exports.clamp = clamp;
 exports.defaultPage = defaultPage;
@@ -2327,6 +2546,7 @@ exports.range = range;
 exports.swap = swap;
 exports.topUp = topUp;
 exports.treesPaths = treesPaths;
+exports.useEdit = useEdit;
 exports.usePage = usePage;
 exports.useSheet = useSheet;
 exports.useSlide = useSlide;

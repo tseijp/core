@@ -31,8 +31,8 @@ const HookCtrl = ({title, background, color, size}: any) =>
 
 
 export const Hook:FC = () => {
-    const [dark, setDark] = useGrid<number>({init:0, xs: 1, md:1, lg:0  })
-    const [size, setSize] = useGrid<number>({init:0, xs:.8, md:1, lg:1.5})
+    const [dark, setDark] = useGrid<number>({init:0, md:1, lg:0  })
+    const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
     const [page, setPage] = usePage<HookPage>(hookPage, pageConfig)
     const [side, setSide] = useGrid<number>({xs:0,lg:89/233})
     const [ctrl, demo, code, trees] = useMemo(() => {

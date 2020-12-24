@@ -7,18 +7,14 @@ import {Icon} from '../../components'
 const SidesTop = styled.div`
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
 `
 const SidesArea = styled<any>(animated.div)`
-    background: linear-gradient(90deg,rgba(255,0,0,.5),rgba(255,0,0,0));
     top: 0;
     left: 0;
     height: 100%;
     transition: 0.25s;
     position: absolute;
 `
-
 const SidesWrap = styled<any>(animated.div)`
     top: 2%;
     left: 0px;
