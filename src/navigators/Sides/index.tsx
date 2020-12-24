@@ -9,27 +9,25 @@ const SidesTop = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
 `
 const SidesArea = styled<any>(animated.div)`
     background: linear-gradient(90deg,rgba(255,0,0,.5),rgba(255,0,0,0));
     top: 0;
     left: 0;
     height: 100%;
-    z-index: 1;
     transition: 0.25s;
-    position: relative;
+    position: absolute;
 `
 
 const SidesWrap = styled<any>(animated.div)`
     top: 2%;
     left: 0px;
-    z-index: 100;
-    border-radius: ${({size=1}) => `0px ${50*size}px ${50*size}px 0px`};
     height: 96%;
-    position: absolute;
-    overflow-x: hidden;
+    padding-top: ${({size=1}) => size*50}px;;
+    border-radius: ${({size=1}) => `0px ${50*size}px ${50*size}px 0px`};
+    overflow-x: scroll;
     background: #212121;
+    position: absolute;
 `
 const SidesIcon = styled<any>(animated.div)`
     top: ${({size=1}) => 25*size}px;

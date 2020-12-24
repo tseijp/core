@@ -4,7 +4,7 @@ import {Html} from "drei";
 import {Canvas, useFrame} from "react-three-fiber";
 import {useGrid} from 'use-grid'
 import {Render, Flow, Vec3} from 'react-mol'
-import {Sides,Trans,Grow} from '../src'
+import {Sides,Trans,Grow,Pulls} from '../src'
 import {Title} from './meshs'
 import styled from 'styled-components'
 const {sin, cos, random} = Math
@@ -61,10 +61,15 @@ export function Home() {
                     <Page/>
                 </Suspense>
             </Canvas>
+            <Pulls align="bottom" width={500}>
+            </Pulls>
             <Sides {...{size}}>
                 <a style={{color:"#818181"}} href="/"    >Home</a>
-                <a style={{color:"#818181"}} href="/hook">Hook</a>
                 <a style={{color:"#818181"}} href="/note">Note</a>
+                <a style={{color:"#818181"}} href="/hook">Hook</a>
+                <a style={{color:"#818181"}} href="/book">Book</a>
+                <a style={{color:"#818181"}} href="/rmol">Rmol</a>
+                <a style={{color:"#818181"}} href="/mdmd">Mdmd</a>
             </Sides>
             <Trans {...{size}}>
                 <div onClick={()=>setDark((p:any)=>({md:p.lg,lg:p.md}))}>{dark?'🌞':'🌛'}</div>

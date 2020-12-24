@@ -24,7 +24,7 @@ const Item = styled<any>(animated.div)`
 
 export type Pulls = {(props: PullsProps): JSX.Element}
 export const Pulls = React.forwardRef((props: any, ref) => {
-    const {align="bottom", width=50, size=1} = props;
+    const {align="bottom", width=100, size=1} = props;
     const [{x, y}, bind] = usePulls(props)
     return (
         <Wrap {...bind()} ref={ref}>

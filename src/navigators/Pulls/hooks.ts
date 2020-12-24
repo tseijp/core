@@ -15,8 +15,8 @@ export function usePulls (props: PullsProps): [{
 }, (...args: any) => any]
 
 export function usePulls ({
-    timeout=-1,
-    width=50,
+    timeout=0,
+    width=100,
     align="bottom",
     size=1,
     open=false,
@@ -27,7 +27,7 @@ export function usePulls ({
         set(opened? {x: 0, y: 0}:  setup(width*size, align))
         if (timeout <= 0 || opened <= 0 || timeouted.current) return
         timeouted.current = true
-        setTimeout(() => void (timeouted.current = false, changed(0)), timeout*1000)
+        setTimeout(() => void (timeouted.current = false, changed(0)), timeout)
     }, [align, set, size, timeout, width])
     const bind = useGesture({
         onDrag : ({last, down, movement}) => {
