@@ -2,8 +2,8 @@ import React from 'react'
 import {useControl as _} from 'react-three-gui';
 import {
     Notes as NotesTarget,
-    Sheet as SheetTarget,
-    Slide as SlideTarget,
+    // Sheet as SheetTarget,
+    // Slide as SlideTarget,
     Split as SplitTarget,
     Trees as TreesTarget,
     Head, Card
@@ -26,22 +26,22 @@ export const Notes = () => {
         }} />
     )
 }
-export const Sheet = () => {
-    const started = _('stared', {type: 'boolean', value: false})
-    const props = {
-        started,
-        children: <div style={{width: 100,height: 100, background:"red"}}/>
-    }
-    return <SheetTarget {...props}/>
-}
-export const Slide = () => {
-    const props = {
-        children: Array(5).fill(
-            <div style={{width:"100%",height:"100%",background: "red"}}/>
-        ),
-    }
-    return <SlideTarget {...props}/>
-}
+// export const Sheet = () => {
+//     const started = _('stared', {type: 'boolean', value: false})
+//     const props = {
+//         started,
+//         children: <div style={{width: 100,height: 100, background:"red"}}/>
+//     }
+//     return <SheetTarget {...props}/>
+// }
+// export const Slide = () => {
+//     const props = {
+//         children: Array(5).fill(
+//             <div style={{width:"100%",height:"100%",background: "red"}}/>
+//         ),
+//     }
+//     return <SlideTarget {...props}/>
+// }
 export const Split = () => {
     const vertical = _('vertical', {type: 'boolean', value: false})
     const dark     = _('dark'    , {type: 'boolean', value: false})

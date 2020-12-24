@@ -9,18 +9,18 @@ import {
 
 
 export const Pulls = () => {
-    const open = _('open', {type: 'boolean', value: false})
+    const open = _('open', {type: 'boolean', value: true})
     const dark = _('dark', {type: 'boolean', value: false})
     const size    = _('size',    {type: 'number', value: 1, min: 0, max: 2})
     const timeout = _('timeout', {type: 'number', value: 5, min: 0, max: 10})
-    const width   = _('width',   {type: 'number', value: 250, min: 0, max: 100})
+    const width   = _('width',   {type: 'number', value: 100, min: 0, max: 500})
     const aligns = ['left', 'right', 'top', 'bottom']
-    const align = _('align', {type: 'select', value: aligns[3], items: aligns})
-    const style = {width: "100%", height: "100%", color: "rgba(0,255,0,.5)"}
+    const align = _('align', {type: 'select', value: "top", items: aligns})
+    const style = {position: "absolute", width: "100px", height: "100px", color: "rgba(0,255,0,.5)"}
     return (
         <Card min={500} rate={0}>
             <PullsTarget {...{dark, size, timeout, open, width, align}}>
-                <span style={style} children="🤯"/>
+                <span style={style as any} children="🤯"/>
             </PullsTarget>
         </Card>
     )

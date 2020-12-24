@@ -11,10 +11,11 @@ const Wrap = styled<any>(animated.div)`
     position: absolute;
     pointer-events: all;
     overflow: hidden;
+    background: rgba(255, 0, 0, 0.1);
 `
 const Item = styled<any>(animated.div)`
     position: absolute;
-    background: rgba(0, 0, 255, 0.5);
+    background: rgba(0, 0, 255, 0.1);
     ${({align}) => `${align}: 0px;`}
     ${({align, width, size}) => align==="left"||align==="right"
         ? `width: ${width*size}px; height: 100%;`
@@ -23,10 +24,10 @@ const Item = styled<any>(animated.div)`
 
 export type Pulls = {(props: PullsProps): JSX.Element}
 export const Pulls = React.forwardRef((props: any, ref) => {
-    const {align="bottom", width=50, size=1, style={}} = props;
+    const {align="bottom", width=50, size=1} = props;
     const [{x, y}, bind] = usePulls(props)
     return (
-        <Wrap {...bind()} style={style} ref={ref}>
+        <Wrap {...bind()} ref={ref}>
             <Item style={{x, y}} size={size} align={align} width={width}>
                 {props.children}
             </Item>
