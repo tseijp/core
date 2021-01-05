@@ -2,7 +2,7 @@ import React from 'react'
 import {useControl as _} from 'react-three-gui';
 import {
     Card as CardTarget,
-    Edit as EditTarget,
+    // Edit as EditTarget,
     Grow as GrowTarget,
     Head as HeadTarget,
 } from '../../src'
@@ -36,11 +36,11 @@ export const Card = () => {
     return <CardTarget {...{dark,size,space,rate,min,max,children,style}}/>
 }
 
-export const Edit = () => {
-    const dark  = _('dark' , {type: 'boolean', value: false})
-    const size  = _('size' , {type: 'number' , value: 1, min: 0, max: 2})
-    return <EditTarget {...{dark, size}}/>
-}
+// export const Edit = () => {
+//     const dark  = _('dark' , {type: 'boolean', value: false})
+//     const size  = _('size' , {type: 'number' , value: 1, min: 0, max: 2})
+//     return <EditTarget {...{dark, size}}/>
+// }
 
 export const Grow = () => {
     const dark  = _('dark' , {type: 'boolean', value: false})

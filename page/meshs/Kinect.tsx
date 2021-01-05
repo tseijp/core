@@ -39,7 +39,8 @@ void main() {
 }
 `
 
-export const Kinect = ({ url,
+export const Kinect = ({
+    url="",
     position=[0,0,0],
     width=640, nearClipping=1000, depthWrite=false, pointSize=5, space=2,
     height=850, farClipping=4000, depthTest=false, zOffset=1000, ...props

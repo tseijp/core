@@ -1,12 +1,14 @@
-import * as THREE from "three";
-import React, {Suspense,useMemo,useRef} from "react";
-import {Html} from "drei";
-import {Canvas, useFrame} from "react-three-fiber";
-import {useGrid} from 'use-grid'
-import {Render, Flow, Vec3} from 'react-mol'
-import {Sides,Trans,Pulls} from '../src'
-import {Title} from './meshs'
-import styled from 'styled-components'
+import * as THREE from 'three';
+import React, {Suspense,useMemo,useRef} from 'react';
+import {Canvas, useFrame} from 'react-three-fiber';
+import {useMove} from 'react-use-gesture';
+import styled from 'styled-components';
+import {Html} from 'drei';
+import {Group} from 'three';
+import {Title} from './meshs';
+import {useGrid} from 'use-grid';
+import {Sides, Trans} from '../src';
+import {Render, Flow, Vec3} from 'react-mol';
 const {sin, cos, random} = Math
 const state = {x: 0, y: 0}
 
@@ -19,8 +21,17 @@ const Wrap = styled.div<any>`
 
 function Page () {
     const vec = new THREE.Vector3();
-    const group = useRef<THREE.Group>();
-    useFrame(() => group.current?.position?.lerp(vec.set(state.x/100, state.y/100, 0), 0.1));
+    const move = useRef({x: 0, y: 0})
+    const group = useRef<Group>(null)
+    useMove(({xy: [x, y]}) => {move.current = {x, y}}, {domTarget: window})
+    useFrame(({camera, scene, size}) => {
+        const dx =-(move.current.x - .5 * size.width) / 500 - camera.position.x
+        const dy = (move.current.y - .5 * size.height) / 500 - camera.position.y
+        camera.position.x += dx * 0.05
+        camera.position.y += dy * 0.05
+        camera.lookAt(scene.position)
+        group.current?.position.lerp(vec.set(state.x/100, state.y/100, 0), 0.1)
+    });
     return (
         <group ref={group}>
             <gridHelper position={[0,0,0]} args={[100,50]}/>
@@ -62,7 +73,6 @@ export function Home() {
                     <Page/>
                 </Suspense>
             </Canvas>
-            <Pulls open align="top" rate={3}/>
             <Sides {...{size}}>
                 <a style={{color:"#818181"}} href="/"    >Home</a>
                 <a style={{color:"#818181"}} href="/hook">Hook</a>
@@ -72,8 +82,12 @@ export function Home() {
                 <a style={{color:"#818181"}} href="/mdmd">Mdmd</a>
             </Sides>
             <Trans {...{size}}>
-                <div onClick={()=>setDark((p:any)=>({md:p.lg,lg:p.md}))}>{dark?'🌞':'🌛'}</div>
-                <div onClick={()=>setSize((p:any)=>({md:p.lg,lg:p.md}))}>{size<75?'👨':'👶'}</div>
+                <div onClick={()=>setDark((p:any)=>({md:p.lg,lg:p.md}))}>
+                    {dark? '🌞':'🌛'}
+                </div>
+                <div onClick={()=>setSize((p:any)=>({md:p.lg,lg:p.md}))}>
+                    {size<75? '👨':'👶'}
+                </div>
             </Trans>
         </Wrap>
     );

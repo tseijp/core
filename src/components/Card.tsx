@@ -36,8 +36,8 @@ export const Card = React.forwardRef(({
         rate]
     const bind = useGesture({
         onDrag : ({event})    => event?.stopPropagation(),
-        onHover: ({hovering}) => !hovering && set({xyz:[0,0,0]}),
         onMove : ({xy:[x,y]}) => set({xyz:calc(x,y)}),
+        onHover: ({hovering}) => !hovering && set({xyz:[0,0,0]}),
     })
     return <a.div style={{
             boxShadow: xyz.to((x,y,z) => [

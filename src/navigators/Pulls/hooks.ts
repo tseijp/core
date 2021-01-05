@@ -10,6 +10,7 @@ export type PullsProps = Props<{
     timeout: number,
     width: number,
     align: string,
+    limit: number,
     rate: number,
     open: boolean,
 }>
@@ -19,13 +20,14 @@ export function usePulls (props: PullsProps): [{
 }, (...args: any) => any]
 
 export function usePulls ({
-    onOpen= ()=> void null,
-    onClose= ()=> void null,
+    onOpen=()=> void null,
+    onClose=()=> void null,
     wheelRate=-0.5,
     dragRate=1,
     timeout=0,
     width=100,
     align="bottom",
+    limit=0,
     size=1,
     rate=1,
     open=false,
@@ -47,14 +49,16 @@ export function usePulls ({
         onWheel: ({last, wheeling, movement}) => {
             const move = movement[axis] * wheelRate * rate
             const next = (wheeling? move: 0) - dist * sign
-            if (last) return void changed(move* sign > dist)
-            set({[["x", "y"][axis]]: next, [["y", "x"][axis]]: 0});
+            const isLimited = limit && move > limit
+            if (last || isLimited) changed(move* sign > dist)
+            else set({[["x", "y"][axis]]: next, [["y", "x"][axis]]: 0});
         },
         onDrag: ({last, dragging, movement}) => {
             const move = movement[axis] * dragRate * rate
             const next = (dragging? move: 0) - dist * sign
-            if (last) return void changed(move* sign > dist)
-            set({[["x", "y"][axis]]: next, [["y", "x"][axis]]: 0});
+            const end = limit && move * sign > limit
+            if (last || end) changed(move* sign > dist)
+            else set({[["x", "y"][axis]]: next, [["y", "x"][axis]]: 0});
         },
     })
     useEffect(() => void changed(open && align), [open, align, changed])

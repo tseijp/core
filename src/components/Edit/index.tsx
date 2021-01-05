@@ -13,7 +13,7 @@ export type Edit = {
 
 export const Edit = (props: any) => {
     const [spring, bind] = useEdit(props)
-    return <Input {...bind()} {...props} style={spring}></Input>
+    return <Input {...bind()} style={spring}></Input>
 }
 
 export * from './hooks'
