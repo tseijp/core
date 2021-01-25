@@ -1,3 +1,5 @@
+
+
 <h1 align="center">@tsei/core</h1>
 <p align="center">🌌Fantastic <b>UI</b> in next tsei.jp</p>
 <p align="center">
@@ -12,22 +14,20 @@
 <hr>
 
 # Table of Contents
-- [Demo](#demo)  
-- [Docs](#docs)
 - [Install via npm](#install-via-npm)  
+- [Demo and Docs](#demo-and-docs)  
 - [Available hook](#available-hook)  
 - [Simple example](#simple-example)  
+
+# Install via npm
+- `npm install @tsei/core`
 
 # Demo and Docs
 - [home](https://tsei.jp/home/)
 - [core](https://tsei.jp/hook/)
 - [mdmd](https://tsei.jp/mdmd/)
 - [note](https://tsei.jp/note/)
-- [useGrid](https://tsei.jp/hook/use-grid/)
-- ~[useUrei](https://tsei.jp/hook/use-urei/)~
-
-# Install via npm
-- `npm i -S @tsei/core`
+- [grid](https://tsei.jp/hook/use-grid/)
 
 # Get Started
 - `git clone https://github.com/tseijp/core`
