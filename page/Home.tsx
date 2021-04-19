@@ -8,7 +8,7 @@ import {Group} from 'three';
 import {Title} from './meshs';
 import {useGrid} from 'use-grid';
 import {Sides, Trans} from '../src';
-import {Render, Flow, Vec3} from 'react-mol';
+import {Instanced, Flow, Vec3} from 'react-mol';
 const {sin, cos, random} = Math
 const state = {x: 0, y: 0}
 
@@ -37,10 +37,10 @@ function Page () {
             <gridHelper position={[0,0,0]} args={[100,50]}/>
             <Title dark position={[0,0,3]}>TSEI.jp</Title>
             {useMemo(() => (
-                <Render max={1000}>
+                <Instanced>
                     <dodecahedronBufferGeometry args={[1,0]}/>
                     <meshStandardMaterial />
-                    {Array(1000).fill(0).map((_,i) =>
+                    {[...Array(1000).keys()].map(i =>
                         <Flow key={i}
                             args={[...Array(4)].map(_ => random())}
                             position={(t=0,s=0,x=0,y=0,z=0) => [
@@ -52,7 +52,7 @@ function Page () {
                             scale={(t=0,s=0)=>Array(3).fill(cos(t*s/2)*5) as Vec3}
                             color="black"/>
                     )}
-                </Render>
+                </Instanced>
             ), [])}
         </group>
     );

@@ -25,6 +25,12 @@
       "esnext"
     ]
   },
-  "include": ["./page", "./src", "./test"],
-  "exclude": ["./node_modules/**/*"]
+  "include": [
+    "./page",
+    "./src",
+    "./test"
+  ],
+  "exclude": [
+    "./node_modules/**/*"
+  ]
 }

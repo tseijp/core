@@ -19,7 +19,7 @@ export function Title ({
 }: any) {
     const color = props.color || dark? "#fff": "#000"
     const reflow = useReflow()
-    const onClick = href? null: () => window.open(href)
+    const onClick = href? undefined: () => window.open(href)
     return (
         <Text
             onSync={reflow}

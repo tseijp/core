@@ -17,11 +17,7 @@ module.exports = {
 //  testMatch: ['<rootDir>/src/**/*.test.{js,jsx,ts,tsx}'], //ERROR if use together
     modulePaths: [],
     moduleFileExtensions: ['ts','tsx','js','jsx','json','node'],
-    moduleNameMapper: {
-        '^react-native$': 'react-native-web',
-        '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
-        'src/(.*)$': '<rootDir>/src/$1',
-    },
+    // moduleNameMapper: {'src/(.*)$': '<rootDir>/src/$1',}, // ERROR if use it
     automock : false,
     preset: 'ts-jest',
     globals: {
@@ -36,8 +32,6 @@ module.exports = {
         '!src/setupTests.ts',
         '!src/index.tsx',
     ],
-    //setupFiles: ['<rootDir>/setupTests.ts'],// './test/setupEnzyme.ts'], // ERROR
-    //snapshotSerializers: ['enzyme-to-json/serializer'], // ERROR
     coveragePathIgnorePatterns: ['./src/*/*.types.{ts,tsx}'],
     coverageReporters: ['json', 'lcov', 'text-summary', 'clover'],
     // coverageThreshold: {

@@ -14,21 +14,28 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
-const App = (
+function Provider ({children}: any) {
+  return (
     <HelmetProvider>
-        <ControlsProvider>
-            <BrowserRouter>
-                <Switch>
-                    <Route    path="/"     component={Home} exact/>
-                    <Route    path="/home" component={Home}  exact/>
-                    <Route    path='/hook' component={Hook}/>
-                    <Route    path='/none' component={None}/>
-                    <Redirect to={window.location.host.match("localhost")?'/none':'/home'}/>
-                </Switch>
-            </BrowserRouter>
-        </ControlsProvider>
+      <ControlsProvider>
+        <BrowserRouter>
+          {children}
+        </BrowserRouter>
+      </ControlsProvider>
     </HelmetProvider>
-)
+  )
+}
 
-ReactDOM.render( App , document.getElementById('root'));
+ReactDOM.render(
+  <Provider>
+    <Switch>
+      <Route  path="/"     component={Home} exact/>
+      <Route  path="/home" component={Home} exact/>
+      <Route  path='/hook' component={Hook}/>
+      <Route  path='/none' component={None}/>
+      <Redirect to={window.location.host.match("localhost")?'/none':'/home'}/>
+    </Switch>
+  </Provider>,
+  document.getElementById('root')
+);
 unregister();
