@@ -2,7 +2,7 @@ import React, {FC, Suspense} from 'react'
 import * as THREE from 'three'
 import {Canvas, } from 'react-three-fiber'
 import {useControl as _} from 'react-three-gui';
-import {TransformControls} from 'drei'
+import {TransformControls} from '@react-three/drei'
 import {
     Kinect as KinectTarget,
     Motion as MotionTarget

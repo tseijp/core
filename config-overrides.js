@@ -6,8 +6,8 @@ module.exports = {
     paths: function(paths, env) {
         paths.appSrc              = resolveApp('.');
         paths.appBuild            = resolveApp('build/core');
-        paths.appIndexJs          = resolveApp('page/index.tsx');
-        paths.appTypeDeclarations = resolveApp('page/react-app-env.d.ts');
+        paths.appIndexJs          = resolveApp('pages/index.tsx');
+        paths.appTypeDeclarations = resolveApp('pages/react-app-env.d.ts');
         return paths;
     }
 }

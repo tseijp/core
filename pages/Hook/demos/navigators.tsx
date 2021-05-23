@@ -5,7 +5,7 @@ import {
     Sides as SidesTarget,
     Trans as TransTarget,
     Card
-} from '../../src'
+} from '../../../src'
 
 
 export const Pulls = () => {

@@ -13,7 +13,7 @@ export const Motion = ({
     action=0, dark=true, size=50, ...props
 }) => {
     const group   = useRef<any>(null)
-    const gltf    = useLoader<any>(GLTFLoader, gltfURL)
+    const gltf    = useLoader<any, any>(GLTFLoader, gltfURL)
     const texture = useLoader(THREE.TextureLoader, textureURL);
     const actions = useRef<any>(null)
     const [mixer] = useState<any>(() => new THREE.AnimationMixer(null as any))

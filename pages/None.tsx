@@ -4,7 +4,7 @@ import { Canvas, useFrame } from 'react-three-fiber'
 import { useMove } from 'react-use-gesture'
 import { Helmet } from 'react-helmet-async';
 import * as THREE from 'three'
-import {Kinect} from './meshs'
+import {Kinect} from './Hook/meshs'
 import { useGrid } from 'use-grid'
 import { Sides, Trans} from '../src'
 //import { Card, Foot, Head } from '../src/components'

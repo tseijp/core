@@ -4,7 +4,7 @@ import * as THREE from "three"
 import React, { useEffect, useRef, useState } from "react"
 import { useLoader, useFrame } from "react-three-fiber"
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
-//import { draco } from 'drei'
+//import { draco } from '@react-three/drei'
 
 const defaultURL = "https://tseijp-static.s3.ap-northeast-1.amazonaws.com/Xbot.glb"
 

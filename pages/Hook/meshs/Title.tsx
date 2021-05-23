@@ -1,6 +1,6 @@
 //import * as THREE from 'three'
 import React from 'react'
-import {Text} from "drei";
+import {Text} from "@react-three/drei";
 import {useReflow} from "react-three-flex";
 // import { EffectComposer, Bloom } from "react-postprocessing";
 import {Props} from '../../src'

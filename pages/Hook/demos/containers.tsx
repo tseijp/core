@@ -7,7 +7,7 @@ import {
     Split as SplitTarget,
     Trees as TreesTarget,
     Head, Card
-} from '../../src'
+} from '../../../src'
 
 export const Notes = () => {
     const dark  = _('dark' , {type: 'boolean', value: false})

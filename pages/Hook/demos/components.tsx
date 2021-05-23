@@ -5,7 +5,7 @@ import {
     // Edit as EditTarget,
     Grow as GrowTarget,
     Head as HeadTarget,
-} from '../../src'
+} from '../../../src'
 
 export const Head = () => {
     const titles = ["home", "note", "mdmd", "hook"]

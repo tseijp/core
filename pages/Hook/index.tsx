@@ -2,8 +2,8 @@ import React, {CSSProperties as CSS, useMemo, FC} from 'react';
 import {useGrid}  from 'use-grid';
 import {Controls} from 'react-three-gui';
 import {Helmet}   from 'react-helmet-async';
-import {hookPage,HookPage,pageConfig} from './utils';
-import {topUp,Card,Notes,Sides,Split,Trees,Trans} from '../src'
+import {hookPage,HookPage,pageConfig} from '../utils';
+import {topUp,Card,Notes,Sides,Split,Trees,Trans} from '../../src'
 import styled from 'styled-components'
 import {usePage} from '@tsei/note'
 import {Code} from '@tsei/mdmd'

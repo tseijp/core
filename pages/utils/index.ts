@@ -1,7 +1,7 @@
 import axios  from 'axios'
 import {Credit, URLType, Page} from '@tsei/note'
-import * as CODES from '../codes'
-import * as DEMOS from '../demos'
+import * as CODES from '../Hook/codes'
+import * as DEMOS from '../Hook/demos'
 import {topUp} from '../../src'
 // *************************📋 FOR NOTE 📋************************* //
 export * from './serviceWorker'
@@ -17,6 +17,7 @@ export const customPage : Partial<Page<CustomPage>> = {
         `/api/note/${ id?id+'/':'' }`,
         status!=="UP"? `/auth/`: `/api/user/`]
 }
+
 export const fetcher = async (URL:URLType,headers={'Content-Type':'application/json'}) =>
    axios.get(URL.href, {headers})
         .then(res => {
@@ -24,6 +25,7 @@ export const fetcher = async (URL:URLType,headers={'Content-Type':'application/j
                 throw new Error('Bad Request')
             return res.data
         })
+
 export const signin = async (URL:URLType, cred:Credit, headers={'Content-Type':'application/json'}) =>
    axios.post(URL.href, cred, {headers})
         .then((res) => {
