@@ -1,8 +1,43 @@
-import React, {Children, useMemo} from 'react'
-import {useTrees} from './hooks'
-import {animated as a} from 'react-spring'
+// This is a fork of
+//     https://github.com/drcmda/react-animated-tree/blob/master/src/index.js
+//     https://github.com/drcmda/react-animated-tree/blob/master/src/icons.js
+//     https://codesandbox.io/embed/rrw7mrknyp
+
+import React, {Children, useMemo, useState, useEffect} from 'react'
 import styled from 'styled-components'
-// import {Props} from '../../types'
+import {useGesture} from 'react-use-gesture'
+import {animated as a, useSpring, config} from 'react-spring'
+
+export const treesPaths = {
+    Minus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 347h-442q-14 0 -25 10.5t-11 25.5v0q0 15 11 25.5t25 10.5h442q14 0 25 -10.5t11 -25.5v0 q0 -15 -11 -25.5t-25 -10.5z",
+    Plus: "M888 760v0v0v-753v0h-752v0v753v0h752zM888 832h-752q-30 0 -51 -21t-21 -51v-753q0 -29 21 -50.5t51 -21.5h753q29 0 50.5 21.5t21.5 50.5v753q0 30 -21.5 51t-51.5 21v0zM732 420h-184v183q0 15 -10.5 25.5t-25.5 10.5v0q-14 0 -25 -10.5t-11 -25.5v-183h-184 q-15 0 -25.5 -11t-10.5 -25v0q0 -15 10.5 -25.5t25.5 -10.5h184v-183q0 -15 11 -25.5t25 -10.5v0q15 0 25.5 10.5t10.5 25.5v183h184q15 0 25.5 10.5t10.5 25.5v0q0 14 -10.5 25t-25.5 11z",
+}
+
+const treesConfig = {restSpeedThreshold: 1,restDisplacementThreshold: 0.01}
+
+export function useTrees (props: any) {
+    const {open=true, visible=true, immediate=true, springconfig} = props
+    const [state, set] = useState<{[key:string]:boolean}>({open,visible,immediate})
+    const bind = useGesture({
+        onClick: () => set&&set((p:any) => ({open:!p.open,immediate:false})),
+    })
+    const spring = useSpring({
+        immediate: state.immediate,
+        config: {...config.default, ...(springconfig||treesConfig)},
+        from: {height: 0, opacity: 0, transform: 'translate3d(20px,0,0)' },
+        to:   {height: state.open? 'auto' : 0,
+              opacity: state.open? 1      : 0,
+            transform: state.open? 'translate3d(0px,0,0)': 'translate3d(20px,0,0)'},
+    })
+    const path = useMemo(() => props.children && treesPaths[(
+        state.open ? 'Minus' : 'Plus'
+    )], [props.children, state.open])
+    useEffect(() => {
+        set(p => visible!==p.visible?{...p, visible}:p)
+    }, [visible])
+
+    return [spring, bind, path]
+}
 
 const TreesTop = styled<any>(a.div)`
     padding: 4px 0px 0px 0px;
@@ -69,7 +104,3 @@ export function Trees (props: any) {
         </TreesTop>
     )
 }
-
-export * from './hooks'
-export * from './paths'
-// <TreesTggl {...{...props, set, icon, opacity:children?.length?1:.3}}/>

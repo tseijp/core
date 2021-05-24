@@ -1,16 +1,37 @@
-import * as THREE from 'three';
 import React, {Suspense,useMemo,useRef} from 'react';
-import {Canvas, useFrame} from 'react-three-fiber';
-import {useMove} from 'react-use-gesture';
 import styled from 'styled-components';
-import {Html} from '@react-three/drei';
 import {Group} from 'three';
-import {Title} from './Hook/meshs';
+import {useMove} from 'react-use-gesture';
+import * as THREE from 'three';
+import {useReflow} from "react-three-flex";
+import {Text, Html} from '@react-three/drei';
+import {Canvas, useFrame} from 'react-three-fiber';
 import {useGrid} from 'use-grid';
 import {Sides, Trans} from '../src';
 import {Instanced, Flow, Vec3} from 'react-mol';
 const {sin, cos, random} = Math
 const state = {x: 0, y: 0}
+
+export function Title ({
+    anchorX="center", anchorY="middle", textAlign="center", href="",
+    dark=false, size=1, space=0, maxWidth=-1, children, ...props
+}: any) {
+    const color = props.color || dark? "#fff": "#000"
+    const reflow = useReflow()
+    const onClick = href? undefined: () => window.open(href)
+    return (
+        <Text
+            onSync={reflow}
+            fontSize={size/2}
+            lineHeight={size/2}
+            letterSpacing={space}
+            {...props as any}
+            {...{color, anchorX, anchorY, textAlign, maxWidth, onClick}}>
+            {typeof children==="string"? children: (children as any)?.props?.children||''}
+            <meshStandardMaterial />
+        </Text>
+    )
+}
 
 const Wrap = styled.div<any>`
     width: 100%;
@@ -58,14 +79,13 @@ function Page () {
     );
 }
 
-export function Home() {
+export function Home({gl={alpha: true, antialias: false, logarithmicDepthBuffer: true}}) {
     const [dark, setDark] = useGrid<number>({init:0, md:0, lg:1  })
     const [size, setSize] = useGrid<number>({init:0, md:1, lg:1.5})
     return (
         <Wrap background={dark?"#212121":"#fff"}>
-            <Canvas pixelRatio={window.devicePixelRatio}
-                    camera={{fov: 75, position: [0, 0, 5]}}
-                    gl={{alpha: true, antialias: false, logarithmicDepthBuffer: true}}>
+            <Canvas camera={{fov: 75, position: [0, 0, 5]}}
+                gl={gl}>
                 <ambientLight intensity={.3} />
                 <pointLight position={[ 100, 100, 100]} intensity={2.2} />
                 <pointLight position={[-100,-100,-100]} intensity={5}/>

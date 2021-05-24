@@ -1,7 +1,7 @@
 import React from 'react';
 import {animated} from 'react-spring'
 import styled from 'styled-components'
-import {useSides, SidesProps} from './hooks'
+import {useSides} from './hooks'
 import {Icon} from '../../components'
 
 const SidesTop = styled.div`
@@ -37,7 +37,6 @@ const SidesItem = styled<any>(animated.div)`
     transition: 0.75s;
     font-size: ${({size=1}) => 50*size}px;
 `
-export type Sides = {(props: SidesProps): JSX.Element}
 
 export const Sides = (props: any) => {
     const {size, fa="align-left", children} = props

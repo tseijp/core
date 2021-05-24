@@ -1,9 +1,8 @@
-import React, {Children} from 'react'
+import {Children} from 'react'
 import {animated} from 'react-spring'
 import styled from 'styled-components'
 import {SplitProps} from './types'
 import {useSplit} from './hooks'
-import {Props} from '../../types'
 
 const SplitWrapp = styled<any>(animated.div)`
     width: 100%;
@@ -12,7 +11,7 @@ const SplitWrapp = styled<any>(animated.div)`
 `
 const SplitChild = styled<any>(animated.div)``
 
-export function Split (props: Props<SplitProps>): JSX.Element
+export function Split (props: Partial<SplitProps>): JSX.Element
 export function Split (props: any) {
     const [styles, bind] = useSplit(props)
     return (

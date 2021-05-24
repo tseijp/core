@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import {animated} from 'react-spring'
-import {usePulls, PullsProps} from './hooks'
+import {usePulls} from './hooks'
 
 const Wrap = styled<any>(animated.div)`
     top: 0;
@@ -12,8 +12,7 @@ const Wrap = styled<any>(animated.div)`
     pointer-events: all;
     overflow: hidden;
 `
-// background: rgba(255, 0, 0, 0.1);
-// background: rgba(0, 0, 255, 0.1);
+
 const Item = styled<any>(animated.div)`
     position: absolute;
     ${({align}) => `${align}: 0px;`}
@@ -22,7 +21,6 @@ const Item = styled<any>(animated.div)`
         : `width: 100%; height: ${width*size}px;`}
 `
 
-export type Pulls = {(props: PullsProps): JSX.Element}
 export const Pulls = React.forwardRef((props: any, ref) => {
     const {align="bottom", width=100, size=1, style={}} = props;
     const [{x, y}, bind] = usePulls(props)
@@ -34,5 +32,3 @@ export const Pulls = React.forwardRef((props: any, ref) => {
         </Wrap>
     )
 })
-// const {size=1, className="spinner-grow"} = props
-// <Item className={className} size={size} />

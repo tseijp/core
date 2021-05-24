@@ -1,12 +1,13 @@
 import {useRef} from 'react';
 import {useSpring, SpringValue, config} from 'react-spring'
 import {useGesture} from 'react-use-gesture'
-import {Props} from '../../types'
-export type SidesProps = Props<{
+
+export type SidesProps = Partial<{
     fa: string,
     width: number,
     onOpen: (...args: any[]) => any,
 }>
+
 export function useSides (props: SidesProps): [{
     x: SpringValue<number>,
     y: SpringValue<number>,

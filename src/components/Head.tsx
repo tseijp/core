@@ -1,21 +1,14 @@
-import React from 'react'
-import {Props} from '../types'
+// import React from 'react'
 import styled from 'styled-components'
 
-const Item = styled.div<any>`
+export const Head = styled.div.attrs<any>(_ => ({
+    size: _.size ?? 1,
+    dark: _.dark ?? false,
+    color: _.color ?? _.dark? "#818181" : "#000"
+}))<any>`
     font-size: ${({size}) => size*50}px;
     color: ${props => props.color};
     width:${({size}) => `max(70vw, 100vw - ${size*200}px)`};
     height: auto;
     margin: auto;
 `
-
-export type Head = {
-    (props: Props): JSX.Element
-}
-export const Head = React.forwardRef(({
-    children, dark=false,size=1, style={}, ...props
-}: any, ref) => {
-    const color = props.color||dark? "#818181" : "#000"
-    return <Item {...{children,ref,size,style,color,...props}}/>
-})

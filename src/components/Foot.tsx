@@ -1,5 +1,4 @@
 import React, {Children} from 'react'
-import {Props} from '../types'
 import styled from 'styled-components'
 
 const Wrap = styled.div<any>`
@@ -18,9 +17,6 @@ const Item = styled.div<any>`
     fontSize: ${({size}) => `${~~(size*50)}px`}
 `
 
-export type Foot = {
-    (props: Props): JSX.Element
-}
 export const Foot = React.forwardRef(({
     children, size=1, style={}, ...props
 }: any, ref) => {

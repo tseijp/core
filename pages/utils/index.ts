@@ -1,8 +1,5 @@
 import axios  from 'axios'
 import {Credit, URLType, Page} from '@tsei/note'
-import * as CODES from '../Hook/codes'
-import * as DEMOS from '../Hook/demos'
-import {topUp} from '../../src'
 // *************************📋 FOR NOTE 📋************************* //
 export * from './serviceWorker'
 export const scrollTop=()=>document.getElementById('root')?.scroll({top:0,left:0,behavior:'smooth',});
@@ -33,17 +30,3 @@ export const signin = async (URL:URLType, cred:Credit, headers={'Content-Type':'
                 throw new Error('Bad Request')
             return {username:cred.username, authtoken:res.data.token}
         })
-
-// *************************🤏 FOR HOOK 🤏************************* //
-export type  HookPage = {pathname:string, Hook:any, code:any, codes:any, tree: any}
-const getval = (obj={},key='') => key in obj ? (obj as any)[key] : ""
-const codes = Object.assign({}, ...Object.values(CODES))
-const demos = Object.assign({}, ...Object.values(DEMOS))
-export const hookPage = {
-    pathname: ({id=""}) => `/hook/${id}`,
-    code: ({id=""}) => getval(codes, topUp(id)),
-    Demo: ({id=""}) => getval(demos, topUp(id)),
-    tree: Object.entries(DEMOS).map(([file, names]: any) => [
-        file, ...Object.keys(names)
-    ])
-}

@@ -6,7 +6,6 @@ import {ControlsProvider} from 'react-three-gui';
 import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 
 import {Home} from './Home';
-import {None} from './None';
 
 import './styles.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -30,7 +29,7 @@ ReactDOM.render(
     <Switch>
       <Route  path="/"     component={Home} exact/>
       <Route  path="/home" component={Home} exact/>
-      <Route  path='/none' component={None}/>
+      <Route  path='/none' component={Home}/>
       <Redirect to={window.location.host.match("localhost")?'/none':'/home'}/>
     </Switch>
   </Provider>,

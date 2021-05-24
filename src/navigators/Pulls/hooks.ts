@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef } from "react"
 import { useSpring, SpringValue } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
-import {Props} from '../../types'
-export type PullsProps = Props<{
+
+export type PullsProps = {
     onOpen: () => any,
     onClose: () => any,
     wheelRate: number,
@@ -13,7 +13,8 @@ export type PullsProps = Props<{
     limit: number,
     rate: number,
     open: boolean,
-}>
+}
+
 export function usePulls (props: PullsProps): [{
     x: SpringValue<number>,
     y: SpringValue<number>,

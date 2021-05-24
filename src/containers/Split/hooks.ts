@@ -1,11 +1,10 @@
 import {CSSProperties as CSS,useEffect,useCallback,useMemo,useRef} from 'react'
 import {useSprings} from 'react-spring'
 import {useGesture} from 'react-use-gesture'
-import {Props} from '../../types'
 import {SplitProps} from './types'
 import {initSplit, moveSplit} from './utils'
 
-export function useSplit (props: Props<SplitProps>): [
+export function useSplit (props: Partial<SplitProps>): [
     (i: number) => CSS,
     (i: number) => any,
 ]

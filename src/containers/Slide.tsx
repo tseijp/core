@@ -1,18 +1,50 @@
+import React from 'react'
+import styled from 'styled-components'
+import { animated } from 'react-spring'
 import {useCallback, useRef, useMemo} from 'react'
 import { useGesture } from 'react-use-gesture'
 import { useSprings, SpringValue } from 'react-spring'
-import {Props} from '../../types'
 
-export function useSlide (props: Props<{
+const Wrap = styled(animated.div)`
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+`
+
+const Item = styled(animated.div)`
+    position: absolute;
+    will-change: transform;
+`
+
+export function Slide (props: Partial<{
+    width: number,
+    visible: number,
+    children: null | JSX.Element
+}>): JSX.Element
+
+export function Slide (props: any) {
+    const [springs, bind] = useSlide(props)
+    return (
+        <Wrap {...bind()}>
+          {React.Children.map(props.children, (children: any, i) =>
+            <Item key={i} style={springs[i]} {...{children}}/>
+          )}
+        </Wrap>
+    )
+}
+
+export function useSlide (props: Partial<{
     width: number,
     visible: number
 }>): [{x: SpringValue<number>}[], (...args: any[]) => any]
 
 export function useSlide ({children, width=600,visible=4}: any) {
     const len = useMemo(()=>
-    (children.length>visible)
-        ? children.length
-        : visible
+        (children.length>visible)
+            ? children.length
+            : visible
     , [children,visible])
     const idx = useCallback((x) => (x<0 ? x+len : x) % len, [len])
     const getPos = useCallback((i, firstVis, firstVisIdx) => idx(i - firstVis + firstVisIdx), [idx])
