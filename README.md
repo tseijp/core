@@ -6,12 +6,12 @@
     <img alt="build passing" src="https://img.shields.io/badge/build-👌-green.svg"/>
     <img alt="types passing" src="https://img.shields.io/badge/types-👌-yellow.svg"/>
     <img alt="demos passing" src="https://img.shields.io/badge/demos-👌-red.svg"/>
-    <br>
+    <br/>
     <img alt="license MIT" src="https://img.shields.io/badge/license-MIT-green.svg"/>
     <img alt="npm package" src="https://badge.fury.io/js/%40tsei%2Fcore.svg"/>
 </p>
 
-<hr>
+<hr/>
 
 # Table of Contents
 - [Install via npm](#install-via-npm)  
