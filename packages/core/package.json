@@ -1,17 +1,11 @@
 {
-    "name": "@tsei/core",
-    "homepage": "/",
-    "version": "1.0.0",
-    "module": "index.js",
-    "types": "index.d.ts",
-    "main": "index.cjs.js",
-    "author": "tsei",
-    "license": "MIT",
-    "private": false,
-    "sideEffects": false,
+    "bugs": "https://github.com/tseijp/core/issues/",
+    "homepage": "https://tseijp.github.io/core/",
+    "repository": "https://github.com/tseijp/core/",
     "description": "🌌Fantastic UI in tsei.jp",
-    "repository": "https://github.com/tseijp/core",
-    "bugs": "https://github.com/tseijp/core/issues",
+    "maintainers": [
+        "tseijp (https://github.com/tseijp)"
+    ],
     "keywords": [
         "react",
         "motion",
@@ -21,17 +15,31 @@
         "material-ui",
         "material design"
     ],
-    "scripts": {
-        "test": "react-app-rewired test",
-        "jest": "jest -c config-jest.js --watch --coverage --runInBand",
-        "eject": "react-app-rewired eject",
-        "start": "cross-env NODE_ENV=development BABEL_ENV=development react-app-rewired start",
-        "build": "cross-env NODE_ENV=production BABEL_ENV=production react-app-rewired build",
-        "compile": "cross-env NODE_ENV=production BABEL_ENV=production rollup -c config-rollup.js"
+    "name": "@tsei/core",
+    "author": "tsei",
+    "version": "1.0.0",
+    "license": "MIT",
+    "module": "index.js",
+    "types": "index.d.ts",
+    "main": "index.cjs.js",
+    "files": [
+        "src",
+        "index.js",
+        "index.d.ts",
+        "index.cjs.js"
+    ],
+    "private": false,
+    "sideEffects": false,
+    "publishConfig": {
+        "access": "public"
     },
     "peerDependencies": {
-        "react": ">=16.8",
-        "react-dom": ">=16.8"
+        "react": ">=16.8"
+    },
+    "peerDependenciesMeta": {
+        "react": {
+            "optional": true
+        }
     },
     "dependencies": {
         "@types/styled-components": "^5.1.5",
@@ -73,7 +81,6 @@
         "mdbreact": "^5.0.1",
         "parsed-path": "^0.1.12",
         "react": "17.0.2",
-        "react-app-rewired": "^2.1.6",
         "react-dom": "17.0.2",
         "react-helmet-async": "^1.0.6",
         "react-mol": "^2.2.0",
@@ -86,20 +93,5 @@
         "three": "0.128.0",
         "ts-jest": "^24.3.0",
         "typescript": "4.2.3"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
     }
 }

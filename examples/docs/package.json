@@ -1,4 +1,20 @@
 {
+  "bugs": "https://github.com/tseijp/core/issues/",
+  "homepage": "https://tseijp.github.io/core/",
+  "repository": "https://github.com/tseijp/core/",
+  "description": "🌌Fantastic UI in tsei.jp",
+  "maintainers": [
+      "tseijp (https://github.com/tseijp)"
+  ],
+  "keywords": [
+      "react",
+      "motion",
+      "gesture",
+      "animation",
+      "typescript",
+      "material-ui",
+      "material design"
+  ],
   "name": "docs",
   "version": "0.0.0",
   "private": true,

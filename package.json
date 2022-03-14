@@ -1,10 +1,26 @@
 {
-  "name": "@tsei/core-root",
-  "version": "1.0.0",
-  "description": "🌌Fantastic <b>UI</b> in next tsei.jp",
-  "author": "tseijp",
+  "bugs": "https://github.com/tseijp/core/issues/",
+  "homepage": "https://tseijp.github.io/core/",
+  "repository": "https://github.com/tseijp/core/",
+  "description": "🌌Fantastic UI in tsei.jp",
+  "maintainers": [
+      "tseijp (https://github.com/tseijp)"
+  ],
+  "keywords": [
+      "react",
+      "motion",
+      "gesture",
+      "animation",
+      "typescript",
+      "material-ui",
+      "material design"
+  ],
+  "name": "@tsei/core/root",
+  "author": "tsei",
   "license": "MIT",
+  "version": "1.0.0",
   "devDependencies": {
-    "@changesets/cli": "^2.21.1"
+      "lerna": "^4.0.0",
+      "@changesets/cli": "^2.21.1"
   }
 }
