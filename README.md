@@ -1,6 +1,5 @@
+# 🌌@tsei/core
 
-
-<h1 align="center">@tsei/core</h1>
 <p align="center">🌌Fantastic <b>UI</b> in next tsei.jp</p>
 <p align="center">
     <img alt="build passing" src="https://img.shields.io/badge/build-👌-green.svg"/>
@@ -11,31 +10,36 @@
     <img alt="npm package" src="https://badge.fury.io/js/%40tsei%2Fcore.svg"/>
 </p>
 
-<hr/>
+<hr></hr>
 
-# Table of Contents
-- [Install via npm](#install-via-npm)  
-- [Demo and Docs](#demo-and-docs)  
-- [Available hook](#available-hook)  
-- [Simple example](#simple-example)  
+## Table of Contents
 
-# Install via npm
+- [Install via npm](#install-via-npm)
+- [Demo and Docs](#demo-and-docs)
+- [Available hook](#available-hook)
+- [Simple example](#simple-example)
+
+## Install via npm
+
 - `npm install @tsei/core`
 
-# Demo and Docs
+## Demo and Docs
+
 - [home](https://tsei.jp/home/)
 - [core](https://tsei.jp/hook/)
 - [mdmd](https://tsei.jp/mdmd/)
 - [note](https://tsei.jp/note/)
 - [grid](https://tsei.jp/hook/use-grid/)
 
-# Get Started
+## Get Started
+
 - `git clone https://github.com/tseijp/core`
 - `cd core`, `npm i` and `npm start`
 - open browser and visit [http://localhost:3000](http://localhost:3000)
 - Now you can go to our [demo](https://tsei.jp/hook/), and try its usage.
 
-# Available hook
+## Available hook
+
 hooks | what?  
 :-----|:-----  
 [useGrid](https://github.com/tseijp/use-grid) | build responsive layouts of all shapes and sizes
@@ -44,7 +48,7 @@ usePage | manage page transitions and restful api urls
 <details>
 <summary>
 
-# Recipes
+## Recipes
 
 </summary>
 <table>
